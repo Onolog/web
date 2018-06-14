@@ -1,0 +1,14 @@
+{
+  "plugins": [
+    "syntax-object-rest-spread"
+  ],
+  "presets": [
+    ["env", {
+      "targets": {
+        "browsers": ["last 2 versions"],
+        "node": "current",
+      }
+    }],
+    "react"
+  ],
+}

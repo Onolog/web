@@ -1,0 +1,34 @@
+@import 'variables';
+
+@mixin display-flex() {
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+@mixin flex($value) {
+  -webkit-flex: $value;
+  -moz-flex: $value;
+  -ms-flex: $value;
+  flex: $value;
+}
+
+@mixin flex-direction($direction) {
+  -webkit-flex-direction: $direction;
+  -moz-flex-direction: $direction;
+  -ms-flex-direction: $direction;
+  flex-direction: $direction;
+}
+
+@mixin heading-tertiary() {
+  color: $text-color-gray;
+  font-size: 10px;
+  font-weight: normal;
+  text-transform: uppercase;
+}
+
+@mixin position-sticky() {
+  position: -webkit-sticky;
+  position: sticky;
+}
