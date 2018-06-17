@@ -1,5 +1,14 @@
 import {combineReducers} from 'redux';
 
+const activitiesReducer = (state={}, action) => {
+  switch (action.type) {
+    case 'ACTIVITIES_FETCH_SUCCESS':
+      return action.data.activities;
+    default:
+      return state;
+  }
+};
+
 const sessionReducer = (state={}, action) => {
   switch (action.type) {
     case 'INITIALIZE_SESSION':
@@ -9,10 +18,10 @@ const sessionReducer = (state={}, action) => {
   }
 };
 
-const dataReducer = (state=[], action) => {
+const shoesReducer = (state={}, action) => {
   switch (action.type) {
-    case 'STORE_DATA':
-      return action.data;
+    case 'SHOES_FETCH_SUCCESS':
+      return action.data.shoes;
     default:
       return state;
   }
@@ -20,15 +29,16 @@ const dataReducer = (state=[], action) => {
 
 const userReducer = (state={}, action) => {
   switch (action.type) {
-    case 'USER_FETCH':
-      return action.user;
+    case 'USER_FETCH_SUCCESS':
+      return action.data.user;
     default:
       return state;
   }
 };
 
 export default combineReducers({
+  activities: activitiesReducer,
   session: sessionReducer,
-  data: dataReducer,
+  shoes: shoesReducer,
   user: userReducer,
 });

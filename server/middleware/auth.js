@@ -8,16 +8,14 @@ export function redirectIfAuthenticated(req, res, next) {
   if (!req.isAuthenticated()) {
     return next();
   }
-  res.redirect('/');
+  res.redirect('/home');
 }
 
 export function requireAuthentication(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   }
-
-  req.session.redirectPath = req.path;
-  res.redirect('/');
+  res.redirect('/login');
 }
 
 /**

@@ -30,9 +30,7 @@ router.get(
   redirectIfAuthenticated,
   passport.authenticate('facebook', {failureRedirect: '/login'}),
   (req, res) => {
-    const redirectPath = req.session.redirectPath || '/';
-    delete req.session.redirectPath;
-    return res.redirect(redirectPath);
+    res.redirect('/home');
   }
 );
 

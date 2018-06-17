@@ -2,40 +2,12 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import {connect} from 'react-redux';
 
-import graphql from '../utils/graphql';
-import {userFetch} from '../actions';
-
-const fetchData = () => (dispatch, getState) => {
-  const {authToken, user} = getState().session;
-
-  return graphql(`
-    query user($id: ID!) {
-      user(id: $id) {
-        id,
-        firstName,
-        lastName,
-        name,
-        activities(userId: $id) {
-          count,
-        }
-      }
-    }
-  `, {
-    authToken,
-    variables: {
-      id: user.id,
-    },
-  })
-  .then((data) => {
-    dispatch(userFetch(data.user));
-  });
-};
+import {makeRequest} from '../actions';
 
 class Home extends React.Component {
   componentWillMount() {
     if (!this.props.user.id) {
-      console.log('client fetch');
-      this.props.fetchData();
+      this.props.fetchData(this.props.session.user.id);
     }
   }
 
@@ -48,14 +20,11 @@ class Home extends React.Component {
 
     return (
       <div>
-        <p>
-          Welcome to Onolog, {user.firstName}! | <a href="/logout">Log Out</a>
-        </p>
-        <h3>{user.name}</h3>
+        <h1>{user.name}</h1>
         <ul>
           {Object.keys(user).map(key => {
             let value = user[key];
-            if (key === 'activities') {
+            if (key === 'activities' || key === 'shoes') {
               value = user[key].count;
             }
             return <li key={key}><strong>{key}:</strong> {value}</li>;
@@ -73,14 +42,28 @@ Home.propTypes = {
   }).isRequired,
 };
 
-Home.fetchData = fetchData;
-
-const mapStateToProps = ({user}) => ({
+const mapStateToProps = ({session, user}) => ({
+  session,
   user,
 });
 
-const mapDispatchToProps = {
-  fetchData,
-};
+const mapDispatchToProps = (dispatch) => ({
+  fetchData: (id) => dispatch(makeRequest(`
+    query user($id: ID!) {
+      user(id: $id) {
+        id,
+        firstName,
+        lastName,
+        name,
+        activities(userId: $id) {
+          count,
+        },
+        shoes(userId: $id) {
+          count,
+        }
+      }
+    }
+  `, {id}, 'USER_FETCH')),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

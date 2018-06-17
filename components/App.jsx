@@ -1,31 +1,39 @@
 import React from 'react';
-import {connect} from 'react-redux';
 import {Link, Switch, Route} from 'react-router-dom';
 
+import Header from './Header';
 import routes from '../routes';
 
-const mapStateToProps = ({session}) => ({
-  session,
-});
-
-const Header = connect(mapStateToProps)(({session}) => {
-  return session.user ?
-    <ul className="list-inline">
-      <li><Link to="/home">Home</Link></li>
-      <li><Link to="/about">About</Link></li>
-    </ul> :
-    null;
-});
+const Footer = (props) => (
+  <footer className="app-footer">
+    <div className="container clearfix">
+      <div className="pull-left">
+        Copyright &copy; {(new Date()).getFullYear()} Onolog
+      </div>
+      <div className="pull-right">
+        <Link to={{pathname: '/privacy'}}>
+          Privacy
+        </Link>
+        <span className="middot">&middot;</span>
+        <Link to={{pathname: '/terms'}}>
+          Terms
+        </Link>
+      </div>
+    </div>
+  </footer>
+);
 
 class App extends React.Component {
   render() {
     return (
-      <div>
-        <h1>Onolog</h1>
+      <div className="app" style={{paddingTop: '80px'}}>
         <Header />
-        <Switch>
-          {routes.map(route => <Route key={route.path} {...route} />)}
-        </Switch>
+        <div className="container">
+          <Switch>
+            {routes.map(route => <Route key={route.path} {...route} />)}
+          </Switch>
+        </div>
+        <Footer />
       </div>
     );
   }
