@@ -1,0 +1,16 @@
+/**
+ * LegalPage.css
+ */
+
+.legal-page {
+  padding: 15px;
+}
+
+.legal-page-content {
+  max-width: 720px;
+}
+
+.legal-page h3 {
+  font-size: 16px;
+  font-weight: 700;
+}

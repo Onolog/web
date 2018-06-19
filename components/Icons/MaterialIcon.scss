@@ -1,0 +1,57 @@
+.mdi::before {
+  line-height: 14px;
+  position: relative;
+  top: 2px;
+}
+
+/* Buttons */
+.btn {
+  .mdi:first-child {
+    margin-left: -2px;
+  }
+
+  .mdi:last-child {
+    margin-right: -2px;
+  }
+
+  &-xs,
+  &-sm,
+  &-group-xs,
+  &-group-sm {
+    .mdi::before {
+      font-size: 16px;
+    }
+  }
+}
+
+.dropdown-menu {
+  .mdi {
+    width: 18px;
+  }
+  .mdi::before {
+    left: -8px;
+  }
+}
+
+.navbar .navbar-toggle .mdi::before {
+  color: #fff;
+}
+
+.navbar-brand .mdi::before {
+  margin-right: 2px;
+}
+
+.alert {
+  .mdi::before {
+    margin-right: 2px;
+  }
+}
+
+.input-group-addon .mdi::before {
+  top: 3px;
+}
+
+.list-group-item .mdi::before {
+  top: 3px;
+  left: -3px
+}

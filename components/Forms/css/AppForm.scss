@@ -1,0 +1,47 @@
+@import '../../../public/css/base/mixins';
+@import '../../../public/css/base/variables';
+
+/**
+ * AppForm.scss
+ */
+.app-form {
+  input,
+  select,
+  textarea {
+    display: inline-block;
+  }
+
+  .form-group {
+    margin-bottom: 10px;
+  }
+
+  .control-label {
+    @include heading-tertiary();
+    padding-right: 0;
+    text-align: left;
+  }
+
+  &.form-horizontal .control-label {
+    padding-top: 10px;
+  }
+
+  .form-control {
+    background-color: $background-color-gray;
+    border: 0;
+    box-shadow: none;
+
+    &:focus {
+      background-color: #fafafa;
+    }
+  }
+}
+
+.app-form-bordered .form-group {
+  border-bottom: 1px solid $border-color-light;
+  padding-bottom: 10px;
+}
+.app-form .form-group:last-child {
+  border: 0;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}

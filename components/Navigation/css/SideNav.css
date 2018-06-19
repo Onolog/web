@@ -1,0 +1,61 @@
+/**
+ * SideNav.css
+ */
+.app-side-nav > .app-side-nav-item > a {
+  border-radius: 0;
+  color: #fff;
+  padding: 12px 20px;
+  white-space: nowrap;
+}
+
+.app-side-nav > li + li {
+  margin-top: 1px;
+}
+
+.app-side-nav > li.active > a,
+.app-side-nav > li.active > a:active,
+.app-side-nav > li.active > a:focus,
+.app-side-nav > li.active > a:hover,
+.app-side-nav > .app-side-nav-item > a:focus,
+.app-side-nav > .app-side-nav-item > a:hover,
+.app-side-nav .open > a {
+  background-color: #f88912;
+}
+
+.app-side-nav .app-side-nav-item-label {
+  opacity: 0;
+  margin-left: 7px;
+  transition: opacity .3s ease;
+}
+.open .app-side-nav-item .app-side-nav-item-label,
+.app-side-nav-item-icon {
+  opacity: .6;
+}
+.app-side-nav > li.active .app-side-nav-item-icon,
+.app-side-nav-item a:hover .app-side-nav-item-icon,
+.open .app-side-nav > li.active .app-side-nav-item-label,
+.open .app-side-nav-item a:hover .app-side-nav-item-label,
+.open .account-nav-item.open .app-side-nav-item-label {
+  opacity: 1;
+}
+
+.app-side-nav .account-nav-item {
+  border-top: 1px solid rgba(0, 0, 0, .07);
+}
+
+.app-side-nav .account-nav-item > a {
+  opacity: 1;
+  padding: 10px;
+}
+
+.app-side-nav .account-nav-item img {
+  border-radius: 50px;
+}
+
+.app-side-nav .dropdown-menu {
+  left: 5px;
+}
+
+.app-side-nav .dropdown-menu .arrow {
+  left: 15px;
+}

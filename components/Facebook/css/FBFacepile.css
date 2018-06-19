@@ -1,0 +1,15 @@
+/**
+ * Facepile.css
+ *
+ * CSS the Facepile component
+ */
+.FacepileLink {
+  display: inline-block;
+}
+.FacepileLink + .FacepileLink {
+  margin-left: 1px;
+}
+
+.FacepileLoader.loader {
+  min-height: 50px;
+}

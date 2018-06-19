@@ -1,0 +1,29 @@
+@import '../../../public/css/base/variables';
+
+/**
+ * NotFound.scss
+ */
+.error-page {
+  border-top: 10px solid $brand-orange;
+  padding: 100px 0 20px;
+  text-align: center;
+
+  h2 {
+    margin: 0;
+  }
+
+  &-icon {
+    color: $text-color-light-gray;
+    display: block;
+    margin: 30px 0;
+  }
+
+  & &-icon::before {
+    font-size: 180px;
+    line-height: 1;
+  }
+
+  p {
+    margin-bottom: 20px;
+  }
+}

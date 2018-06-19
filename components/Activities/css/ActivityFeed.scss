@@ -1,0 +1,15 @@
+@import '../../../public/css/base/variables';
+
+/**
+ * ActivityFeed
+ */
+.activity-feed {
+  &-item {
+    border-bottom: 1px solid $border-color-light;
+    padding: 15px 0;
+
+    &:first-child {
+      padding-top: 0;
+    }
+  }
+}

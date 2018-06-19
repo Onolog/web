@@ -7,7 +7,7 @@ function handleErrorDev(error, req, res, next) {
 function handleErrorProd(error, req, res, next) {
   // TODO...
   res.status(error.status || 500);
-  res.json({error});
+  res.send(`<pre>${error.stack}</pre>`);
 }
 
 export function handleAppError(err, req, res, next) {

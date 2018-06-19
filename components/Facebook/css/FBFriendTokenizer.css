@@ -1,0 +1,15 @@
+/**
+ * FBFriendTokenizer.css
+ */
+.fb-friend-tokenizer-item {
+  margin-left: -10px;
+}
+
+.fb-friend-tokenizer-item .innerBorder {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.fb-friend-tokenizer-item-name {
+  vertical-align: middle;
+}

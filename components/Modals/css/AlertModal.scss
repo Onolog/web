@@ -1,0 +1,28 @@
+/**
+ * AlertModal.css
+ */
+.alert-modal {
+  .alert {
+    border: 0;
+    border-radius: 2px;
+    margin: 0;
+  }
+
+  .alert-danger {
+    background-color: #a94442;
+    color: #f2dede;
+  }
+
+  .alert-success {
+    background-color: #3c763d;
+    color: #dff0d8;
+  }
+
+  .close {
+    text-shadow: none;
+  }
+  .close:focus,
+  .close:hover {
+    opacity: .2;
+  }
+}

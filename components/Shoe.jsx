@@ -1,10 +1,13 @@
-import {find} from 'lodash';
+import {isEmpty} from 'lodash';
 import moment from 'moment-timezone';
 import PropTypes from 'prop-types';
 import React from 'react';
 import {Table} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
+
+import AppPage from './Page/AppPage.react';
+import Loader from './Loader/Loader.react';
 
 import {makeRequest} from '../actions';
 import secondsToTime from '../utils/secondsToTime';
@@ -13,19 +16,23 @@ class Shoe extends React.Component {
   componentWillMount() {
     const {fetchData, match: {params}, shoe} = this.props;
 
-    if (!shoe) {
-      fetchData(params.id);
+    if (isEmpty(shoe)) {
+      fetchData(params.shoeId);
     }
   }
 
   render() {
     const {shoe} = this.props;
 
-    if (!shoe) {
-      return <div>Loading...</div>;
+    if (isEmpty(shoe)) {
+      return (
+        <AppPage>
+          <Loader />
+        </AppPage>
+      );
     }
 
-    const {activities, model} = shoe;
+    const {activities, name} = shoe;
 
     const content = activities.count === 0 ?
       <tr colSpan="3">
@@ -46,8 +53,8 @@ class Shoe extends React.Component {
       </tbody>;
 
     return (
-      <div>
-        <h1>{shoe.model}</h1>
+      <AppPage>
+        <h1>{name}</h1>
         <ul className="list-inline">
           <li>Activities: {activities.count}</li>
           <li>Total Mileage: {activities.sumDistance}</li>
@@ -62,7 +69,7 @@ class Shoe extends React.Component {
           </thead>
           {content}
         </Table>
-      </div>
+      </AppPage>
     );
   }
 };
@@ -79,10 +86,12 @@ Shoe.propTypes = {
   }),
 };
 
-const mapStateToProps = ({shoes}, {match: {params}}) => {
-  const id = parseInt(params.id, 10);
-  const shoe = shoes.count && shoes.count === 1 && find(shoes.nodes, {id});
-  return {shoe};
+const mapStateToProps = ({shoes}) => {
+  const shoe = shoes.count && shoes.count === 1 && shoes.nodes[0];
+
+  return {
+    shoe: shoe || {},
+  };
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -92,7 +101,7 @@ const mapDispatchToProps = (dispatch) => ({
         count,
         nodes {
           id,
-          model,
+          name,
           inactive,
           activities(shoeId: $shoeId) {
             count,

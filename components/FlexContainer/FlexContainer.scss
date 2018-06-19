@@ -1,0 +1,23 @@
+@import '../../public/css/base/mixins';
+
+/**
+ * FlexContainer.scss
+ */
+.flex-container {
+  @include display-flex();
+  @include flex(1);
+}
+
+.flex-row {
+  @include flex-direction(row);
+  overflow: hidden;
+}
+
+.flex-col {
+  @include flex-direction(column);
+  padding: 0;
+}
+
+.flex-container.row {
+  margin: 0;
+}

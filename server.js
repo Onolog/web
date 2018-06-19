@@ -60,9 +60,11 @@ app.use(cors({
   origin: true,
   credentials: true,
 }));
+
 app.use(csrf({
   ignoreMethods: ['GET', 'HEAD', 'OPTIONS'],
 }));
+
 app.use(helmet());
 
 if (PROD) {

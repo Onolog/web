@@ -1,0 +1,63 @@
+/*
+ * daniels.scss
+ */
+
+.daniels {
+
+  .page-frame-content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &-nav > li > a {
+    padding: 7px 12px;
+  }
+
+  &-controls {
+    padding: 10px 15px;
+  }
+
+  &-filter {
+    width: 125px;
+  }
+
+  /* Tables */
+  .table-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  th,
+  td {
+    padding: 5px 0;
+    text-align: center;
+  }
+  td.vdot {
+    font-weight: bold;
+  }
+
+  th {
+    background-color: #f5f5f5;
+    border: 1px solid #e9e9e9;
+    border-width: 1px 1px 1px 0;
+  }
+  th:last-child {
+    border-right: 0;
+  }
+  tr:nth-child(even) td {
+    background-color: #f3f6fa;
+  }
+  tr:hover td {
+    background-color: #e5edf8;
+  }
+
+  table.paces th,
+  table.paces td {
+    width: 75px;
+  }
+}

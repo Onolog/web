@@ -1,0 +1,12 @@
+/**
+ * ActivityCalendar.css
+ *
+ * Specific CSS for ActivityCalendar component.
+ */
+.monthArrow .glyphicon {
+  top: 2px;
+}
+
+.calendar td {
+  height: auto;
+}

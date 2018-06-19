@@ -1,0 +1,20 @@
+/**
+ * ActivitySection.css
+ */
+.activitySection {
+  padding: 15px;
+}
+
+.activitySectionBorder,
+.activitySection + .activitySection {
+  border-top: 1px solid #f5f5f5;
+}
+
+/* Should match `topline-item-label` from Topline.css */
+.activitySectionTitle {
+  color: #aaa;
+  font-size: 10px;
+  font-weight: normal;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}

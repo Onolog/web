@@ -16,15 +16,14 @@ export default (children, data) => {
         <link rel="stylesheet" type="text/css" href="/css/base/bs-override.css" />
         <link rel="stylesheet" type="text/css" href="/css/base/fonts.css" />
         <link rel="stylesheet" type="text/css" href="/css/base/util.css" />
-        <link rel="stylesheet" type="text/css" href="/build/${webpackManifest['app.css']}" />
+        <link rel="stylesheet" type="text/css" href="${webpackManifest['app.css']}" />
       </head>
       <body>
         <div id="root">${children}</div>
         <script>window.chunkManifest = ${JSON.stringify(chunkManifest)};</script>
         <script>window.APP_DATA = ${JSON.stringify(data)};</script>
         <script src="${webpackManifest['vendor.js']}"></script>
-        ${''/*<script src="/build/${webpackManifest['app.js']}"></script>*/}
-        <script src="/build/package.js"></script>
+        <script src="${webpackManifest['app.js']}"></script>
         <script type="text/javascript">
           var _gaq = _gaq || [];
           _gaq.push(["_setAccount", "${process.env.GOOGLE_ANALYTICS_CODE}"]);

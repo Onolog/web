@@ -9,7 +9,7 @@ import pad from './pad';
  *    'hh:mm:ss'
  *    'm:ss'
  */
-export default function secondsToTime(seconds) {
+export default function secondsToTime(seconds: number): string {
   const time = moment.duration(parseInt(seconds, 10), 's');
   const timeArr = [];
   const dd = time.days();

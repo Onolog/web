@@ -6,7 +6,11 @@
  * Util function for adding leading characters (usually zeroes) to a number or
  * string. Common use case: 3 -> '03'
  */
-export default function(number, width=2, char='0') {
+export default function(
+  number: number,
+  width?: number = 2,
+  char?: string = '0'
+): string {
   const num = number + '';
   return num.length >= width ?
     num :

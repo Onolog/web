@@ -1,0 +1,70 @@
+@import './charts.scss';
+
+$pace-color: #34ace4;
+$hr-color: #dd0447;
+
+.activity-chart {
+  display: flex;
+
+  .map-container {
+    float: left;
+    height: 350px;
+    margin-right: 20px;
+    width: 33%;
+  }
+
+  .activity-map {
+    height: 100%;
+    width: 100%;
+  }
+
+  .chart-container {
+    float: left;
+    width: 67%;
+  }
+
+  .elevation-chart {
+    .area {
+      fill: #000;
+      fill-opacity: 0.15;
+    }
+  }
+
+  .pace-chart {
+    .line {
+      stroke: $pace-color;
+      stroke-width: 1px;
+    }
+
+    .mouse-indicator-data {
+      circle {
+        fill: $pace-color;
+      }
+    }
+  }
+
+  .hr-chart {
+    .line {
+      stroke: $hr-color;
+      stroke-width: 1px;
+    }
+
+    .mouse-indicator-data {
+      circle {
+        fill: $hr-color;
+      }
+    }
+  }
+
+  .mouse-indicator-data {
+    text {
+      font-size: 10px;
+    }
+  }
+
+  .mean-line {
+    opacity: 0.3;
+    shape-rendering: 'crispedges';
+    stroke-dasharray: 4, 1;
+  }
+}

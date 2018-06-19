@@ -1,0 +1,155 @@
+@import '../../../public/css/base/mixins';
+@import '../../../public/css/base/variables';
+
+$info-col-width: 260px;
+
+/**
+ * Profile.scss
+ *
+ * Styles for individual user profile
+ */
+.profile {
+
+  &-header {
+    position: fixed;
+    top: -51px;
+    transition: top 250ms ease;
+    width: 100%;
+    z-index: 2;
+
+    &-fixed {
+      top: 0;
+    }
+  }
+
+  &-cover {
+    background-color: #e5e5e5;
+    height: 200px;
+
+    .navbar-toggle {
+      float: left;
+
+      .icon-bar {
+        background-color: $white;
+        box-shadow: 0 0px 10px rgba(0, 0, 0, 0.15);
+      }
+      &:hover .icon-bar {
+        background-color: $brand-orange;
+      }
+    }
+  }
+
+  &-content {
+    padding: 30px;
+  }
+
+  &-info-col {
+    margin-top: -200px;
+    width: $info-col-width;
+    z-index: 1;
+  }
+
+  &-main-col {
+    width: 100%;
+    margin-left: -$info-col-width;
+    padding-left: $info-col-width;
+  }
+
+  &-image {
+    background-color: rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    margin-right: 10px;
+    padding: 1px;
+
+    img {
+      background-color: #fff;
+      padding: 2px;
+    }
+  }
+
+  &-name {
+    font-size: 24px;
+    line-height: 1.2em;
+    margin-bottom: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &-details {
+    list-style: none;
+    margin: 15px 0;
+    padding: 0;
+
+    li {
+      color: $text-color-gray;
+      font-size: $font-size-sm;
+      margin-bottom: 5px;
+    }
+
+    .mdi {
+      margin-right: 5px;
+    }
+  }
+
+  .activity-summary {
+    .nav-pills > li > a {
+      border-radius: 3px;
+      font-size: 11px;
+      padding: 5px;
+    }
+
+    .topline {
+      padding: 15px 0;
+    }
+  }
+
+  h4 {
+    @include heading-tertiary();
+  }
+}
+
+@media (max-width: 767px) {
+  .profile {
+    &-cover {
+      height: 132px;
+    }
+
+    &-info-col,
+    &-main-col {
+      margin: 0;
+      padding: 0 10px;
+      width: auto;
+    }
+
+    &-info-col {
+      margin-top: -75px;
+    }
+
+    &-image-name-container {
+      @include display-flex();
+      align-items: center;
+    }
+
+    &-image {
+      img {
+        height: 72px;
+        width: 72px;
+      }
+    }
+
+    &-name {
+      font-size: 18px;
+      margin: -15px 0 0 0;
+    }
+
+    &-content {
+      padding: 15px;
+    }
+
+    &-details li {
+      display: inline-block;
+      margin-bottom: 3px;
+      margin-right: 15px;
+    }
+  }
+}

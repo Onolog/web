@@ -4,6 +4,10 @@ const URI = process.env.NODE_ENV === 'production' ?
   'https://api.onolog.com/' :
   'http://localhost:4000/';
 
+function handleGraphQLError(error) {
+  console.error(`GraphQL Error: ${error.message}`, error);
+}
+
 export default function graphql(query, {authToken, variables}) {
   return fetch(URI, {
     method: 'POST',
@@ -15,5 +19,13 @@ export default function graphql(query, {authToken, variables}) {
     body: JSON.stringify({query, variables}),
   })
     .then((res) => res.json())
-    .then((res) => res.data);
+    .then(({data, errors}) => {
+      if (errors) {
+        // Even when there are errors, some of the data returned may be valid.
+        // Log the errors, but return the data.
+        errors.forEach(handleGraphQLError);
+      }
+      return data;
+    })
+    .catch(handleGraphQLError);
 }

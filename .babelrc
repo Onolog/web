@@ -1,6 +1,36 @@
 {
+  "env": {
+    "production": {
+      "plugins": [
+        "transform-react-remove-prop-types",
+      ],
+    }
+  },
+  "ignore": [
+    "**/node_modules/*",
+  ],
   "plugins": [
-    "syntax-object-rest-spread"
+    "lodash",
+    "syntax-object-rest-spread",
+    "transform-class-properties",
+    ["transform-imports", {
+      "lodash": {
+        "transform": "lodash/${member}",
+        "preventFullImport": true
+      },
+      "r-d3": {
+        "transform": "r-d3/lib/${member}",
+        "preventFullImport": true
+      },
+      "react-bootstrap": {
+        "transform": "react-bootstrap/lib/${member}",
+        "preventFullImport": true
+      },
+      "react-router-dom": {
+        "transform": "react-router-dom/${member}",
+        "preventFullImport": true
+      }
+    }]
   ],
   "presets": [
     ["env", {

@@ -1,0 +1,17 @@
+a.fb-login-button {
+  background-color: #3b5998;
+  box-shadow: 0 0 60px #000;
+  color: #fff;
+  line-height: 23px;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.15);
+
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: #324c8e;
+  }
+
+  &.btn .fb-icon {
+    margin-right: 5px;
+  }
+}

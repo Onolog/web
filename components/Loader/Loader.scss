@@ -1,0 +1,60 @@
+/**
+ * Loader.css
+ */
+.loader {
+  display: block;
+  min-height: 200px;
+
+  &-icon {
+    animation: rotate 1s infinite linear;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    border-top-color: #000;
+    display: block;
+    height: 16px;
+    margin: auto;
+    width: 16px;
+
+    &-lg {
+      height: 32px;
+      width: 32px;
+    }
+  }
+
+  &-bg {
+    background-color: rgba(255, 255, 255, 0.7);
+  }
+
+  /* Takes up the full height and width of its container */
+  &-full {
+    bottom: 0;
+    left: 0;
+    min-height: auto;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 5;
+
+    .loader-icon {
+      left: 50%;
+      position: absolute;
+      top: 50%;
+      margin-left: -8px;
+      margin-top: -8px;
+
+      &-lg {
+        margin-left: -16px;
+        margin-top: -16px;
+      }
+    }
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

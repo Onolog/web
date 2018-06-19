@@ -1,0 +1,68 @@
+/**
+ * Base styles for charts and graphs
+ */
+
+$graph-fill: #95b7cf;
+
+/* Area */
+.area {
+  fill: $graph-fill;
+  fill-opacity: 0.6;
+}
+
+
+/* Axis */
+.axis {
+  & text {
+    font-size: 10px;
+  }
+
+  & path,
+  & line {
+    fill: none;
+    stroke: #e9e9e9;
+    shape-rendering: crispEdges;
+  }
+
+  & .domain {
+    stroke: none;
+  }
+}
+
+.y-axis {
+  & text {
+    fill: #aaa;
+  }
+
+  &-background {
+    & text {
+      display: none;
+    }
+
+    & line {
+      stroke: rgba(0, 0, 0, .05);
+    }
+  }
+}
+
+/* Bar + Circle */
+.bar,
+.circle {
+  fill: $graph-fill;
+
+  &:hover {
+    cursor: pointer;
+    fill: #7295af;
+  }
+}
+
+.bar {
+  shape-rendering: crispEdges;
+}
+
+/* Line */
+.line {
+  fill: none;
+  stroke: $graph-fill;
+  stroke-width: 1px;
+}

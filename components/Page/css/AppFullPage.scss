@@ -1,0 +1,110 @@
+@import '../../../public/css/base/mixins';
+@import '../../../public/css/base/variables';
+
+/**
+ * App Full Page
+ */
+.app-full-page {
+  @include display-flex();
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  position: absolute;
+  right: 0;
+  top: 0;
+
+  /* Side Column */
+  .side-col {
+    background-color: $brand-orange;
+    border-right: 1px solid rgba(0, 0, 0, .07);
+    flex: inherit;
+    transition: width .25s ease;
+    width: 60px;
+
+    &-header {
+      border-bottom: 1px solid rgba(0, 0, 0, .07);
+    }
+
+    &-brand {
+      display: none;
+      position: absolute;
+    }
+
+    &-menu-container {
+      flex: 1;
+    }
+
+    &-backdrop {
+      display: none;
+      z-index: 5;
+    }
+
+    .navbar-toggle {
+      &:hover {
+        background-color: #f88912;
+        opacity: 1;
+      }
+    }
+
+    .icon-bar {
+      background-color: #fff;
+    }
+  }
+
+  .navbar-toggle {
+    border: 0;
+    border-radius: 0;
+    display: block;
+    margin: 0;
+    padding: 18px;
+
+    .icon-bar {
+      border-radius: 0;
+    }
+  }
+
+  /* Main Col */
+  .main-col {
+    height: 100%;
+    position: relative;
+  }
+}
+
+.open {
+  .side-col {
+    width: 200px;
+
+    &-brand {
+      background-image: url(/img/header/logo_white@2x.png);
+      background-position: 20px;
+      background-repeat: no-repeat;
+      background-size: 82px;
+      display: inline-block;
+      height: 49px;
+      text-indent: -9999px;
+      width: 127px;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .app-full-page {
+    .side-col {
+      bottom: 0;
+      left: -200px;
+      position: absolute;
+      top: 0;
+      transition: left .25s ease;
+      z-index: 10;
+
+      &-backdrop {
+        display: block;
+      }
+    }
+  }
+
+  .open .side-col {
+    box-shadow: 0 0 8px rgba(0,0,0, .15);
+    left: 0;
+  }
+}

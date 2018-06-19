@@ -1,0 +1,12 @@
+/**
+ * AppPage.css
+ */
+
+.app-page-content {
+  background-color: #fafafa;
+  padding: 80px 0 30px;
+}
+
+.narrow-page .container-fluid {
+  max-width: 800px;
+}

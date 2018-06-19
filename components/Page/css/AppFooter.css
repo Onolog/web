@@ -1,0 +1,27 @@
+/**
+ * AppFooter.css
+ */
+.app-footer {
+  border-top: 1px solid #f0f0f0;
+  color: #aaa;
+  padding: 30px 0;
+}
+.app-footer a,
+.app-footer a:visited {
+  color: #aaa;
+  text-decoration: none;
+}
+.app-footer a:hover {
+  color: #444;
+}
+
+.app-full-page .app-footer {
+  padding: 20px 0;
+}
+
+/* MOBILE */
+@media (max-width: 767px) {
+  .app-footer {
+    padding: 15px 0;
+  }
+}

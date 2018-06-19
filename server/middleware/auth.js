@@ -15,6 +15,8 @@ export function requireAuthentication(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   }
+
+  req.session.redirectPath = req.url;
   res.redirect('/login');
 }
 
@@ -97,7 +99,11 @@ async function deserializeUser(id, next) {
         user(id: $id) {
           id,
           firstName,
-          lastName
+          lastName,
+          name,
+          distanceUnits,
+          location,
+          timezone,
         }
       }
     `, {
@@ -107,7 +113,14 @@ async function deserializeUser(id, next) {
       },
     });
 
-    return next(null, data.user);
+    const user = {
+      ...data.user,
+      // Convert id to an int.
+      // TODO: Store ids as strings?
+      id: parseInt(data.user.id, 10),
+    };
+
+    return next(null, user);
   } catch (err) {
     next(err);
   }

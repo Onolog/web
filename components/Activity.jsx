@@ -5,6 +5,9 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 
+import AppPage from './Page/AppPage.react';
+import Loader from './Loader/Loader.react';
+
 import {makeRequest} from '../actions';
 
 class Activity extends React.Component {
@@ -20,15 +23,19 @@ class Activity extends React.Component {
     const {activity} = this.props;
 
     if (!activity) {
-      return <div>Loading...</div>;
+      return (
+        <AppPage>
+          <Loader />
+        </AppPage>
+      );
     }
 
     const {startDate, timezone} = activity;
 
     return (
-      <div>
+      <AppPage>
         <h1>{moment.tz(startDate, timezone).format('dddd, MMMM Do YYYY')}</h1>
-      </div>
+      </AppPage>
     );
   }
 };

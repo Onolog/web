@@ -1,4 +1,5 @@
 import {Router} from 'express';
+import moment from 'moment';
 import passport from 'passport';
 
 import {redirectIfAuthenticated, requireAuthentication} from './middleware/auth';
@@ -6,14 +7,25 @@ import sendPage from './middleware/sendPage';
 
 const router = Router();
 
+const AUTH_PATH = '/auth/facebook';
+const HOME_PATH = moment().format('/YYYY/MM');
+const LOGIN_PATH = '/login';
+
 router.get('/', (req, res, next) => {
-  res.redirect(req.isAuthenticated() ? '/home' : '/login');
+  res.redirect(req.isAuthenticated() ? HOME_PATH : LOGIN_PATH);
 });
 
-router.get('/login', redirectIfAuthenticated, sendPage);
+// Public pages
+router.get([
+  '/privacy',
+  '/terms',
+  '/vdot',
+], sendPage);
+
+router.get(LOGIN_PATH, redirectIfAuthenticated, sendPage);
 
 router.get(
-  '/auth/facebook',
+  AUTH_PATH,
   redirectIfAuthenticated,
   passport.authenticate('facebook', {
     scope: [
@@ -26,17 +38,19 @@ router.get(
 );
 
 router.get(
-  '/auth/facebook/callback',
+  `${AUTH_PATH}/callback`,
   redirectIfAuthenticated,
-  passport.authenticate('facebook', {failureRedirect: '/login'}),
+  passport.authenticate('facebook', {failureRedirect: LOGIN_PATH}),
   (req, res) => {
-    res.redirect('/home');
+    const redirectPath = req.session.redirectPath || '/';
+    delete req.session.redirectPath;
+    res.redirect(redirectPath);
   }
 );
 
 router.get('/logout', (req, res) => {
   req.logout();
-  res.redirect('/login');
+  res.redirect(LOGIN_PATH);
 });
 
 router.get('*', requireAuthentication, sendPage);

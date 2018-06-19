@@ -17,7 +17,10 @@ export default (req, res, next) => {
     const store = createStore(history, {/* Initial state */});
 
     // Add session data to the store.
-    store.dispatch(initializeSession(req.session));
+    store.dispatch(initializeSession({
+      authToken: req.session.authToken,
+      user: req.session.user || {},
+    }));
 
     const dom = renderToString(
       <Provider store={store}>

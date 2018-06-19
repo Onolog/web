@@ -1,0 +1,36 @@
+/**
+ * ActivityForm.css
+ *
+ * CSS for editing/adding an activity
+ */
+
+.activity-form .distanceInput,
+.activity-form .timeInput,
+.activity-form .heartRateInput {
+  width: 98px;
+}
+
+.activity-form .timeInput {
+  display: inline-block;
+}
+.activity-form .timeInput input.constrainedTextInput {
+  text-align: right;
+}
+
+.activity-form .colon {
+  color: #aaa;
+  font-size: 12px;
+  margin: 0 5px;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+}
+
+input[type=number] {
+  -moz-appearance:textfield;
+}

@@ -1,0 +1,28 @@
+/**
+ * SettingsSection.css
+ */
+
+.settings-list-group {
+  margin: 0;
+}
+
+.settings-list-group-item {
+  border-width: 1px 0 0 0;
+  padding: 15px;
+}
+.settings-list-group-item:first-child,
+.settings-list-group-item:last-child {
+  border-radius: 0;
+}
+.settings-list-group-item:first-child {
+  border: 0;
+}
+
+.settings-list-group-item-title {
+  font-size: 16px;
+}
+
+.settings-list-group-item-description {
+  color: #aaa;
+  font-size: 12px;
+}

@@ -1,0 +1,15 @@
+/**
+ * PageFrame.css
+ */
+
+.page-frame {
+  background-color: #fff;
+  position: relative;
+}
+.page-frame-content {
+  padding: 15px;
+  width: 100%;
+}
+.fill .page-frame-content {
+  padding: 0;
+}

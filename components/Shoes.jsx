@@ -4,6 +4,9 @@ import {Table} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 
+import AppPage from './Page/AppPage.react';
+import Loader from './Loader/Loader.react';
+
 import {makeRequest} from '../actions';
 
 class Shoes extends React.Component {
@@ -15,7 +18,11 @@ class Shoes extends React.Component {
     const {shoes} = this.props;
 
     if (shoes.nodes == null) {
-      return <div>Loading...</div>;
+      return (
+        <AppPage>
+          <Loader />
+        </AppPage>
+      );
     }
 
     const content = shoes.count === 0 ?
@@ -37,7 +44,7 @@ class Shoes extends React.Component {
       </tbody>;
 
     return (
-      <div>
+      <AppPage title="Shoes">
         <h1>Shoes</h1>
         <Table bordered>
           <thead>
@@ -49,7 +56,7 @@ class Shoes extends React.Component {
           </thead>
           {content}
         </Table>
-      </div>
+      </AppPage>
     );
   }
 };
