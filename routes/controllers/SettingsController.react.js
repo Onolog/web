@@ -1,11 +1,10 @@
-import {find, isEmpty, isEqual, pick} from 'lodash';
+import {isEmpty, isEqual, pick} from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
 import {Button} from 'react-bootstrap';
 import {connect} from 'react-redux';
 
 import AppFullPage from '../../components/Page/AppFullPage.react';
-import Loader from '../../components/Loader/Loader.react';
 import LocationSettingsSection from '../../components/Settings/LocationSettingsSection.react';
 import PageFrame from '../../components/Page/PageFrame.react';
 import PageHeader from '../../components/Page/PageHeader.react';

@@ -39,6 +39,7 @@
         "node": "current",
       }
     }],
+    "flow",
     "react"
   ],
 }

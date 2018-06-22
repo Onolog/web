@@ -189,7 +189,6 @@ const mapStateToProps = (state, props) => {
     pendingRequests,
     session,
     shoes,
-    users,
   } = state;
 
   const activity = (activities.nodes && activities.nodes[0]) || {};
@@ -239,4 +238,7 @@ const mapDispatchToProps = (dispatch) => ({
   `, {activityId}, ActionTypes.ACTIVITIES_FETCH)),
 });
 
-module.exports = connect(mapStateToProps, mapDispatchToProps)(ActivityController);
+module.exports = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ActivityController);

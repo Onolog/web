@@ -5,6 +5,7 @@ const URI = process.env.NODE_ENV === 'production' ?
   'http://localhost:4000/';
 
 function handleGraphQLError(error) {
+  /* eslint-disable-next-line no-console */
   console.error(`GraphQL Error: ${error.message}`, error);
 }
 

@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import {find, isEmpty} from 'lodash';
+import {isEmpty} from 'lodash';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -61,7 +61,7 @@ class ProfileController extends React.Component {
     this.props.fetchData(this.props.match.params.userId);
 
     if (isBrowser()) {
-      window.addEventListener('scroll', this._showHeaderCheck, true)
+      window.addEventListener('scroll', this._showHeaderCheck, true);
     }
   }
 
@@ -264,4 +264,7 @@ const mapDispatchToProps = (dispatch) => ({
   toggleSideNav: () => dispatch(toggleSideNav()),
 });
 
-module.exports = connect(mapStateToProps, mapDispatchToProps)(ProfileController);
+module.exports = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ProfileController);

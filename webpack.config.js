@@ -1,4 +1,3 @@
-const ChunkManifestPlugin = require('chunk-manifest-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const Md5HashPlugin = require('webpack-md5-hash');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -76,12 +75,12 @@ module.exports = (env, argv) => {
         },
         {
           test: /\.(eot|svg|ttf|woff|woff2)$/,
-          use: 'file-loader'
+          use: 'file-loader',
         },
         {
           // Inline base64 URLs for <=8k images, direct URLs for the rest
           test: /\.(png|jpg)$/,
-          use: 'url-loader?limit=8192'
+          use: 'url-loader?limit=8192',
         },
       ],
     },
@@ -115,11 +114,6 @@ module.exports = (env, argv) => {
       new ManifestPlugin({
         fileName: 'webpack-manifest.json',
       }),
-      // TODO: Add when Webpack 4 is supported and code-splitting is implemented.
-      // new ChunkManifestPlugin({
-      //   filename: 'chunk-manifest.json',
-      //   manifestVariable: 'chunkManifest'
-      // }),
       new MiniCssExtractPlugin({
         filename: PROD ? '[name]-[contenthash:16].css' : '[name].css',
       }),
@@ -130,5 +124,5 @@ module.exports = (env, argv) => {
         path.resolve(__dirname, 'node_modules'),
       ],
     },
-  }
+  };
 };

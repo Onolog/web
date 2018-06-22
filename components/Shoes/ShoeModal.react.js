@@ -126,9 +126,9 @@ const mapStateToProps = ({session}) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  addShoe: (data) => dispatch(makeRequest(``, {}, '')),
-  deleteShoe: (shoeId) => dispatch(makeRequest(``, {}, '')),
-  updateShoe: (data) => dispatch(makeRequest(``, {}, '')),
+  addShoe: (data) => dispatch(makeRequest('', {}, '')),
+  deleteShoe: (shoeId) => dispatch(makeRequest('', {}, '')),
+  updateShoe: (data) => dispatch(makeRequest('', {}, '')),
 });
 
-module.exports = connect(mapStateToProps)(ShoeModal);
+module.exports = connect(mapStateToProps, mapDispatchToProps)(ShoeModal);

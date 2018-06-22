@@ -182,7 +182,9 @@ class CalendarController extends React.Component {
   }
 
   _onLastMonthClick = () => {
-    this._updateCalendar(getMoment(this.props.match.params).subtract({months: 1}));
+    this._updateCalendar(
+      getMoment(this.props.match.params).subtract({months: 1})
+    );
   };
 
   _onThisMonthClick = () => {
@@ -256,4 +258,7 @@ const mapDispatchToProps = (dispatch) => ({
   `, {range, userId}, ActionTypes.ACTIVITIES_FETCH)),
 });
 
-module.exports = connect(mapStateToProps, mapDispatchToProps)(CalendarController);
+module.exports = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CalendarController);

@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import {filter, find, isEmpty, isEqual, partition} from 'lodash';
+import {find, isEmpty, isEqual, partition} from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
 import {Button} from 'react-bootstrap';

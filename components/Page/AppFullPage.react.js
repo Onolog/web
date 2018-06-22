@@ -58,7 +58,9 @@ class SideColBackdrop extends React.Component {
 /**
  * AppFullPage.react
  */
-const AppFullPage = ({children, className, handleToggle, open, session, title}) => {
+const AppFullPage = (props) => {
+  const {children, className, handleToggle, open, session, title} = props;
+
   return (
     <BaseAppPage
       className={cx('app-full-page', {'open': open}, className)}

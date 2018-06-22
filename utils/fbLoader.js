@@ -26,7 +26,7 @@ function fbLoader(/*function*/ callback) {
     window.FB = FB;
     callback();
   }).catch((error) => {
-    console.error(error);
+    console.error(error); /* eslint-disable-line no-console */
   });
 }
 

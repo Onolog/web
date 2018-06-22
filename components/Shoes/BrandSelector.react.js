@@ -1,4 +1,3 @@
-import {omit} from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
 import {connect} from 'react-redux';
