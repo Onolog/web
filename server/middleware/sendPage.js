@@ -4,7 +4,7 @@ import {renderToString} from 'react-dom/server';
 import {Provider} from 'react-redux';
 import {StaticRouter} from 'react-router-dom';
 
-import App from '../../components/App';
+import App from '../../components/App.react';
 
 import {initializeSession} from '../../actions';
 import createStore from '../../store';

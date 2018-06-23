@@ -5,7 +5,8 @@
     "node": true
   },
   "extends": [
-    "ericgio"
+    "ericgio",
+    "plugin:jsx-a11y/recommended"
   ],
   "globals": {
     "FB": true
@@ -15,6 +16,15 @@
     "ecmaVersion": 8,
     "ecmaFeatures": {
       "experimentalObjectRestSpread": true
+    }
+  },
+  "plugins": [
+    "flowtype",
+    "jsx-a11y"
+  ],
+  "settings": {
+    "flowtype": {
+      "onlyFilesWithFlowAnnotation": true
     }
   }
 }

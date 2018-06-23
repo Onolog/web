@@ -10,7 +10,7 @@ import Terms from './controllers/TermsController.react';
 import Vdot from './controllers/VdotController.react';
 
 // TODO...
-import Shoe from '../components/Shoe';
+// import Shoe from '../components/Shoe';
 
 export default [
   {
@@ -31,10 +31,10 @@ export default [
     component: Shoes,
     exact: true,
   },
-  {
-    path: '/shoes/:shoeId',
-    component: Shoe,
-  },
+  // {
+  //   path: '/shoes/:shoeId',
+  //   component: Shoe,
+  // },
   // {
   //   path: '/data',
   //   component: Data,

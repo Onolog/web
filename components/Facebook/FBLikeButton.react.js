@@ -91,7 +91,8 @@ class FBLikeButton extends React.Component {
           overflow: 'hidden',
           height: `${this._getHeight()}px`,
           width: `${this.props.width}px`,
-        }}>
+        }}
+        title="Facebook Like">
       </iframe>
     );
   }
@@ -107,4 +108,4 @@ class FBLikeButton extends React.Component {
   };
 }
 
-module.exports = FBLikeButton;
+export default FBLikeButton;

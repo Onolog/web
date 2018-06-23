@@ -1,4 +1,6 @@
 /* eslint-env node */
+const path = require('path');
+
 const webpackConfig = require('./webpack.config');
 
 module.exports = function(config) {
@@ -23,8 +25,14 @@ module.exports = function(config) {
       'webpack.test.config.js': ['webpack', 'sourcemap'],
     },
     reporters: ['dots'],
-    webpack: Object.assign(webpackConfig, {
+    webpack: Object.assign({}, webpackConfig, {
       devtool: 'inline-source-map',
+      resolve: Object.assign({}, webpackConfig.resolve, {
+        modules: [
+          __dirname,
+          path.resolve(__dirname, 'node_modules'),
+        ],
+      }),
     }),
     webpackMiddleware: {
       stats: 'errors-only',

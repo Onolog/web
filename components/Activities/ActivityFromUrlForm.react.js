@@ -38,6 +38,7 @@ class ActivityFromUrlForm extends React.Component {
       );
     }
 
+    /* eslint-disable jsx-a11y/no-autofocus */
     return (
       <AppForm>
         <FormGroup>
@@ -52,6 +53,7 @@ class ActivityFromUrlForm extends React.Component {
         </FormGroup>
       </AppForm>
     );
+    /* eslint-enable jsx-a11y/no-autofocus */
   }
 
   _handleUrlChange = (e) => {

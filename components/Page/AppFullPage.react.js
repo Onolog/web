@@ -51,6 +51,7 @@ class SideColBackdrop extends React.Component {
       <div
         className="side-col-backdrop modal-backdrop fade in"
         onClick={this.props.onToggle}
+        role="presentation"
       /> : null;
   }
 }
