@@ -6,7 +6,6 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 import {addActivity, deleteActivity, hideActivityModal, updateActivity} from '../actions';
-import garminUrlToActivity from '../utils/garmin/garminUrlToActivity';
 
 const getInitialState = (props) => ({
   activity: props.initialActivity || getNewActivity(props),
@@ -65,15 +64,16 @@ const activityModalContainer = (Component) => {
     };
 
     componentWillReceiveProps(nextProps) {
-      const {garminData} = nextProps;
+      const {garminActivity, date} = nextProps;
 
-      if (!isEmpty(garminData)) {
-        this.setState({activity: garminUrlToActivity(garminData)});
+      if (!isEmpty(garminActivity)) {
+        this.setState({activity: garminActivity});
+        return;
       }
 
       if (
-        this.props.date && nextProps.date &&
-        this.props.date.getTime() !== nextProps.date.getTime()
+        this.props.date && date &&
+        this.props.date.getTime() !== date.getTime()
       ) {
         this.setState({activity: getNewActivity(nextProps)});
       }
@@ -153,12 +153,10 @@ const activityModalContainer = (Component) => {
     };
   }
 
-  const mapStateToProps = ({garminData, pendingRequests}) => {
-    return {
-      garminData,
-      pendingRequests,
-    };
-  };
+  const mapStateToProps = ({garminActivity, pendingRequests}) => ({
+    garminActivity,
+    pendingRequests,
+  });
 
   const mapDispatchToProps = {
     addActivity,

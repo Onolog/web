@@ -31,40 +31,6 @@ export function makeRequest(query: string, variables, type: string) {
   };
 }
 
-export function getGarminActivity(activityId: number): Function {
-  return (dispatch: Function) => {
-    const type = ActionTypes.GARMIN_ACTIVITY_FETCH;
-
-    dispatch({type});
-
-    const URL = 'https://connect.garmin.com/proxy/activity-service/activity/';
-
-    fetch(`${URL}${activityId}`, {
-      headers: {
-        // 'Accept': 'application/json',
-        'Accept-Encoding': 'gzip',
-        'Content-Type': 'text/plain',
-      },
-      method: 'GET',
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        dispatch({
-          data,
-          type: getSuccessType(type),
-        });
-      })
-      .catch((error) => {
-        dispatch({
-          error,
-          type: getErrorType(type),
-        });
-      });
-  };
-}
-
 export const initializeSession = (session) => ({
   type: ActionTypes.SESSION_INITIALIZE_SUCCESS,
   session,

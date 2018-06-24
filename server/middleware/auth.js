@@ -63,8 +63,8 @@ async function onVerify(accessToken, refreshToken, profile, next) {
   try {
     // See if the user exists and create one if they don't.
     const data = await graphql(`
-      mutation findOrCreateUser($id: ID!, $input: UserInput!) {
-        findOrCreateUser(id: $id, input: $input) {
+      mutation login($id: ID!, $input: UserInput!) {
+        login(id: $id, input: $input) {
           id,
           name
         }
@@ -82,7 +82,7 @@ async function onVerify(accessToken, refreshToken, profile, next) {
       },
     });
 
-    next(null, data.findOrCreateUser);
+    next(null, data.login);
   } catch (err) {
     next(err);
   }

@@ -9,7 +9,8 @@ import AppForm from '../Forms/AppForm.react';
 import EmptyState from '../EmptyState.react';
 import Loader from '../Loader/Loader.react';
 
-import {getGarminActivity} from '../../actions';
+import {makeRequest} from '../../actions';
+import ActionTypes from '../../constants/ActionTypes';
 
 class ActivityFromUrlForm extends React.Component {
   static propTypes = {
@@ -64,14 +65,34 @@ class ActivityFromUrlForm extends React.Component {
     }
 
     // Extract the activity id and do some basic validation.
-    const activityId = parseInt(url.split('/').pop(), 10);
-    if (!activityId) {
+    const garminActivityId = parseInt(url.split('/').pop(), 10);
+    if (!garminActivityId) {
       alert('Invalid url');
       return;
     }
 
-    this.props.dispatch(getGarminActivity(activityId));
+    this.props.getGarminActivity(garminActivityId);
   };
 }
 
-export default connect()(ActivityFromUrlForm);
+const mapDispatchToProps = (dispatch) => ({
+  getGarminActivity: (garminActivityId) => dispatch(makeRequest(`
+    query garminActivity($garminActivityId: ID!) {
+      garminActivity(garminActivityId: $garminActivityId) {
+        activityType,
+        calories,
+        distance,
+        duration,
+        garminActivityId,
+        avgHr,
+        maxHr,
+        elevationGain,
+        elevationLoss,
+        startDate,
+        timezone,
+      }
+    }
+  `, {garminActivityId}, ActionTypes.GARMIN_ACTIVITY_FETCH)),
+});
+
+export default connect(null, mapDispatchToProps)(ActivityFromUrlForm);

@@ -237,7 +237,7 @@ const mapDispatchToProps = (dispatch) => ({
         createdAt,
         location,
         name,
-        activitySummary {
+        activitySummary(userId: $userId) {
           week {
             ${summaryFields}
           },

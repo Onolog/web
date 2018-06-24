@@ -24,6 +24,19 @@ const brandsReducer = (state=[], action) => {
   }
 };
 
+const garminActivityReducer = (state={}, action) => {
+  switch (action.type) {
+    // case ActionTypes.ACTIVITY_MODAL_HIDE:
+    //   // Reset data.
+    //   return {};
+    case getSuccessType(ActionTypes.GARMIN_ACTIVITY_FETCH):
+      return action.data.garminActivity;
+    default:
+      return state;
+  }
+};
+
+
 const navigationReducer = (state={}, action) => {
   switch (action.type) {
     case ActionTypes.NAV_TOGGLE:
@@ -103,6 +116,7 @@ const userReducer = (state={}, action) => {
 export default combineReducers({
   activities: activitiesReducer,
   brands: brandsReducer,
+  garminActivity: garminActivityReducer,
   navigation: navigationReducer,
   pendingRequests: pendingRequestsReducer,
   session: sessionReducer,

@@ -4,13 +4,9 @@ import {Button, ButtonToolbar, Modal} from 'react-bootstrap';
 
 import ActivityFromUrlForm from './ActivityFromUrlForm.react';
 import activityWriteContainer from '../../containers/activityWriteContainer';
-import {GARMIN_ACTIVITY_FETCH} from '../../constants/ActionTypes';
+import ActionTypes from '../../constants/ActionTypes';
 
 class ActivityImportModal extends React.Component {
-  static propTypes = {
-    activity: PropTypes.object,
-  };
-
   render() {
     const {
       activity,
@@ -24,7 +20,7 @@ class ActivityImportModal extends React.Component {
     } = this.props;
 
     // When the Garmin id is set, we have the activity data.
-    const hasActivity = !!activity.garmin_activity_id;
+    const hasActivity = !!activity.garminActivityId;
 
     return (
       <Modal onExited={onExited} onHide={onHide} show={show}>
@@ -34,7 +30,7 @@ class ActivityImportModal extends React.Component {
         <Modal.Body>
           <ActivityFromUrlForm
             activity={hasActivity ? activity : {}}
-            isLoading={pendingRequests[GARMIN_ACTIVITY_FETCH]}
+            isLoading={pendingRequests[ActionTypes.GARMIN_ACTIVITY_FETCH]}
             onChange={onChange}
           />
         </Modal.Body>
@@ -57,5 +53,9 @@ class ActivityImportModal extends React.Component {
     );
   }
 }
+
+ActivityImportModal.propTypes = {
+  activity: PropTypes.object,
+};
 
 export default activityWriteContainer(ActivityImportModal);

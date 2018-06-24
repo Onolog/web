@@ -16,7 +16,7 @@ import calculatePace from '../../utils/calculatePace';
 import './css/ActivityForm.css';
 
 const FIELDNAMES = {
-  AVG_HR: 'avg_hr',
+  AVG_HR: 'avgHr',
   DISTANCE: 'distance',
   DURATION: 'duration',
 };
