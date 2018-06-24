@@ -45,7 +45,7 @@ const AccountNavItem = (props) => {
 AccountNavItem.propTypes = {
   arrow: PropTypes.bool,
   user: PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
   }).isRequired,
 };
 

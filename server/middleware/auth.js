@@ -113,14 +113,7 @@ async function deserializeUser(id, next) {
       },
     });
 
-    const user = {
-      ...data.user,
-      // Convert id to an int.
-      // TODO: Store ids as strings?
-      id: parseInt(data.user.id, 10),
-    };
-
-    return next(null, user);
+    return next(null, data.user);
   } catch (err) {
     next(err);
   }

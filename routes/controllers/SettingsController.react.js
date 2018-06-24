@@ -198,6 +198,7 @@ const userFields = `
   id,
   distanceUnits,
   email,
+  name,
   firstName,
   lastName,
   timezone,

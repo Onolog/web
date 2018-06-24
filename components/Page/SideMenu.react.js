@@ -55,7 +55,7 @@ const SideMenu = ({open, user}) => (
 SideMenu.propTypes = {
   open: PropTypes.bool.isRequired,
   user: PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
   }).isRequired,
 };
 

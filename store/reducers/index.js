@@ -72,6 +72,19 @@ const sessionReducer = (state={}, action) => {
   switch (action.type) {
     case getSuccessType(ActionTypes.SESSION_INITIALIZE):
       return action.session;
+    case getSuccessType(ActionTypes.USER_UPDATE):
+      // Update session data if user settings change.
+      const user = action.data.updateUser;
+      if (user.id === state.user.id) {
+        return {
+          ...state,
+          user: {
+            ...state.user,
+            ...user,
+          },
+        };
+      }
+      return state;
     default:
       return state;
   }
@@ -108,6 +121,11 @@ const userReducer = (state={}, action) => {
   switch (action.type) {
     case getSuccessType(ActionTypes.USER_FETCH):
       return action.data.user;
+    case getSuccessType(ActionTypes.USER_UPDATE):
+      return {
+        ...state,
+        ...action.data.updateUser,
+      };
     default:
       return state;
   }

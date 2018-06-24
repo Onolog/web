@@ -86,7 +86,7 @@ AppFullPage.propTypes = {
   open: PropTypes.bool.isRequired,
   session: PropTypes.shape({
     user: PropTypes.shape({
-      id: PropTypes.number,
+      id: PropTypes.string,
     }),
   }).isRequired,
 };
