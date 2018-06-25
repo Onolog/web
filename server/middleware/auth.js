@@ -2,13 +2,14 @@ import passport from 'passport';
 import {Strategy} from 'passport-facebook';
 
 import getJWT from '../utils/getJWT';
+import getHomePath from '../utils/getHomePath';
 import graphql from '../../utils/graphql';
 
 export function redirectIfAuthenticated(req, res, next) {
   if (!req.isAuthenticated()) {
     return next();
   }
-  res.redirect('/home');
+  res.redirect(getHomePath());
 }
 
 export function requireAuthentication(req, res, next) {

@@ -82,7 +82,7 @@ class FBLikeButton extends React.Component {
 
     return (
       <iframe
-        allowTransparency="true"
+        allowtransparency="true"
         frameBorder="0"
         scrolling="no"
         src={`${FB_URL}?${params}`}
@@ -92,8 +92,8 @@ class FBLikeButton extends React.Component {
           height: `${this._getHeight()}px`,
           width: `${this.props.width}px`,
         }}
-        title="Facebook Like">
-      </iframe>
+        title="Facebook Like"
+      />
     );
   }
 

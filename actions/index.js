@@ -1,6 +1,5 @@
 // @flow
 
-import fetch from 'isomorphic-fetch';
 import invariant from 'invariant';
 
 import {getErrorType, getSuccessType} from '../utils/actionTypes';

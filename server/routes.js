@@ -1,14 +1,14 @@
 import {Router} from 'express';
-import moment from 'moment';
 import passport from 'passport';
 
 import {redirectIfAuthenticated, requireAuthentication} from './middleware/auth';
 import sendPage from './middleware/sendPage';
+import getHomePath from './utils/getHomePath';
 
 const router = Router();
 
 const AUTH_PATH = '/auth/facebook';
-const HOME_PATH = moment().format('/YYYY/MM');
+const HOME_PATH = getHomePath();
 const LOGIN_PATH = '/login';
 
 router.get('/', (req, res, next) => {

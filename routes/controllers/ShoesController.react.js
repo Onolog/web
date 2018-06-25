@@ -196,7 +196,7 @@ ShoesController.propTypes = {
   pendingRequests: PropTypes.object.isRequired,
   session: PropTypes.shape({
     user: PropTypes.shape({
-      id: PropTypes.number,
+      id: PropTypes.string,
     }),
   }),
   shoes: PropTypes.shape({
@@ -230,6 +230,7 @@ const mapDispatchToProps = (dispatch) => ({
           id,
           inactive,
           name,
+          size,
           activities {
             count,
             sumDistance,
