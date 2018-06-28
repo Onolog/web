@@ -1,6 +1,8 @@
 // @flow
 
 import fetch from 'isomorphic-fetch';
+import param from './param';
+
 import {TIMEZONE_API_KEY} from '../constants/Google';
 
 const BASE_URL = 'https://maps.googleapis.com/maps/api/timezone/json';
@@ -12,9 +14,13 @@ const BASE_URL = 'https://maps.googleapis.com/maps/api/timezone/json';
  * location and time data.
  */
 export default function(params: Object, callback: Function): void {
-  fetch(BASE_URL, {
+  const queryString = param({
     location: params.latitude + ',' + params.longitude,
     timestamp: params.timestamp,
     key: TIMEZONE_API_KEY,
-  }).done(callback);
+  });
+
+  fetch(`${BASE_URL}?${queryString}`)
+    .then((res) => res.json())
+    .then(callback);
 }

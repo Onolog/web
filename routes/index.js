@@ -1,6 +1,7 @@
 import Activity from './controllers/ActivityController.react';
 import Calendar from './controllers/CalendarController.react';
 import Data from './controllers/DataController.react';
+import Garmin from './controllers/GarminController.react';
 import Login from './controllers/LoginController.react';
 import NotFound from './controllers/NotFoundController.react';
 import Privacy from './controllers/PrivacyController.react';
@@ -49,11 +50,11 @@ export default [
   //   component: Chart,
   //   exact: true,
   // },
-  // {
-  //   path: '/garmin',
-  //   component: Garmin,
-  //   exact: true,
-  // },
+  {
+    path: '/garmin',
+    component: Garmin,
+    exact: true,
+  },
   {
     path: '/privacy',
     component: Privacy,

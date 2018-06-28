@@ -159,7 +159,9 @@ class GoogleMap extends React.Component {
   }
 
   _updateCursor = ({cursorPos}) => {
-    this.cursor.setPosition(cursorPos);
+    if (this.cursor) {
+      this.cursor.setPosition(cursorPos);
+    }
   }
 
   _getBoundsForPath = (path) => {

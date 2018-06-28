@@ -1,7 +1,6 @@
-import XMLParser from './XMLParser';
-
 import {flatten, forEach, head, map, max, reduce} from 'lodash';
 
+import XMLParser from './XMLParser';
 import {TCX_SCHEMA_TAGS} from '../../constants/Garmin';
 const TAGS = TCX_SCHEMA_TAGS;
 
@@ -33,15 +32,15 @@ class TCXActivityParser extends XMLParser {
     var elevationChange = this._getElevationChange();
 
     return {
-      activity_type: this.getAttribute(TAGS.activitySport),
-      start_date: this.getTagValue(TAGS.activityId, this.node),
+      activityType: this.getAttribute(TAGS.activitySport),
+      startDate: this.getTagValue(TAGS.activityId, this.node),
       timezone: '', // Get timezone based on lat/long?
       distance: this._getTotal('distance'),
       duration: +this._getTotal('duration').toFixed(),
-      avg_hr: this._getAvgHeartRate(),
-      max_hr: this._getMax('max_hr'),
-      elevation_gain: elevationChange.gain,
-      elevation_loss: elevationChange.loss,
+      avgHr: this._getAvgHeartRate(),
+      maxHr: this._getMax('max_hr'),
+      elevationGain: elevationChange.gain,
+      elevationLoss: elevationChange.loss,
       calories: this._getTotal('calories'),
       device: this.parseDevice(),
       laps: this.laps,
@@ -58,7 +57,7 @@ class TCXActivityParser extends XMLParser {
     ));
 
     this.laps.push({
-      avg_hr: this.getTagValue('Value', avgHrNode),
+      avgHr: this.getTagValue('Value', avgHrNode),
       calories: this.getTagValue(TAGS.lapCalories, lapNode),
       distance: this.getTagValue(TAGS.lapDistance, lapNode),
       duration: this.getTagValue(TAGS.lapTotalTime, lapNode),
@@ -66,8 +65,8 @@ class TCXActivityParser extends XMLParser {
       intensity: this.getTagValue(TAGS.lapIntensity, lapNode),
       lap: idx + 1, // Lap #
       lap_start_time: lapNode.getAttribute(TAGS.lapStartTime),
-      max_hr: this.getTagValue('Value', maxHrNode),
-      max_speed: this.getTagValue(TAGS.lapMaxSpeed, lapNode),
+      maxHr: this.getTagValue('Value', maxHrNode),
+      maxSpeed: this.getTagValue(TAGS.lapMaxSpeed, lapNode),
     });
   }
 

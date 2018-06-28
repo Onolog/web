@@ -1,4 +1,4 @@
-import GpxActivityFactory from 'lib/garmin/activity/GpxActivityFactory';
+import GpxActivityFactory from '../../lib/garmin/activity/GpxActivityFactory';
 import XMLParser from './XMLParser';
 
 /**

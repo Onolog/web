@@ -1,3 +1,4 @@
+import {head} from 'lodash';
 import moment from 'moment';
 import {Panel} from 'react-bootstrap';
 import React from 'react';
@@ -7,17 +8,14 @@ import AppFullPage from '../../components/Page/AppFullPage.react';
 import EmptyState from '../../components/EmptyState.react';
 import FileInput from '../../components/Forms/FileInput.react';
 
-import {head} from 'lodash';
-import {metersToFeet, metersToMiles} from 'utils/distanceUtils';
-import FileParser from 'utils/parsers/FileParser';
-import GoogleTimezone from 'utils/GoogleTimezone';
+import {metersToFeet, metersToMiles} from '../../utils/distanceUtils';
+import FileParser from '../../utils/parsers/FileParser';
+import GoogleTimezone from '../../utils/GoogleTimezone';
 
 /**
  * GarminUploader.react
  */
 class GarminUploader extends React.Component {
-  static displayName = 'GarminUploader';
-
   state = {
     activity: null,
   };
@@ -46,8 +44,13 @@ class GarminUploader extends React.Component {
 
     return (
       <AppFullPage>
-        <Panel header={<h3>Choose a .tcx file</h3>}>
-          <FileInput onChange={this._handleChange} />
+        <Panel>
+          <Panel.Heading>
+            <Panel.Title>Choose a .tcx file</Panel.Title>
+          </Panel.Heading>
+          <Panel.Body>
+            <FileInput onChange={this._handleChange} />
+          </Panel.Body>
         </Panel>
         <Panel>
           {contents}
@@ -79,13 +82,13 @@ class GarminUploader extends React.Component {
 
       // General activity data
       id: 0,
-      start_date: moment(activity.start_date).format(),
+      startDate: moment(activity.startDate).format(),
 
       // Athlete-specific data
       distance: metersToMiles(activity.distance),
       // time: activity.duration,
-      elevation_gain: metersToFeet(activity.elevation_gain),
-      elevation_loss: metersToFeet(activity.elevation_loss),
+      elevationGain: metersToFeet(activity.elevationGain),
+      elevationLoss: metersToFeet(activity.elevationLoss),
       friends,
       notes,
     };
@@ -113,8 +116,8 @@ class GarminUploader extends React.Component {
         latitude: start.lat,
         longitude: start.lng,
         timestamp: moment(start.time).unix(),
-      }, (response) => {
-        activity.timezone = response.timeZoneId;
+      }, (data) => {
+        activity.timezone = data.timeZoneId;
         this.setState({activity: activity});
       });
     }
