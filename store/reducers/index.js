@@ -112,6 +112,9 @@ const shoesReducer = (state={}, action) => {
         ...state,
         nodes: state.nodes.map((s) => shoe(s, action)),
       };
+    case getSuccessType(ActionTypes.USER_FETCH):
+      const {shoes} = action.data.user;
+      return shoes || state;
     default:
       return state;
   }

@@ -5,7 +5,6 @@ import AppFullPage from '../../components/Page/AppFullPage.react';
 import Link from '../../components/Link/Link.react';
 import MaterialIcon from '../../components/Icons/MaterialIcon.react';
 import Middot from '../../components/Middot.react';
-import PageFrame from '../../components/Page/PageFrame.react';
 
 import './css/NotFound.scss';
 
@@ -24,7 +23,8 @@ const NotFoundController = ({history}) => (
           icon="alert-octagram"
         />
         <p>
-          The link you followed may be broken, or the page may have been removed.
+          The link you followed may be broken, or the page may have been
+          removed.
         </p>
         <ul className="list-inline">
           <li>

@@ -1,5 +1,6 @@
 import Activity from './controllers/ActivityController.react';
 import Calendar from './controllers/CalendarController.react';
+import Data from './controllers/DataController.react';
 import Login from './controllers/LoginController.react';
 import NotFound from './controllers/NotFoundController.react';
 import Privacy from './controllers/PrivacyController.react';
@@ -8,9 +9,6 @@ import Settings from './controllers/SettingsController.react';
 import Shoes from './controllers/ShoesController.react';
 import Terms from './controllers/TermsController.react';
 import Vdot from './controllers/VdotController.react';
-
-// TODO...
-// import Shoe from '../components/Shoe';
 
 export default [
   {
@@ -31,15 +29,11 @@ export default [
     component: Shoes,
     exact: true,
   },
-  // {
-  //   path: '/shoes/:shoeId',
-  //   component: Shoe,
-  // },
-  // {
-  //   path: '/data',
-  //   component: Data,
-  //   exact: true,
-  // },
+  {
+    path: '/data',
+    component: Data,
+    exact: true,
+  },
   // {
   //   path: '/friends',
   //   component: Friends,

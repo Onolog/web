@@ -22,33 +22,22 @@ const WEEKLY = 'weekly';
  * ProfileYearPanel.react
  */
 class ProfileYearPanel extends React.Component {
-  static displayName = 'ProfileYearPanel';
-
-  static propTypes = {
-    activities: PropTypes.array.isRequired,
-    year: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.string,
-    ]).isRequired,
-  };
-
   state = {
     selectedGraph: WEEKLY,
   };
 
   render() {
     return (
-      <Panel
-        className="profileYear"
-        header={
-          <h3>
+      <Panel className="profileYear">
+        <Panel.Heading>
+          <Panel.Title>
             <LeftRight>
               {this.props.year}
               {this._renderActions()}
             </LeftRight>
-          </h3>
-        }>
-        <ListGroup fill>
+          </Panel.Title>
+        </Panel.Heading>
+        <ListGroup>
           <ListGroupItem>
             {this._renderChart()}
           </ListGroupItem>
@@ -162,5 +151,13 @@ class ProfileYearPanel extends React.Component {
     this.setState({selectedGraph});
   };
 }
+
+ProfileYearPanel.propTypes = {
+  activities: PropTypes.array.isRequired,
+  year: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+  ]).isRequired,
+};
 
 export default ProfileYearPanel;

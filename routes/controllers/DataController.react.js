@@ -1,4 +1,4 @@
-import {find, keys} from 'lodash';
+import {isEmpty, keys} from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
 import {Panel} from 'react-bootstrap';
@@ -12,44 +12,29 @@ import PageHeader from '../../components/Page/PageHeader.react';
 import DataYearPanel from '../../components/Data/DataYearPanel.react';
 import Topline from '../../components/Topline/Topline.react';
 
-import {fetchUserData} from 'actions/users';
-import {getAggregateDistance, groupActivities} from 'utils/ActivityUtils';
+import {makeRequest} from '../../actions';
+import {groupActivities} from '../../utils/ActivityUtils';
 
-import {USER_DATA_FETCH} from 'constants/ActionTypes';
+import ActionTypes from '../../constants/ActionTypes';
 
 import './css/Data.scss';
-
-const mapStateToProps = (state) => {
-  const {activities, pendingRequests, shoes, session, users} = state;
-  const user = find(users, {id: session.id});
-  return {
-    activities,
-    pendingRequests,
-    shoes,
-    user,
-  };
-};
 
 /**
  * DataController.react
  */
 class DataController extends React.Component {
-  static propTypes = {
-    activities: PropTypes.arrayOf(PropTypes.object).isRequired,
-    shoes: PropTypes.arrayOf(PropTypes.object).isRequired,
-    user: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-    }).isRequired,
-  };
-
   componentWillMount() {
-    this.props.dispatch(fetchUserData());
+    this.props.fetchData(this.props.session.user.id);
   }
 
   render() {
     const {activities, pendingRequests, user} = this.props;
 
-    if (!user || pendingRequests[USER_DATA_FETCH]) {
+    if (
+      isEmpty(user) ||
+      isEmpty(activities) ||
+      pendingRequests[ActionTypes.USER_FETCH]
+    ) {
       return (
         <AppPage>
           <Loader />
@@ -60,38 +45,44 @@ class DataController extends React.Component {
     return (
       <AppPage className="profile" title="Your Activity">
         <PageHeader title={user.name} />
-        {this._renderToplineStats(activities)}
-        {this._renderContent(activities)}
+        {this._renderToplineStats()}
+        {this._renderContent()}
       </AppPage>
     );
   }
 
-  _renderToplineStats = (activities) => {
-    const totalDistance = getAggregateDistance(activities);
-    const totalRuns = activities.length;
+  _renderToplineStats = () => {
+    const {count, sumDistance} = this.props.activities;
 
     return (
-      <Panel header={<h3>Lifetime Stats</h3>}>
-        <Topline>
-          <Topline.Item
-            annotation={<Distance.Label />}
-            label="Distance">
-            <Distance distance={totalDistance} label={false} />
-          </Topline.Item>
-          <Topline.Item label="Activities">
-            {totalRuns.toLocaleString()}
-          </Topline.Item>
-          <Topline.Item label="Shoes">
-            {this.props.shoes.length}
-          </Topline.Item>
-        </Topline>
+      <Panel>
+        <Panel.Heading>
+          <Panel.Title>Lifetime Stats</Panel.Title>
+        </Panel.Heading>
+        <Panel.Body>
+          <Topline>
+            <Topline.Item
+              annotation={<Distance.Label />}
+              label="Distance">
+              <Distance distance={sumDistance} label={false} />
+            </Topline.Item>
+            <Topline.Item label="Activities">
+              {count.toLocaleString()}
+            </Topline.Item>
+            <Topline.Item label="Shoes">
+              {this.props.shoes.count}
+            </Topline.Item>
+          </Topline>
+        </Panel.Body>
       </Panel>
     );
   };
 
-  _renderContent = (activities) => {
+  _renderContent = () => {
+    const {activities} = this.props;
+
     // Render an empty state when there's no data.
-    if (!activities.length) {
+    if (!activities.count) {
       return (
         <Panel>
           <EmptyState>You have no activities. Get out there!</EmptyState>
@@ -99,7 +90,7 @@ class DataController extends React.Component {
       );
     }
 
-    const activitiesByYear = groupActivities.byYear(activities);
+    const activitiesByYear = groupActivities.byYear(activities.nodes);
     const years = keys(activitiesByYear).reverse();
 
     return years.map((year) => {
@@ -114,4 +105,53 @@ class DataController extends React.Component {
   };
 }
 
-module.exports = connect(mapStateToProps)(DataController);
+DataController.propTypes = {
+  activities: PropTypes.shape({
+    count: PropTypes.number,
+    nodes: PropTypes.arrayOf(PropTypes.object),
+    sumDistance: PropTypes.number,
+  }),
+  shoes: PropTypes.shape({
+    count: PropTypes.number,
+  }),
+  user: PropTypes.shape({
+    name: PropTypes.string,
+  }),
+};
+
+const mapStateToProps = (state) => {
+  const {activities, pendingRequests, shoes, session, user} = state;
+  return {
+    activities,
+    pendingRequests,
+    session,
+    shoes,
+    user,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchData: (userId) => dispatch(makeRequest(`
+    query user($userId: ID!) {
+      user(id: $userId) {
+        id,
+        name,
+        activities(userId: $userId) {
+          count,
+          sumDistance,
+          nodes {
+            distance,
+            duration,
+            startDate,
+            timezone
+          }
+        }
+        shoes(userId: $userId) {
+          count,
+        }
+      }
+    }
+  `, {userId}, ActionTypes.USER_FETCH)),
+});
+
+module.exports = connect(mapStateToProps, mapDispatchToProps)(DataController);
