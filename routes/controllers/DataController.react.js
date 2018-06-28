@@ -31,8 +31,8 @@ class DataController extends React.Component {
     const {activities, pendingRequests, user} = this.props;
 
     if (
-      isEmpty(user) ||
-      isEmpty(activities) ||
+      !user.name ||
+      !activities.count ||
       pendingRequests[ActionTypes.USER_FETCH]
     ) {
       return (
