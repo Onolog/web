@@ -1,6 +1,7 @@
 import Activity from './controllers/ActivityController.react';
 import Calendar from './controllers/CalendarController.react';
 import Data from './controllers/DataController.react';
+import Friends from './controllers/FriendsController.react';
 import Garmin from './controllers/GarminController.react';
 import Login from './controllers/LoginController.react';
 import NotFound from './controllers/NotFoundController.react';
@@ -35,11 +36,11 @@ export default [
     component: Data,
     exact: true,
   },
-  // {
-  //   path: '/friends',
-  //   component: Friends,
-  //   exact: true,
-  // },
+  {
+    path: '/friends',
+    component: Friends,
+    exact: true,
+  },
   {
     path: '/settings',
     component: Settings,

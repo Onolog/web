@@ -6,9 +6,7 @@ import {Link} from 'react-router-dom';
 import FBImage from './FBImage.react';
 import Loader from '../Loader/Loader.react';
 
-import fbLoader from '../../utils/fbLoader';
-
-require('./css/FBFacepile.css');
+import './css/FBFacepile.css';
 
 /**
  * FBFacepile.react
@@ -18,25 +16,12 @@ require('./css/FBFacepile.css');
  * the person's profile page.
  */
 class FBFacepile extends React.Component {
-  static displayName = 'FBFacepile';
-
-  static propTypes = {
-    /**
-     * A comma-delimited string of FBIDs. Can also be a single fbid as a
-     * number or string.
-     */
-    friends: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.string,
-    ]).isRequired,
-  };
-
   state = {
     friends: null,
   };
 
   componentWillMount() {
-    fbLoader(this._getFriends);
+    this._getFriends();
   }
 
   render() {
@@ -101,4 +86,15 @@ class FBFacepile extends React.Component {
   };
 }
 
-module.exports = FBFacepile;
+FBFacepile.propTypes = {
+  /**
+   * A comma-delimited string of FBIDs. Can also be a single fbid as a
+   * number or string.
+   */
+  friends: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+  ]).isRequired,
+};
+
+export default FBFacepile;

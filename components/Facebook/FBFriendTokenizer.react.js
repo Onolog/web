@@ -5,8 +5,6 @@ import {Typeahead} from 'react-bootstrap-typeahead';
 
 import FBImage from './FBImage.react';
 
-import fbLoader from '../../utils/fbLoader';
-
 const IMG_PX = 32;
 
 import 'react-bootstrap-typeahead/css/Typeahead.css';
@@ -18,20 +16,13 @@ import './css/FBFriendTokenizer.css';
  * FB friend typeahead with name tokenizer
  */
 class FBFriendTokenizer extends React.Component {
-  static displayName = 'FBFriendTokenizer';
-
-  static propTypes = {
-    // Comma-delimited string of FBIDs
-    friends: PropTypes.string,
-  };
-
   state = {
     options: [],
     selected: [],
   };
 
   componentWillMount() {
-    fbLoader(this._getFriends);
+    this._getFriends();
   }
 
   render() {
@@ -127,4 +118,9 @@ class FBFriendTokenizer extends React.Component {
   };
 }
 
-module.exports = FBFriendTokenizer;
+FBFriendTokenizer.propTypes = {
+  // Comma-delimited string of FBIDs
+  friends: PropTypes.string,
+};
+
+export default FBFriendTokenizer;
