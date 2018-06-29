@@ -1,6 +1,6 @@
 import {expect} from 'chai';
 
-import calculatePace from 'utils/calculatePace';
+import calculatePace from '../calculatePace';
 
 describe('calculatePace', () => {
   it('returns a valid pace', () => {

@@ -6,7 +6,6 @@ Enzyme.configure({adapter: new Adapter()});
 const context = require.context(
   './', // Root directory
   true, // Include subdirectories
-  /(?!.*\/node_modules).*__test__\/.*\.test\.js/
+  /(?!.*\/node_modules).*__tests__\/.*\.test\.js/
 );
-
 context.keys().forEach(context);

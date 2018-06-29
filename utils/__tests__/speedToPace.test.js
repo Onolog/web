@@ -1,6 +1,6 @@
 import {expect} from 'chai';
 
-import speedToPace from 'utils/speedToPace';
+import speedToPace from '../speedToPace';
 
 const SPEED = 2.6110000610351562;
 

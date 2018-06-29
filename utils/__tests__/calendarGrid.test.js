@@ -1,6 +1,6 @@
 import {expect} from 'chai';
 
-import calendarGrid from 'utils/calendarGrid';
+import calendarGrid from '../calendarGrid';
 
 describe('calendarGrid', () => {
   it('returns the correct data for the given month/year', () => {

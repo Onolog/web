@@ -1,6 +1,6 @@
 import {expect} from 'chai';
 
-import param from 'utils/param';
+import param from '../param';
 
 describe('param', () => {
   it('converts a param object to an uri encoded string', () => {

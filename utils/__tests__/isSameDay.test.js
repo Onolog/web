@@ -1,6 +1,6 @@
 import {expect} from 'chai';
 
-import isSameDay from 'utils/isSameDay';
+import isSameDay from '../isSameDay';
 
 describe('isSameDay', () => {
   it('checks if two dates are the same day', () => {

@@ -1,6 +1,6 @@
 import {expect} from 'chai';
 
-import formatDistance from 'utils/formatDistance';
+import formatDistance from '../formatDistance';
 
 describe('formatDistance', () => {
   it('correctly formats distances', () => {

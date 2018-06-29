@@ -1,6 +1,6 @@
 import {expect} from 'chai';
 
-import secondsToTime from 'utils/secondsToTime';
+import secondsToTime from '../secondsToTime';
 
 describe('secondsToTime', () => {
   it('converts seconds into a time format', () => {

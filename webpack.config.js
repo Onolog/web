@@ -1,5 +1,4 @@
 const ManifestPlugin = require('webpack-manifest-plugin');
-const Md5HashPlugin = require('webpack-md5-hash');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
@@ -37,13 +36,14 @@ module.exports = (env, argv) => {
         {
           test: /\.(js|jsx)$/,
           exclude: /node_modules/,
-          use: ['babel-loader'],
-          // use: {
-          //   loader: 'babel-loader',
-          //   options: {
-          //     cacheDirectory: true,
-          //   },
-          // },
+          use: [
+            {
+              loader: 'babel-loader',
+              options: {
+                cacheDirectory: true,
+              },
+            },
+          ],
         },
         {
           test: /\.css$/,
@@ -103,15 +103,14 @@ module.exports = (env, argv) => {
       },
     },
     output: {
-      chunkFilename: PROD ? '[name]-[chunkhash:16].js' : '[name].js',
-      filename: PROD ? '[name]-[chunkhash:16].js' : '[name].js',
+      chunkFilename: PROD ? '[name]-[contenthash:16].js' : '[name].js',
+      filename: PROD ? '[name]-[contenthash:16].js' : '[name].js',
       path: path.resolve(__dirname, 'public', 'build'),
       publicPath: '/build/',
     },
     plugins: [
       // Don't pull in all of Moment's locales
       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-      new Md5HashPlugin(),
       new ManifestPlugin({
         fileName: 'webpack-manifest.json',
       }),

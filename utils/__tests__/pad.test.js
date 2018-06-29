@@ -1,6 +1,6 @@
 import {expect} from 'chai';
 
-import pad from 'utils/pad';
+import pad from '../pad';
 
 describe('pad', () => {
   it('correctly adds leading characters to a number', () => {
