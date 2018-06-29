@@ -25,7 +25,7 @@ import {METRICS} from '../../constants/Garmin';
 
 const DATE_FORMAT = 'dddd, MMMM Do, YYYY';
 
-const convertActivityMetrics = (activityMetrics=[]) => {
+const convertActivityMetrics = (activityMetrics) => {
   const meanPace = meanBy(activityMetrics, (metrics) => {
     if (metrics[METRICS.SPEED]) {
       return speedToPace(metrics[METRICS.SPEED]);
@@ -153,14 +153,17 @@ class ActivityController extends React.Component {
   };
 
   _renderActivityMetrics = () => {
-    const metrics = convertActivityMetrics(this.props.activity.details);
-    if (metrics && metrics.length) {
-      return (
-        <ActivitySection border title="Data">
-          <ActivityChart data={metrics} />
-        </ActivitySection>
-      );
+    const {details} = this.props.activity;
+
+    if (!(details && details.length)) {
+      return null;
     }
+
+    return (
+      <ActivitySection border title="Data">
+        <ActivityChart data={convertActivityMetrics(details)} />
+      </ActivitySection>
+    );
   };
 
   _handleActivityDelete = () => {
