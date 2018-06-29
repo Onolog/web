@@ -1,5 +1,7 @@
-import chunkManifest from '../../public/build/chunk-manifest.json';
+// import chunkManifest from '../../public/build/chunk-manifest.json';
 import webpackManifest from '../../public/build/webpack-manifest.json';
+
+const chunkManifest = {};
 
 /* eslint-disable max-len */
 export default (children, data) => {
