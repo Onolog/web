@@ -1,4 +1,4 @@
-import {isEmpty, keys} from 'lodash';
+import {keys} from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
 import {Panel} from 'react-bootstrap';
@@ -136,7 +136,7 @@ const mapDispatchToProps = (dispatch) => ({
       user(id: $userId) {
         id,
         name,
-        activities(userId: $userId) {
+        activities {
           count,
           sumDistance,
           nodes {
@@ -146,7 +146,7 @@ const mapDispatchToProps = (dispatch) => ({
             timezone
           }
         }
-        shoes(userId: $userId) {
+        shoes {
           count,
         }
       }

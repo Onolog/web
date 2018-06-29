@@ -3,7 +3,8 @@
 import {groupBy, head, last, range, reduce} from 'lodash';
 import moment from 'moment-timezone';
 
-import type {Activity} from 'types/Activity';
+import type {Activity} from '../types/Activity';
+
 type Activities = Array<Activity>;
 type TimeUnit = 'year' | 'month' | 'week' | 'dayOfYear';
 

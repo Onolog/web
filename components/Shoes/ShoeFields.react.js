@@ -25,8 +25,10 @@ const SIZES = {
  */
 class ShoeFields extends React.Component {
   render() {
-    const {brandId, model, notes, size, sizeType} = this.props.shoe;
+    const {brandId, model, notes, sizeType} = this.props.shoe;
+    const size = parseFloat(this.props.shoe.size, 10);
     const shoeSizes = SIZES[sizeType || 0].slice();
+
     if (!size) {
       shoeSizes.unshift({label: '--', value: -1});
     }

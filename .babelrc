@@ -11,8 +11,6 @@
   ],
   "plugins": [
     "lodash",
-    "syntax-object-rest-spread",
-    "transform-class-properties",
     ["transform-imports", {
       "lodash": {
         "transform": "lodash/${member}",
@@ -40,6 +38,7 @@
       }
     }],
     "flow",
-    "react"
+    "react",
+    "stage-1"
   ],
 }

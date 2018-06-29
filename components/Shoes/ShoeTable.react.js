@@ -30,7 +30,10 @@ class ShoeTable extends React.Component {
   };
 
   render() {
-    const shoes = sortBy(this.props.shoes, this.state.sortBy);
+    const shoes = sortBy(this.props.shoes, ({activities}) => (
+      activities[this.state.sortBy]
+    ));
+
     if (this.state.order === 'desc') {
       shoes.reverse();
     }
@@ -44,15 +47,15 @@ class ShoeTable extends React.Component {
             </th>
             <th
               className="activities"
-              onClick={() => this._handleHeaderClick('activity_count')}>
-              Activities {this._renderArrow('activity_count')}
+              onClick={() => this._handleHeaderClick('count')}>
+              Activities {this._renderArrow('count')}
             </th>
             <th
               className="mileage"
-              onClick={() => this._handleHeaderClick('mileage')}>
+              onClick={() => this._handleHeaderClick('sumDistance')}>
               <Distance.Label />
               {' '}
-              {this._renderArrow('mileage')}
+              {this._renderArrow('sumDistance')}
             </th>
           </tr>
         </thead>

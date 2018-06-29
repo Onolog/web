@@ -20,7 +20,7 @@ class FBFacepile extends React.Component {
     friends: null,
   };
 
-  componentWillMount() {
+  componentDidMount() {
     this._getFriends();
   }
 

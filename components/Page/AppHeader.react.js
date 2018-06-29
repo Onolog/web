@@ -107,7 +107,7 @@ class AppHeader extends React.Component {
 
 AppHeader.propTypes = {
   user: PropTypes.shape({
-    id: PropTypes.number,
+    id: PropTypes.string,
     name: PropTypes.string,
   }).isRequired,
 };

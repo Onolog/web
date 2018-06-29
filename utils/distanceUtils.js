@@ -1,7 +1,7 @@
 // @flow
 
 import {FEET_PER_METER, METERS_PER_KM, METERS_PER_MILE, UNITS} from '../constants/metrics';
-import type {DistanceUnits} from 'types/DistanceUnits';
+import type {DistanceUnits} from '../types/DistanceUnits';
 
 /**
  * distanceUtils.js

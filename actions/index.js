@@ -7,7 +7,7 @@ import graphql from '../utils/graphql';
 
 import ActionTypes from '../constants/ActionTypes';
 
-export function makeRequest(query: string, variables, type: string) {
+export function makeRequest(query: string, variables: Object, type: string) {
   invariant(
     query && type,
     'Your request must include a query and an action type.'
@@ -30,7 +30,7 @@ export function makeRequest(query: string, variables, type: string) {
   };
 }
 
-export const initializeSession = (session) => ({
+export const initializeSession = (session: Object) => ({
   type: ActionTypes.SESSION_INITIALIZE_SUCCESS,
   session,
 });

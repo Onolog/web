@@ -1,4 +1,4 @@
-import {find, isEmpty, meanBy} from 'lodash';
+import {isEmpty, meanBy} from 'lodash';
 import moment from 'moment-timezone';
 import {Button, ButtonGroup, OverlayTrigger, Tooltip} from 'react-bootstrap';
 import PropTypes from 'prop-types';

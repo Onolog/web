@@ -10,6 +10,7 @@ import {convertDistance} from '../../utils/distanceUtils';
 import formatDistance from '../../utils/formatDistance';
 import getDistanceUnitString from '../../utils/getDistanceUnitString';
 
+import ActionTypes from '../../constants/ActionTypes';
 import {UNITS} from '../../constants/metrics';
 
 /**
@@ -57,7 +58,8 @@ class ShoeSelector extends React.Component {
       const {units} = this.props;
 
       shoes.forEach((shoe) => {
-        const distance = formatDistance(convertDistance(shoe.mileage, units));
+        const {sumDistance} = shoe.activities;
+        const distance = formatDistance(convertDistance(sumDistance, units));
         const distanceLabel = getDistanceUnitString(units, true);
 
         options.push({
@@ -76,16 +78,16 @@ ShoeSelector.propTypes = {
     PropTypes.number,
     PropTypes.string,
   ]),
-  units: PropTypes.oneOf([
-    UNITS.KILOMETERS,
-    UNITS.MILES,
-  ]).isRequired,
   shoes: PropTypes.shape({
     nodes: PropTypes.arrayOf(PropTypes.shape({
       id: PropTypes.number.isRequired,
       name: PropTypes.isRequired,
     })),
   }),
+  units: PropTypes.oneOf([
+    UNITS.KILOMETERS,
+    UNITS.MILES,
+  ]).isRequired,
 };
 
 const mapStoreToProps = ({session, shoes}) => {
@@ -104,10 +106,13 @@ const mapDispatchToProps = (dispatch) => ({
           name,
           id,
           inactive,
+          activities {
+            sumDistance
+          }
         }
       }
     }
-  `, {userId}, 'SHOES_FETCH')),
+  `, {userId}, ActionTypes.SHOES_FETCH)),
 });
 
 export default connect(mapStoreToProps, mapDispatchToProps)(ShoeSelector);

@@ -3,7 +3,7 @@
 import moment from 'moment';
 import {metersToFeet, metersToMiles} from '../distanceUtils';
 
-import type {Activity} from 'types/Activity';
+import type {Activity} from '../../types/Activity';
 
 /**
  * Normalizes activity data pulled from Garmin's endpoints.
@@ -22,18 +22,18 @@ function garminUrlToActivity(data: Object): Activity {
   } = activity.summaryDTO;
 
   return {
-    activity_type: activity.activityTypeDTO.typeKey,
-    avg_hr: averageHR,
+    activityType: activity.activityTypeDTO.typeKey,
+    avgHr: averageHR,
     // TODO: Accept decimal values?
     calories: calories && Math.round(calories),
     distance: metersToMiles(distance),
     // TODO: Accept decimal values?
     duration: Math.round(duration),
-    elevation_gain: metersToFeet(elevationGain),
-    elevation_loss: metersToFeet(elevationLoss),
-    garmin_activity_id: activity.activityId,
-    max_hr: maxHR,
-    start_date: moment(startTimeLocal).format(),
+    elevationGain: metersToFeet(elevationGain),
+    elevationLoss: metersToFeet(elevationLoss),
+    garminActivityId: activity.activityId,
+    maxHr: maxHR,
+    startDate: moment(startTimeLocal).format(),
     timezone: activity.timeZoneUnitDTO.timeZone,
 
     // TODO: Add these models to the schema.

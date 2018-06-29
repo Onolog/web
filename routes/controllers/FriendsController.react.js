@@ -4,7 +4,6 @@ import AppFullPage from '../../components/Page/AppFullPage.react';
 import FBImage from '../../components/Facebook/FBImage.react';
 import ImageBlock from '../../components/ImageBlock/ImageBlock.react';
 import Link from '../../components/Link/Link.react';
-import Loader from '../../components/Loader/Loader.react';
 import PageFrame from '../../components/Page/PageFrame.react';
 import PageHeader from '../../components/Page/PageHeader.react';
 
