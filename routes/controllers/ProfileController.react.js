@@ -237,7 +237,7 @@ const mapDispatchToProps = (dispatch) => ({
         createdAt,
         location,
         name,
-        activitySummary(userId: $userId) {
+        activitySummary {
           week {
             ${summaryFields}
           },
@@ -248,7 +248,7 @@ const mapDispatchToProps = (dispatch) => ({
             ${summaryFields}
           },
         },
-        activities(userId: $userId, limit: 20) {
+        activities(limit: 20) {
           ${summaryFields}
           nodes {
             id,

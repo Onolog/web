@@ -88,7 +88,7 @@ class ActivityController extends React.Component {
   }
 
   render() {
-    const {activity, athlete, pendingRequests, shoe} = this.props;
+    const {activity, pendingRequests} = this.props;
 
     if (isEmpty(activity) || pendingRequests[ActionTypes.ACTIVITIES_FETCH]) {
       return (
@@ -111,9 +111,9 @@ class ActivityController extends React.Component {
         <PageFrame fill scroll>
           <Activity
             activity={activity}
-            athlete={athlete}
+            athlete={activity.user}
             fill
-            shoe={shoe}
+            shoe={activity.shoe}
           />
           {this._renderActivityMetrics()}
         </PageFrame>
@@ -153,7 +153,7 @@ class ActivityController extends React.Component {
   };
 
   _renderActivityMetrics = () => {
-    const metrics = convertActivityMetrics(this.props.activityMetrics);
+    const metrics = convertActivityMetrics(this.props.activity.details);
     if (metrics && metrics.length) {
       return (
         <ActivitySection border title="Data">
@@ -176,30 +176,17 @@ class ActivityController extends React.Component {
 
 ActivityController.propTypes = {
   activity: PropTypes.object,
-  athlete: PropTypes.object,
   canEdit: PropTypes.bool.isRequired,
   pendingRequests: PropTypes.object.isRequired,
-  shoe: PropTypes.object,
 };
 
-const mapStateToProps = (state, props) => {
-  const {
-    activities,
-    activityMetrics,
-    pendingRequests,
-    session,
-    shoes,
-  } = state;
-
+const mapStateToProps = ({activities, pendingRequests, session}) => {
   const activity = (activities.nodes && activities.nodes[0]) || {};
 
   return {
     activity,
-    activityMetrics,
-    athlete: (activity && activity.user) || {},
     canEdit: +session.user.id === +activity.userId,
     pendingRequests,
-    shoe: activity && find(shoes, {id: activity.shoeId}),
   };
 };
 
@@ -224,10 +211,25 @@ const mapDispatchToProps = (dispatch) => ({
           notes,
           startDate,
           timezone,
+          details {
+            directCorrectedElevation,
+            directElevation,
+            directHeartRate,
+            directLatitude,
+            directLongitude,
+            directSpeed,
+            directTimestamp,
+            directUncorrectedElevation,
+            directVerticalSpeed,
+            sumDistance,
+            sumDuration,
+            sumElapsedDuration,
+            sumMovingDuration,
+          },
           shoe {
             id,
             name,
-          }
+          },
           user {
             id,
             name,

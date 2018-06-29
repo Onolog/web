@@ -7,6 +7,7 @@ import ShoeAddModal from './ShoeAddModal.react';
 import ShoeEditModal from './ShoeEditModal.react';
 
 import {makeRequest} from '../../actions';
+import ActionTypes from '../../constants/ActionTypes';
 
 const getInitialState = (props) => ({
   isLoading: false,
@@ -14,7 +15,7 @@ const getInitialState = (props) => ({
 });
 
 const INITIAL_SHOE_DATA = {
-  brand_id: '-1',
+  brandId: '-1',
   inactive: 0,
   model: '',
 };
@@ -93,8 +94,8 @@ class ShoeModal extends React.Component {
   };
 
   _handleSave = (e) => {
-    const {addShoe, initialShoe, updateShoe} = this.props;
-    const action = initialShoe ? updateShoe : addShoe;
+    const {createShoe, initialShoe, updateShoe} = this.props;
+    const action = initialShoe ? updateShoe : createShoe;
     const {shoe} = this.state;
 
     if (parseInt(shoe.brandId, 10) === -1) {
@@ -108,7 +109,7 @@ class ShoeModal extends React.Component {
     }
 
     this.setState({isLoading: true});
-    action(this.state.shoe);
+    action(shoe.id, shoe);
   };
 }
 
@@ -125,10 +126,37 @@ const mapStateToProps = ({session}) => {
   };
 };
 
+const shoeFields = `
+  id,
+  inactive,
+  name,
+  size,
+  activities {
+    count,
+    sumDistance,
+  }
+`;
+
 const mapDispatchToProps = (dispatch) => ({
-  addShoe: (data) => dispatch(makeRequest('', {}, '')),
-  deleteShoe: (shoeId) => dispatch(makeRequest('', {}, '')),
-  updateShoe: (data) => dispatch(makeRequest('', {}, '')),
+  createShoe: (id, input) => dispatch(makeRequest(`
+    mutation createShoe($input: ShoeInput!) {
+      createShoe(input: $input) {
+        ${shoeFields}
+      }
+    }
+  `, {id, input}, ActionTypes.SHOE_CREATE)),
+  deleteShoe: (id) => dispatch(makeRequest(`
+    mutation deleteShoe($id: ID!) {
+      deleteShoe(id: $id)
+    }
+  `, {id}, ActionTypes.SHOE_DELETE)),
+  updateShoe: (id, input) => dispatch(makeRequest(`
+    mutation updateShoe($id: ID!, $input: ShoeInput!) {
+      updateShoe(id: $id, input: $input) {
+        ${shoeFields}
+      }
+    }
+  `, {id, input}, ActionTypes.SHOE_UPDATE)),
 });
 
 module.exports = connect(mapStateToProps, mapDispatchToProps)(ShoeModal);
