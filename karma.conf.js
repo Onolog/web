@@ -28,7 +28,6 @@ module.exports = function(config) {
       devtool: 'inline-source-map',
     }),
     webpackMiddleware: {
-      noInfo: true,
       stats: 'errors-only',
     },
     webpackServer: {

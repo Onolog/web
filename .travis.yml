@@ -18,7 +18,6 @@ script:
   - npm run flow
   - npm test
   - npm run build
-  - node index.js
 
 # Google Chrome
 #
