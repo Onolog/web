@@ -7,6 +7,8 @@ import isBrowser from '../../utils/isBrowser';
 
 import {API_KEY} from '../../constants/Google';
 
+const IMG_PATH = '/img/';
+
 const dataShape = {
   lat: PropTypes.number.isRequired,
   lng: PropTypes.number.isRequired,
@@ -94,7 +96,7 @@ class GoogleMap extends React.Component {
     new Marker({
       icon: {
         ...icon,
-        url: '/webroot/img/markerStart.png',
+        url: IMG_PATH + 'markerStart.png',
       },
       map,
       position: head(path),
@@ -103,7 +105,7 @@ class GoogleMap extends React.Component {
     new Marker({
       icon: {
         ...icon,
-        url: '/webroot/img/markerEnd.png',
+        url: IMG_PATH + 'markerEnd.png',
       },
       map,
       position: last(path),
@@ -125,7 +127,7 @@ class GoogleMap extends React.Component {
         anchor: new Point(9, 9),
         origin: new Point(0, 0),
         scaledSize: new Size(18, 18),
-        url: '/webroot/img/markerPosition.png',
+        url: IMG_PATH + 'markerPosition.png',
       },
       map,
       zIndex: 100,
