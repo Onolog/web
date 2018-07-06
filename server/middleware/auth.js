@@ -34,7 +34,7 @@ export function requireAuthentication(req, res, next) {
 const CONFIG = {
   clientID: process.env.FB_APP_ID,
   clientSecret: process.env.FB_SECRET,
-  callbackURL: '/auth/facebook/callback',
+  callbackURL: `${process.env.DOMAIN}/auth/facebook/callback`,
   profileFields: [
     'id',
     'displayName',

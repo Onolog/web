@@ -1,13 +1,14 @@
+const env = require('dotenv').config().parsed;
+const path = require('path');
+const webpack = require('webpack');
+
 const ManifestPlugin = require('webpack-manifest-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
-const path = require('path');
-const webpack = require('webpack');
-
-module.exports = (env, argv) => {
-  const PROD = argv.mode === 'production';
+module.exports = (_, argv) => {
+  const PROD = env.NODE_ENV === 'production';
 
   return {
     context: path.join(__dirname),
@@ -31,6 +32,7 @@ module.exports = (env, argv) => {
         'redux-thunk',
       ],
     },
+    mode: env.NODE_ENV,
     module: {
       rules: [
         {
@@ -109,6 +111,12 @@ module.exports = (env, argv) => {
       publicPath: '/build/',
     },
     plugins: [
+      new webpack.DefinePlugin({
+        'process.env': {
+          API_URL: JSON.stringify(env.API_URL),
+          NODE_ENV: JSON.stringify(env.NODE_ENV),
+        },
+      }),
       // Don't pull in all of Moment's locales
       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
       new ManifestPlugin({
@@ -124,5 +132,6 @@ module.exports = (env, argv) => {
         path.resolve(__dirname, 'node_modules'),
       ],
     },
+    watch: !PROD,
   };
 };

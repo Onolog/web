@@ -1,16 +1,12 @@
 import fetch from 'isomorphic-fetch';
 
-const URI = process.env.NODE_ENV === 'production' ?
-  'https://api.onolog.com/' :
-  'http://localhost:4000/';
-
 function handleGraphQLError(error) {
   /* eslint-disable-next-line no-console */
   console.error(`GraphQL Error: ${error.message}`, error);
 }
 
 export default function graphql(query, {authToken, variables}) {
-  return fetch(URI, {
+  return fetch(process.env.API_URL, {
     method: 'POST',
     headers: {
       'Accept-Encoding': 'gzip',

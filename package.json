@@ -3,10 +3,9 @@
   "version": "2.0.0",
   "private": true,
   "scripts": {
-    "build": "webpack --mode production --progress",
-    "dev": "npm run client && npm run server",
+    "build": "webpack --progress",
+    "dev": "npm run build && npm run server",
     "server": "DEBUG=@onolog/web:* nodemon index.js",
-    "client": "webpack --mode development --watch --progress",
     "flow": "flow",
     "lint": "eslint .",
     "start": "npm run build && node index.js",

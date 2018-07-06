@@ -19,14 +19,26 @@ import {handleAppError, handleServerError} from './server/middleware/errorHandle
 import routes from './server/routes';
 import getJWT from './server/utils/getJWT';
 
-const PROD = process.env.NODE_ENV === 'production';
+const {API_URL, COOKIE_SECRET, DOMAIN, NODE_ENV, PORT} = process.env;
+
+const PROD = NODE_ENV === 'production';
 const PUBLIC_PATH = path.join(__dirname, 'public');
+
+// The site domain and API url should be explicitly set. This check can be
+// commented out for local testing.
+if (PROD && (DOMAIN.indexOf('localhost') || API_URL.indexOf('localhost'))) {
+  throw Error(
+    'This is a production environment, but the site domain and/or API url ' +
+    'are set to `localhost`. This is probably wrong, unless you want to ' +
+    'locally test a prod-like environment.'
+  );
+}
 
 const app = express();
 const server = http.createServer(app);
 
 server.on('error', handleServerError);
-server.listen(process.env.PORT, () => {
+server.listen(PORT, () => {
   debug('@onolog/web:server')(`Listening on port ${server.address().port}`);
 });
 
@@ -36,13 +48,13 @@ app.use(express.json());
 app.use(express.urlencoded({
   extended: true,
 }));
-app.use(cookieParser(process.env.COOKIE_SECRET));
+app.use(cookieParser(COOKIE_SECRET));
 app.use(cookieSession({
   // Set a long expiration time so people don't have to login often.
   // https://github.com/expressjs/cookie-session#cookie-options
   expires: moment().add(1, 'year').toDate(),
   name: 'session',
-  secret: process.env.COOKIE_SECRET,
+  secret: COOKIE_SECRET,
 }));
 
 // Authentication
