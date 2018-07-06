@@ -26,7 +26,7 @@ const PUBLIC_PATH = path.join(__dirname, 'public');
 
 // The site domain and API url should be explicitly set. This check can be
 // commented out for local testing.
-if (PROD && (DOMAIN.indexOf('localhost') || API_URL.indexOf('localhost'))) {
+if (PROD && (DOMAIN + API_URL).indexOf('localhost') > -1) {
   throw Error(
     'This is a production environment, but the site domain and/or API url ' +
     'are set to `localhost`. This is probably wrong, unless you want to ' +
