@@ -62,7 +62,7 @@ class SettingsController extends React.Component {
     const isLoading =
       isEmpty(user) ||
       pendingRequests[ActionTypes.USER_FETCH] ||
-      pendingRequests[ActionTypes.USER_SETTINGS_SAVE];
+      pendingRequests[ActionTypes.USER_UPDATE];
 
     const disabled = !this._hasChanges() || isLoading;
 
@@ -88,14 +88,14 @@ class SettingsController extends React.Component {
           fill
           isLoading={isLoading}
           scroll>
-          {this._renderContent(isLoading)}
+          {this._renderContent()}
         </PageFrame>
       </AppFullPage>
     );
   }
 
-  _renderContent = (isLoading) => {
-    if (isLoading) {
+  _renderContent = () => {
+    if (isEmpty(this.state)) {
       return null;
     }
 
