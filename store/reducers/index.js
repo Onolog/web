@@ -1,5 +1,7 @@
 import {combineReducers} from 'redux';
 
+import shoes from './shoesReducer';
+
 import ActionTypes from '../../constants/ActionTypes';
 import {getBaseType, getSuccessType, isBaseType} from '../../utils/actionTypes';
 
@@ -35,7 +37,6 @@ const garminActivityReducer = (state={}, action) => {
       return state;
   }
 };
-
 
 const navigationReducer = (state={}, action) => {
   switch (action.type) {
@@ -90,41 +91,6 @@ const sessionReducer = (state={}, action) => {
   }
 };
 
-const shoe = (state={}, action) => {
-  switch (action.type) {
-    case getSuccessType(ActionTypes.SHOE_UPDATE):
-    case getSuccessType(ActionTypes.SHOE_FETCH):
-      const {shoes} = action.data;
-      const shoe = shoes && shoes.nodes && shoes.nodes[0];
-      return state.id === shoe.id ? {...state, ...shoe} : state;
-    default:
-      return state;
-  }
-};
-
-const shoesReducer = (state={}, action) => {
-  switch (action.type) {
-    case getSuccessType(ActionTypes.SHOES_FETCH):
-      return action.data.shoes;
-    case getSuccessType(ActionTypes.SHOE_CREATE):
-      return {
-        ...state,
-        nodes: [...state.nodes, action.data.createShoe],
-      };
-    case getSuccessType(ActionTypes.SHOE_UPDATE):
-    case getSuccessType(ActionTypes.SHOE_FETCH):
-      return {
-        ...state,
-        nodes: state.nodes.map((s) => shoe(s, action)),
-      };
-    case getSuccessType(ActionTypes.USER_FETCH):
-      const {shoes} = action.data.user;
-      return shoes || state;
-    default:
-      return state;
-  }
-};
-
 const userReducer = (state={}, action) => {
   switch (action.type) {
     case getSuccessType(ActionTypes.USER_FETCH):
@@ -146,6 +112,6 @@ export default combineReducers({
   navigation: navigationReducer,
   pendingRequests: pendingRequestsReducer,
   session: sessionReducer,
-  shoes: shoesReducer,
+  shoes,
   user: userReducer,
 });
