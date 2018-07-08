@@ -106,8 +106,11 @@ const shoesReducer = (state={}, action) => {
   switch (action.type) {
     case getSuccessType(ActionTypes.SHOES_FETCH):
       return action.data.shoes;
-    // case getSuccessType(ActionTypes.SHOE_CREATE):
-    //   return state;
+    case getSuccessType(ActionTypes.SHOE_CREATE):
+      return {
+        ...state,
+        nodes: [...state.nodes, action.data.createShoe],
+      };
     case getSuccessType(ActionTypes.SHOE_UPDATE):
     case getSuccessType(ActionTypes.SHOE_FETCH):
       return {

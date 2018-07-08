@@ -174,10 +174,7 @@ class SettingsController extends React.Component {
 }
 
 SettingsController.propTypes = {
-  pendingRequests: PropTypes.shape({
-    [ActionTypes.USER_FETCH]: PropTypes.bool,
-    [ActionTypes.USER_SETTINGS_SAVE]: PropTypes.bool,
-  }).isRequired,
+  pendingRequests: PropTypes.object.isRequired,
   user: PropTypes.shape({
     id: PropTypes.string,
     distanceUnits: PropTypes.number,

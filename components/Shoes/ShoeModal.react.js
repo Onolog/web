@@ -11,14 +11,16 @@ import ActionTypes from '../../constants/ActionTypes';
 
 const getInitialState = (props) => ({
   isLoading: false,
-  shoe: props.initialShoe || INITIAL_SHOE_DATA,
+  shoe: props.initialShoe || {
+    brandId: '-1',
+    inactive: 0,
+    model: '',
+    notes: '',
+    size: '',
+    sizeType: 0,
+    userId: props.user.id,
+  },
 });
-
-const INITIAL_SHOE_DATA = {
-  brandId: '-1',
-  inactive: 0,
-  model: '',
-};
 
 /**
  * ShoeModal.react
@@ -120,11 +122,9 @@ ShoeModal.propTypes = {
   user: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = ({session}) => {
-  return {
-    user: session.user,
-  };
-};
+const mapStateToProps = ({session}) => ({
+  user: session.user,
+});
 
 const shoeFields = `
   id,

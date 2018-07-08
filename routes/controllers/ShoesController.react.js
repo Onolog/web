@@ -1,7 +1,7 @@
 import cx from 'classnames';
 import {find, isEmpty, isEqual, partition} from 'lodash';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, {Fragment} from 'react';
 import {Button} from 'react-bootstrap';
 import {connect} from 'react-redux';
 
@@ -150,22 +150,23 @@ class ShoesController extends React.Component {
     const shoe = find(this.props.shoes.nodes, {id: activeShoeId});
     const activities = (shoe.activities && shoe.activities.nodes) || [];
 
-    return [
-      <div className="shoe-details-header" key="header">
-        <LeftRight>
-          <h4>{shoe.name}</h4>
-          <Button bsSize="small" onClick={() => this._handleShoeEdit(shoe)}>
-            <MaterialIcon icon="pencil" />
-          </Button>
-        </LeftRight>
-      </div>,
-      <ShoeView
-        activities={activities}
-        isLoading={isLoading}
-        key="view"
-        shoe={shoe}
-      />,
-    ];
+    return (
+      <Fragment>
+        <div className="shoe-details-header">
+          <LeftRight>
+            <h4>{shoe.name}</h4>
+            <Button bsSize="small" onClick={() => this._handleShoeEdit(shoe)}>
+              <MaterialIcon icon="pencil" />
+            </Button>
+          </LeftRight>
+        </div>
+        <ShoeView
+          activities={activities}
+          isLoading={isLoading}
+          shoe={shoe}
+        />
+      </Fragment>
+    );
   }
 
   _handleHideModal = () => {
