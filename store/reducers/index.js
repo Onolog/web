@@ -4,6 +4,7 @@ import {combineReducers} from 'redux';
 
 import activities from './activitiesReducer';
 import brands from './brandsReducer';
+import navigation from './navigationReducer';
 import pendingRequests from './pendingRequestsReducer';
 import session from './sessionReducer';
 import shoes from './shoesReducer';
@@ -26,23 +27,11 @@ const garminActivityReducer = (state: Object={}, action: Action): Object => {
   }
 };
 
-const navigationReducer = (state: Object={}, action: Action): Object => {
-  switch (action.type) {
-    case ActionTypes.NAV_TOGGLE:
-      return {
-        ...state,
-        sideNavOpen: action.data.sideNavOpen,
-      };
-    default:
-      return state;
-  }
-};
-
 export default combineReducers({
   activities,
   brands,
   garminActivity: garminActivityReducer,
-  navigation: navigationReducer,
+  navigation,
   pendingRequests,
   session,
   shoes,
