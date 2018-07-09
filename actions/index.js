@@ -31,8 +31,8 @@ export function makeRequest(query: string, variables: Object, type: string) {
 }
 
 export const initializeSession = (session: Object) => ({
+  data: {session},
   type: ActionTypes.SESSION_INITIALIZE_SUCCESS,
-  session,
 });
 
 export function toggleSideNav(): Function {
@@ -40,7 +40,7 @@ export function toggleSideNav(): Function {
     const sideNavOpen = !getState().navigation.sideNavOpen;
     localStorage && localStorage.setItem('sideNavOpen', sideNavOpen);
     dispatch({
-      sideNavOpen,
+      data: {sideNavOpen},
       type: ActionTypes.NAV_TOGGLE,
     });
   };

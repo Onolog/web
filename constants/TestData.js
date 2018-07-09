@@ -25,11 +25,18 @@ export const BRANDS = [
   {id: 20, name: 'Hoka One One'},
 ];
 
-export const FRIENDS = [
-  {id: 4280, name: 'Paul McDonald'},
-  {id: 11, name: 'Soleio'},
-  {id: 509191417, name: 'Jessica Shambora'},
-];
+export const SESSION = {
+  authToken: 'token-string',
+  user: {
+    distanceUnits: 0,
+    firstName: 'Johnny',
+    id: 0,
+    lastName: 'Rotten',
+    location: 'San Francisco, CA',
+    name: 'Johnny Rotten',
+    timezone: 'America/Los_Angeles',
+  },
+};
 
 export const SHOES = [
   {

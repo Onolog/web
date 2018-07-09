@@ -1,13 +1,19 @@
+// @flow
+
 import {combineReducers} from 'redux';
 
 import activities from './activitiesReducer';
 import brands from './brandsReducer';
+import pendingRequests from './pendingRequestsReducer';
+import session from './sessionReducer';
 import shoes from './shoesReducer';
 
 import ActionTypes from '../../constants/ActionTypes';
-import {getBaseType, getSuccessType, isBaseType} from '../../utils/actionTypes';
+import {getSuccessType} from '../../utils/actionTypes';
 
-const garminActivityReducer = (state={}, action) => {
+import type {Action} from '../../types/Action';
+
+const garminActivityReducer = (state: Object={}, action: Action): Object => {
   switch (action.type) {
     // case ActionTypes.ACTIVITY_MODAL_HIDE:
     //   // Reset data.
@@ -19,60 +25,19 @@ const garminActivityReducer = (state={}, action) => {
   }
 };
 
-const navigationReducer = (state={}, action) => {
+const navigationReducer = (state: Object={}, action: Action): Object => {
   switch (action.type) {
     case ActionTypes.NAV_TOGGLE:
       return {
         ...state,
-        sideNavOpen: action.sideNavOpen,
+        sideNavOpen: action.data.sideNavOpen,
       };
     default:
       return state;
   }
 };
 
-const pendingRequestsReducer = (state={}, {type}) => {
-  // Filter out any actions that are not whitelisted.
-  if (!ActionTypes[type]) {
-    return state;
-  }
-
-  if (isBaseType(type)) {
-    return {
-      ...state,
-      [type]: true,
-    };
-  }
-
-  return {
-    ...state,
-    [getBaseType(type)]: false,
-  };
-};
-
-const sessionReducer = (state={}, action) => {
-  switch (action.type) {
-    case getSuccessType(ActionTypes.SESSION_INITIALIZE):
-      return action.session;
-    case getSuccessType(ActionTypes.USER_UPDATE):
-      // Update session data if user settings change.
-      const user = action.data.updateUser;
-      if (user.id === state.user.id) {
-        return {
-          ...state,
-          user: {
-            ...state.user,
-            ...user,
-          },
-        };
-      }
-      return state;
-    default:
-      return state;
-  }
-};
-
-const userReducer = (state={}, action) => {
+const userReducer = (state: Object={}, action: Action): Object => {
   switch (action.type) {
     case getSuccessType(ActionTypes.USER_FETCH):
       return action.data.user;
@@ -91,8 +56,8 @@ export default combineReducers({
   brands,
   garminActivity: garminActivityReducer,
   navigation: navigationReducer,
-  pendingRequests: pendingRequestsReducer,
-  session: sessionReducer,
+  pendingRequests,
+  session,
   shoes,
   user: userReducer,
 });
