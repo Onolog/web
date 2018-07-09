@@ -25,17 +25,19 @@ export const BRANDS = [
   {id: 20, name: 'Hoka One One'},
 ];
 
+export const USER = {
+  distanceUnits: 0,
+  firstName: 'Johnny',
+  id: 0,
+  lastName: 'Rotten',
+  location: 'San Francisco, CA',
+  name: 'Johnny Rotten',
+  timezone: 'America/Los_Angeles',
+};
+
 export const SESSION = {
   authToken: 'token-string',
-  user: {
-    distanceUnits: 0,
-    firstName: 'Johnny',
-    id: 0,
-    lastName: 'Rotten',
-    location: 'San Francisco, CA',
-    name: 'Johnny Rotten',
-    timezone: 'America/Los_Angeles',
-  },
+  user: USER,
 };
 
 export const SHOES = [

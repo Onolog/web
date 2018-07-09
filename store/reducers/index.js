@@ -7,6 +7,7 @@ import brands from './brandsReducer';
 import pendingRequests from './pendingRequestsReducer';
 import session from './sessionReducer';
 import shoes from './shoesReducer';
+import user from './userReducer';
 
 import ActionTypes from '../../constants/ActionTypes';
 import {getSuccessType} from '../../utils/actionTypes';
@@ -37,20 +38,6 @@ const navigationReducer = (state: Object={}, action: Action): Object => {
   }
 };
 
-const userReducer = (state: Object={}, action: Action): Object => {
-  switch (action.type) {
-    case getSuccessType(ActionTypes.USER_FETCH):
-      return action.data.user;
-    case getSuccessType(ActionTypes.USER_UPDATE):
-      return {
-        ...state,
-        ...action.data.updateUser,
-      };
-    default:
-      return state;
-  }
-};
-
 export default combineReducers({
   activities,
   brands,
@@ -59,5 +46,5 @@ export default combineReducers({
   pendingRequests,
   session,
   shoes,
-  user: userReducer,
+  user,
 });

@@ -4,10 +4,11 @@
   "private": true,
   "scripts": {
     "build": "webpack --progress",
+    "check": "npm run lint && npm run flow && npm run test",
     "dev": "npm run build && npm run server",
-    "server": "DEBUG=@onolog/web:* nodemon index.js",
     "flow": "flow",
     "lint": "eslint .",
+    "server": "DEBUG=@onolog/web:* nodemon index.js",
     "start": "npm run build && node index.js",
     "test": "karma start karma.conf.js"
   },
