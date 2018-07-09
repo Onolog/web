@@ -1,3 +1,5 @@
+// @flow
+
 import ActionTypes from '../../constants/ActionTypes';
 import type {Action} from '../../types/Action';
 

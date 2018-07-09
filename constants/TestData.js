@@ -58,6 +58,20 @@ export const SHOES = [
   },
 ];
 
+export const GARMIN_ACTIVITY = {
+  'activityType': 'running',
+  'calories': 865,
+  'distance': '8.1',
+  'duration': 3883,
+  'garminActivityId': '2797021033',
+  'avgHr': 150,
+  'maxHr': 175,
+  'elevationGain': 39,
+  'elevationLoss': 39,
+  'startDate': '2018-06-20T13:56:17-07:00',
+  'timezone': 'America/Los_Angeles',
+};
+
 export const ACTIVITIES = [
   {
     id: 0,
