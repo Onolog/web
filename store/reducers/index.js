@@ -1,19 +1,11 @@
 import {combineReducers} from 'redux';
 
 import activities from './activitiesReducer';
+import brands from './brandsReducer';
 import shoes from './shoesReducer';
 
 import ActionTypes from '../../constants/ActionTypes';
 import {getBaseType, getSuccessType, isBaseType} from '../../utils/actionTypes';
-
-const brandsReducer = (state=[], action) => {
-  switch (action.type) {
-    case getSuccessType(ActionTypes.BRANDS_FETCH):
-      return action.data.brands;
-    default:
-      return state;
-  }
-};
 
 const garminActivityReducer = (state={}, action) => {
   switch (action.type) {
@@ -96,7 +88,7 @@ const userReducer = (state={}, action) => {
 
 export default combineReducers({
   activities,
-  brands: brandsReducer,
+  brands,
   garminActivity: garminActivityReducer,
   navigation: navigationReducer,
   pendingRequests: pendingRequestsReducer,
