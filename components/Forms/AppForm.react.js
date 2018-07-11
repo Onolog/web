@@ -8,12 +8,13 @@ import './css/AppForm.scss';
 /**
  * Wrapper around react-bootstrap Form component for app-specific styling.
  */
-const AppForm = ({bordered, className, ...otherProps}) => (
+const AppForm = ({bordered, className, ...props}) => (
   <Form
-    {...otherProps}
+    {...props}
     className={cx('app-form', {
       'app-form-bordered': bordered,
     }, className)}
+    componentClass={props.onSubmit || props.action ? 'form' : 'div'}
   />
 );
 

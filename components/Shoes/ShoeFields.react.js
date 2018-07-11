@@ -137,7 +137,7 @@ ShoeFields.propTypes = {
     model: PropTypes.string,
     notes: PropTypes.string,
     size: PropTypes.string,
-    sizeType: PropTypes.string,
+    sizeType: PropTypes.number,
   }).isRequired,
   user: PropTypes.object.isRequired,
 };

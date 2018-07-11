@@ -137,7 +137,7 @@ ShoeView.propTypes = {
     }),
     notes: PropTypes.string,
     size: PropTypes.string,
-    sizeType: PropTypes.string,
+    sizeType: PropTypes.number,
   }).isRequired,
 };
 

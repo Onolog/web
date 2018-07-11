@@ -27,6 +27,7 @@ class ShoeEditModal extends React.Component {
 
   render() {
     const {
+      initialShoe,
       isLoading,
       onChange,
       onDelete,
@@ -39,7 +40,7 @@ class ShoeEditModal extends React.Component {
     return (
       <Modal {...modalProps}>
         <Modal.Header closeButton>
-          <Modal.Title>{shoe.name}</Modal.Title>
+          <Modal.Title>{initialShoe.name}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {isLoading && <Loader background full large />}

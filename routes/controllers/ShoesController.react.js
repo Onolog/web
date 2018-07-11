@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import {find, isEmpty, isEqual, partition} from 'lodash';
+import {find, isEmpty, isEqual, partition, some} from 'lodash';
 import PropTypes from 'prop-types';
 import React, {Fragment} from 'react';
 import {Button} from 'react-bootstrap';
@@ -17,10 +17,19 @@ import ShoeTable from '../../components/Shoes/ShoeTable.react';
 import ShoeView from '../../components/Shoes/ShoeView.react';
 
 import {makeRequest} from '../../actions';
-
 import ActionTypes from '../../constants/ActionTypes';
 
 import '../../components/Shoes/css/Shoe.scss';
+
+function requestCompleted(props, nextProps, types=[]) {
+  if (typeof types === 'string') {
+    types = [types];
+  }
+
+  return some(types.map((type) => (
+    props.pendingRequests[type] && !nextProps.pendingRequests[type]
+  )));
+}
 
 const SectionHeader = (props) => (
   <h3 className={cx('section-header', props.className)}>
@@ -45,9 +54,14 @@ class ShoesController extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    // Hide modal when shoes are modified somehow.
-    if (!isEqual(this.props.shoes, nextProps.shoes)) {
-      this.setState({show: false});
+    const types = [
+      ActionTypes.SHOE_CREATE,
+      ActionTypes.SHOE_DELETE,
+      ActionTypes.SHOE_UPDATE,
+    ];
+
+    if (requestCompleted(this.props, nextProps, types)) {
+      this._handleHideModal();
     }
   }
 
@@ -137,8 +151,9 @@ class ShoesController extends React.Component {
 
   _renderShoeDetails = () => {
     const {activeShoeId} = this.state;
+    const shoe = find(this.props.shoes.nodes, {id: this.state.activeShoeId});
 
-    if (!activeShoeId) {
+    if (!shoe) {
       return (
         <EmptyState>
           No shoe selected.
@@ -147,7 +162,6 @@ class ShoesController extends React.Component {
     }
 
     const isLoading = this.props.pendingRequests[ActionTypes.SHOE_FETCH];
-    const shoe = find(this.props.shoes.nodes, {id: activeShoeId});
     const activities = (shoe.activities && shoe.activities.nodes) || [];
 
     return (
@@ -242,7 +256,7 @@ const mapDispatchToProps = (dispatch) => ({
   `, {userId}, ActionTypes.SHOES_FETCH)),
   fetchShoe: (shoeId) => dispatch(makeRequest(`
     query shoes($shoeId: ID) {
-      shoes(shoeId: $shoeId) {
+      shoes(id: $shoeId) {
         nodes {
           id,
           brandId,

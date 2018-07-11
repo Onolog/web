@@ -1,4 +1,4 @@
-import {isEqual} from 'lodash';
+import {isEqual, pick} from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
 import {connect} from 'react-redux';
@@ -9,17 +9,18 @@ import ShoeEditModal from './ShoeEditModal.react';
 import {makeRequest} from '../../actions';
 import ActionTypes from '../../constants/ActionTypes';
 
-const getInitialState = (props) => ({
+const DEFAULT_SHOE = {
+  brandId: '-1',
+  inactive: 0,
+  model: '',
+  notes: '',
+  size: '',
+  sizeType: 0,
+};
+
+const getInitialState = ({initialShoe}) => ({
   isLoading: false,
-  shoe: props.initialShoe || {
-    brandId: '-1',
-    inactive: 0,
-    model: '',
-    notes: '',
-    size: '',
-    sizeType: 0,
-    userId: props.user.id,
-  },
+  shoe: initialShoe || DEFAULT_SHOE,
 });
 
 /**
@@ -58,6 +59,7 @@ class ShoeModal extends React.Component {
     return initialShoe ?
       <ShoeEditModal
         {...props}
+        initialShoe={initialShoe}
         onDelete={() => this._handleDelete(shoe.id)}
       /> :
       <ShoeAddModal
@@ -96,8 +98,7 @@ class ShoeModal extends React.Component {
   };
 
   _handleSave = (e) => {
-    const {createShoe, initialShoe, updateShoe} = this.props;
-    const action = initialShoe ? updateShoe : createShoe;
+    const {createShoe, initialShoe, updateShoe, user} = this.props;
     const {shoe} = this.state;
 
     if (parseInt(shoe.brandId, 10) === -1) {
@@ -111,7 +112,17 @@ class ShoeModal extends React.Component {
     }
 
     this.setState({isLoading: true});
-    action(shoe.id, shoe);
+
+    const shoeInput = {
+      ...pick(shoe, Object.keys(DEFAULT_SHOE)),
+      userId: user.id,
+    };
+
+    if (initialShoe) {
+      updateShoe(initialShoe.id, shoeInput);
+    } else {
+      createShoe(shoeInput);
+    }
   };
 }
 
@@ -129,6 +140,7 @@ const mapStateToProps = ({session}) => ({
 const shoeFields = `
   id,
   inactive,
+  model,
   name,
   size,
   activities {
@@ -138,13 +150,13 @@ const shoeFields = `
 `;
 
 const mapDispatchToProps = (dispatch) => ({
-  createShoe: (id, input) => dispatch(makeRequest(`
+  createShoe: (input) => dispatch(makeRequest(`
     mutation createShoe($input: ShoeInput!) {
       createShoe(input: $input) {
         ${shoeFields}
       }
     }
-  `, {id, input}, ActionTypes.SHOE_CREATE)),
+  `, {input}, ActionTypes.SHOE_CREATE)),
   deleteShoe: (id) => dispatch(makeRequest(`
     mutation deleteShoe($id: ID!) {
       deleteShoe(id: $id)
