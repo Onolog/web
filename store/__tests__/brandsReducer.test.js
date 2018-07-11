@@ -4,11 +4,11 @@ import brandsReducer from '../reducers/brandsReducer';
 import {getSuccessType} from '../../utils/actionTypes';
 
 import ActionTypes from '../../constants/ActionTypes';
-import {BRANDS} from '../../constants/TestData';
+import {BRANDS, TEST_ACTION} from '../../constants/TestData';
 
 describe('brandsReducer', () => {
   it('returns a default state', () => {
-    expect(brandsReducer([], {type: 'FOO'})).to.deep.equal([]);
+    expect(brandsReducer([], TEST_ACTION)).to.deep.equal([]);
   });
 
   it('returns the correct state when fetching brands', () => {

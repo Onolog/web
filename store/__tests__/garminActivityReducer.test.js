@@ -4,11 +4,11 @@ import garminActivityReducer from '../reducers/garminActivityReducer';
 import {getSuccessType} from '../../utils/actionTypes';
 
 import ActionTypes from '../../constants/ActionTypes';
-import {GARMIN_ACTIVITY} from '../../constants/TestData';
+import {GARMIN_ACTIVITY, TEST_ACTION} from '../../constants/TestData';
 
 describe('brandsReducer', () => {
   it('returns a default state', () => {
-    expect(garminActivityReducer({}, {type: 'FOO'})).to.deep.equal({});
+    expect(garminActivityReducer({}, TEST_ACTION)).to.deep.equal({});
   });
 
   it('returns the state when fetching a Garmin activity', () => {

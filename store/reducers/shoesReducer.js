@@ -1,7 +1,11 @@
+// @flow
+
 import {getSuccessType} from '../../utils/actionTypes';
 import ActionTypes from '../../constants/ActionTypes';
 
-const shoeReducer = (state={}, action) => {
+import type {Action} from '../../types/Action';
+
+const shoeReducer = (state: Object={}, action: Action): Object => {
   let shoe;
 
   switch (action.type) {
@@ -17,32 +21,36 @@ const shoeReducer = (state={}, action) => {
   }
 };
 
-export default (state={}, action) => {
+export default (state: Object={}, action: Action): Object => {
+  let nodes;
+
   switch (action.type) {
     case getSuccessType(ActionTypes.SHOES_FETCH):
       return action.data.shoes;
     case getSuccessType(ActionTypes.SHOE_CREATE):
-      const nodes = [
+      nodes = [
         ...state.nodes,
         action.data.createShoe,
       ];
-      return {count: nodes.length, nodes};
+      return {
+        count: nodes.length,
+        nodes,
+      };
     case getSuccessType(ActionTypes.SHOE_UPDATE):
     case getSuccessType(ActionTypes.SHOE_FETCH):
       // TODO: This currently updates an existing shoe, but doesn't account for
       // fetching a shoe that isn't already part of the state.
+      nodes = state.nodes.map((s) => shoeReducer(s, action));
       return {
-        ...state,
-        nodes: state.nodes.map((s) => shoeReducer(s, action)),
+        count: nodes.length,
+        nodes,
       };
     case getSuccessType(ActionTypes.SHOE_DELETE):
       const shoeId = parseInt(action.data.deleteShoe, 10);
-      if (!shoeId) {
-        return state;
-      }
+      nodes = state.nodes.filter((s) => s.id !== shoeId);
       return {
-        ...state,
-        nodes: state.nodes.filter(s => s.id !== shoeId),
+        count: nodes.length,
+        nodes,
       };
     case getSuccessType(ActionTypes.USER_FETCH):
       const {shoes} = action.data.user;

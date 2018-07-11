@@ -4,11 +4,11 @@ import userReducer from '../reducers/userReducer';
 import {getSuccessType} from '../../utils/actionTypes';
 
 import ActionTypes from '../../constants/ActionTypes';
-import {USER} from '../../constants/TestData';
+import {TEST_ACTION, USER} from '../../constants/TestData';
 
 describe('userReducer', () => {
   it('returns a default state', () => {
-    expect(userReducer({}, {type: 'FOO'})).to.deep.equal({});
+    expect(userReducer({}, TEST_ACTION)).to.deep.equal({});
   });
 
   it('returns the user object', () => {

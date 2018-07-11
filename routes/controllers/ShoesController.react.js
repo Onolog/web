@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import {find, isEmpty, isEqual, partition, some} from 'lodash';
+import {find, isEmpty, partition, some} from 'lodash';
 import PropTypes from 'prop-types';
 import React, {Fragment} from 'react';
 import {Button} from 'react-bootstrap';
@@ -150,7 +150,6 @@ class ShoesController extends React.Component {
   }
 
   _renderShoeDetails = () => {
-    const {activeShoeId} = this.state;
     const shoe = find(this.props.shoes.nodes, {id: this.state.activeShoeId});
 
     if (!shoe) {

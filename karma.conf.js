@@ -6,8 +6,7 @@ module.exports = function(config) {
   config.set({
     browsers: [process.env.TRAVIS ? 'Chrome_travis_ci' : 'Chrome'],
     client: {
-      // Don't show console output.
-      captureConsole: false,
+      captureConsole: true,
     },
     customLaunchers: {
       Chrome_travis_ci: {

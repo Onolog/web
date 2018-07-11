@@ -42,19 +42,54 @@ export const SESSION = {
 
 export const SHOES = [
   {
-    label: 'Active',
-    options: [
-      {value: '42', label: 'Mizuno Waverider 17.4'},
-      {value: '41', label: 'ASICS DS Trainer 19'},
-    ],
+    brandId: 9,
+    id: 1,
+    inactive: true,
+    model: 'Hayward',
+    name: 'Nike Hayward',
+    size: null,
+    sizeType: 0,
+    notes: null,
   },
   {
-    label: 'Inactive',
-    options: [
-      {value: '40', label: 'Mizuno Waverider 17.3'},
-      {value: '39', label: 'Mizuno Waverider 17.2'},
-      {value: '34', label: 'Mizuno Waverider 16.1'},
-    ],
+    brandId: 2,
+    id: 4,
+    inactive: true,
+    model: 'DS-Racer',
+    name: 'ASICS DS-Racer',
+    size: null,
+    sizeType: 0,
+    notes: null,
+  },
+  {
+    brandId: 5,
+    id: 5,
+    inactive: true,
+    model: 'Waverider',
+    name: 'Mizuno Waverider',
+    size: null,
+    sizeType: 0,
+    notes: null,
+  },
+  {
+    brandId: 5,
+    id: 7,
+    inactive: true,
+    model: 'Waverider #2',
+    name: 'Mizuno Waverider #2',
+    size: null,
+    sizeType: 0,
+    notes: null,
+  },
+  {
+    brandId: 5,
+    id: 8,
+    inactive: true,
+    model: 'Waverider 13',
+    name: 'Mizuno Waverider 13',
+    size: null,
+    sizeType: 0,
+    notes: null,
   },
 ];
 
@@ -70,6 +105,10 @@ export const GARMIN_ACTIVITY = {
   'elevationLoss': 39,
   'startDate': '2018-06-20T13:56:17-07:00',
   'timezone': 'America/Los_Angeles',
+};
+
+export const TEST_ACTION = {
+  type: 'TEST',
 };
 
 export const ACTIVITIES = [

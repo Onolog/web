@@ -4,11 +4,11 @@ import sessionReducer from '../reducers/sessionReducer';
 import {getSuccessType} from '../../utils/actionTypes';
 
 import ActionTypes from '../../constants/ActionTypes';
-import {SESSION} from '../../constants/TestData';
+import {SESSION, TEST_ACTION} from '../../constants/TestData';
 
 describe('sessionReducer', () => {
   it('returns a default state', () => {
-    expect(sessionReducer({}, {type: 'FOO'})).to.deep.equal({});
+    expect(sessionReducer({}, TEST_ACTION)).to.deep.equal({});
   });
 
   it('returns the state when initializing the session', () => {
