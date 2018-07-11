@@ -198,7 +198,7 @@ const mapDispatchToProps = (dispatch) => ({
   `, {activityId}, ActionTypes.ACTIVITY_DELETE)),
   fetchData: (activityId) => dispatch(makeRequest(`
     query activities($activityId: ID) {
-      activities(activityId: $activityId) {
+      activities(id: $activityId) {
         count,
         sumDistance,
         nodes {
