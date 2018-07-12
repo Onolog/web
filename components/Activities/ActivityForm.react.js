@@ -27,22 +27,6 @@ const FIELDNAMES = {
  * Displays a form with inputs for adding or editing an activity.
  */
 class ActivityForm extends React.Component {
-  static displayName = 'ActivityForm';
-
-  static propTypes = {
-    /**
-     * An existing activity object.
-     */
-    activity: PropTypes.object,
-    errors: PropTypes.object,
-    onChange: PropTypes.func.isRequired,
-  };
-
-  static defaultProps = {
-    activity: {},
-    errors: {},
-  };
-
   componentDidMount() {
     // Auto-focus the distance field
     findDOMNode(this._distanceInput).focus();
@@ -105,9 +89,9 @@ class ActivityForm extends React.Component {
 
         <FormRow label="Shoes">
           <ShoeSelector
-            name="shoe_id"
+            name="shoeId"
             onChange={this._onInputChange}
-            value={activity.shoe_id}
+            value={activity.shoeId}
           />
         </FormRow>
 
@@ -142,7 +126,7 @@ class ActivityForm extends React.Component {
     this._onChange(activity);
   };
 
-  _onDateChange = (/*string*/ startDate, /*string*/ timezone) => {
+  _onDateChange = (startDate: string, timezone: string) => {
     const activity = {
       ...this.props.activity,
       startDate,
@@ -156,5 +140,19 @@ class ActivityForm extends React.Component {
     this.props.onChange(activity);
   };
 }
+
+ActivityForm.propTypes = {
+  /**
+   * An existing activity object.
+   */
+  activity: PropTypes.object,
+  errors: PropTypes.object,
+  onChange: PropTypes.func.isRequired,
+};
+
+ActivityForm.defaultProps = {
+  activity: {},
+  errors: {},
+};
 
 export default ActivityForm;

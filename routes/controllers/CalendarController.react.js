@@ -15,6 +15,7 @@ import PageHeader from '../../components/Page/PageHeader.react';
 
 import {makeRequest} from '../../actions';
 import isBrowser from '../../utils/isBrowser';
+import requestCompleted from '../../utils/requestCompleted';
 
 import ActionTypes from '../../constants/ActionTypes';
 import {LEFT, RIGHT} from '../../constants/KeyCode';
@@ -62,10 +63,7 @@ class CalendarController extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (
-      this.props.pendingRequests[ActionTypes.ACTIVITY_ADD] &&
-      !nextProps.pendingRequests[ActionTypes.ACTIVITY_ADD]
-    ) {
+    if (requestCompleted(this.props, nextProps, ActionTypes.ACTIVITY_CREATE)) {
       this._hideModal();
     }
   }
@@ -244,6 +242,7 @@ const mapDispatchToProps = (dispatch) => ({
           notes,
           startDate,
           timezone,
+          shoeId,
           shoe {
             id,
             name,

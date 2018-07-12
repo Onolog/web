@@ -185,16 +185,20 @@ ActivityController.propTypes = {
 
 const mapStateToProps = ({activities, pendingRequests, session}) => {
   const activity = (activities.nodes && activities.nodes[0]) || {};
+  const user = activity.user || {};
 
   return {
     activity,
-    canEdit: +session.user.id === +activity.userId,
+    canEdit: session.user.id === user.id,
     pendingRequests,
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
   deleteActivity: (activityId) => dispatch(makeRequest(`
+    mutation deleteActivity($activityId: ID!) {
+      deleteActivity(id: $activityId)
+    }
   `, {activityId}, ActionTypes.ACTIVITY_DELETE)),
   fetchData: (activityId) => dispatch(makeRequest(`
     query activities($activityId: ID) {
@@ -229,6 +233,7 @@ const mapDispatchToProps = (dispatch) => ({
             sumElapsedDuration,
             sumMovingDuration,
           },
+          shoeId,
           shoe {
             id,
             name,

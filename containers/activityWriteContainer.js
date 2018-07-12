@@ -1,11 +1,30 @@
 import jstz from 'jstz';
-import {isEmpty, isEqual, isInteger} from 'lodash';
+import {isEmpty, isEqual, isInteger, pick} from 'lodash';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import React from 'react';
 import {connect} from 'react-redux';
 
-import {addActivity, deleteActivity, hideActivityModal, updateActivity} from '../actions';
+import {makeRequest, hideActivityModal} from '../actions';
+import ActionTypes from '../constants/ActionTypes';
+
+const WHITELISTED_FIELDS = [
+  'activityType',
+  'distance',
+  'duration',
+  'avgHr',
+  'maxHr',
+  'calories',
+  'elevationGain',
+  'elevationLoss',
+  'friends',
+  'garminActivityId',
+  'notes',
+  'shoeId',
+  'startDate',
+  'timezone',
+  'userId',
+];
 
 const getInitialState = (props) => ({
   activity: props.initialActivity || getNewActivity(props),
@@ -80,10 +99,10 @@ const activityModalContainer = (Component) => {
     }
 
     render() {
-      const {initialActivity, ...otherProps} = this.props;
+      const {initialActivity, ...props} = this.props;
       return (
         <Component
-          {...otherProps}
+          {...props}
           {...this.state}
           isEditing={!!initialActivity}
           onChange={this._handleChange}
@@ -131,7 +150,12 @@ const activityModalContainer = (Component) => {
     }
 
     _handleSave = (e) => {
-      const {addActivity, initialActivity, updateActivity} = this.props;
+      const {
+        createActivity,
+        initialActivity,
+        updateActivity,
+        user,
+      } = this.props;
       const {activity} = this.state;
 
       const errors = {};
@@ -148,22 +172,71 @@ const activityModalContainer = (Component) => {
       }
 
       this.setState({isLoading: true});
-      const action = initialActivity ? updateActivity : addActivity;
-      action(activity);
+
+      const activityInput = {
+        ...pick(activity, WHITELISTED_FIELDS),
+        userId: user.id,
+      };
+
+      if (initialActivity) {
+        updateActivity(initialActivity.id, activityInput);
+      } else {
+        createActivity(activityInput);
+      }
     };
   }
 
-  const mapStateToProps = ({garminActivity, pendingRequests}) => ({
+  const mapStateToProps = ({garminActivity, pendingRequests, session}) => ({
     garminActivity,
     pendingRequests,
+    user: session.user,
   });
 
-  const mapDispatchToProps = {
-    addActivity,
-    deleteActivity,
+  const activityFields = `
+    avgHr,
+    calories,
+    distance,
+    duration,
+    elevationGain,
+    elevationLoss,
+    friends,
+    id,
+    maxHr,
+    notes,
+    startDate,
+    timezone,
+    shoe {
+      id,
+      name,
+    },
+    user {
+      id,
+      name,
+    }
+  `;
+
+  const mapDispatchToProps = (dispatch) => ({
+    createActivity: (input) => dispatch(makeRequest(`
+      mutation createActivity($input: ActivityInput!) {
+        createActivity(input: $input) {
+          ${activityFields}
+        }
+      }
+    `, {input}, ActionTypes.ACTIVITY_CREATE)),
+    deleteActivity: (id) => dispatch(makeRequest(`
+      mutation deleteActivity($id: ID!) {
+        deleteActivity(id: $id)
+      }
+    `, {id}, ActionTypes.ACTIVITY_DELETE)),
     hideActivityModal,
-    updateActivity,
-  };
+    updateActivity: (id, input) => dispatch(makeRequest(`
+      mutation updateActivity($id: ID!, $input: ActivityInput!) {
+        updateActivity(id: $id, input: $input) {
+          ${activityFields}
+        }
+      }
+    `, {id, input}, ActionTypes.ACTIVITY_UPDATE)),
+  });
 
   return connect(mapStateToProps, mapDispatchToProps)(WrappedComponent);
 };

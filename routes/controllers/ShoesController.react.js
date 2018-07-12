@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import {find, isEmpty, partition, some} from 'lodash';
+import {find, isEmpty, partition} from 'lodash';
 import PropTypes from 'prop-types';
 import React, {Fragment} from 'react';
 import {Button} from 'react-bootstrap';
@@ -18,18 +18,9 @@ import ShoeView from '../../components/Shoes/ShoeView.react';
 
 import {makeRequest} from '../../actions';
 import ActionTypes from '../../constants/ActionTypes';
+import requestCompleted from '../../utils/requestCompleted';
 
 import '../../components/Shoes/css/Shoe.scss';
-
-function requestCompleted(props, nextProps, types=[]) {
-  if (typeof types === 'string') {
-    types = [types];
-  }
-
-  return some(types.map((type) => (
-    props.pendingRequests[type] && !nextProps.pendingRequests[type]
-  )));
-}
 
 const SectionHeader = (props) => (
   <h3 className={cx('section-header', props.className)}>
