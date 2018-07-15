@@ -232,27 +232,10 @@ const mapDispatchToProps = (dispatch) => ({
     query activities($userId: ID, $range: [String]) {
       activities(userId: $userId, range: $range) {
         nodes {
-          avgHr,
-          calories,
           distance,
-          duration,
-          elevationGain,
-          elevationLoss,
-          friends,
           id,
-          maxHr,
-          notes,
           startDate,
           timezone,
-          shoeId,
-          shoe {
-            id,
-            name,
-          }
-          user {
-            id,
-            name,
-          }
         }
       },
     }

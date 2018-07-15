@@ -72,16 +72,6 @@ const activityModalContainer = (Component) => {
       this.state = getInitialState(props);
     }
 
-    static propTypes = {
-      initialActivity: PropTypes.object,
-      /**
-       * Date object for the given day
-       */
-      date: PropTypes.instanceOf(Date),
-      onHide: PropTypes.func,
-      show: PropTypes.bool,
-    };
-
     componentWillReceiveProps(nextProps) {
       const {garminActivity, date} = nextProps;
 
@@ -185,6 +175,16 @@ const activityModalContainer = (Component) => {
       }
     };
   }
+
+  WrappedComponent.propTypes = {
+    initialActivity: PropTypes.object,
+    /**
+     * Date object for the given day
+     */
+    date: PropTypes.instanceOf(Date),
+    onHide: PropTypes.func,
+    show: PropTypes.bool,
+  };
 
   const mapStateToProps = ({garminActivity, pendingRequests, session}) => ({
     garminActivity,

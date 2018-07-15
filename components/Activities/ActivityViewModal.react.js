@@ -1,12 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {
-  Button,
-  ButtonGroup,
-  Modal,
-  OverlayTrigger,
-  Tooltip,
-} from 'react-bootstrap';
+import {Button, ButtonGroup, Modal, OverlayTrigger, Tooltip} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
 
 import Activity from './Activity.react';
@@ -21,11 +15,14 @@ class ActivityViewModal extends React.Component {
   render() {
     const {activity, isLoading, onEdit, onHide, show} = this.props;
 
+    const contents = isLoading ?
+      <Loader background large /> :
+      <Activity id={activity.id} />;
+
     return (
       <Modal onHide={onHide} show={show}>
         <Modal.Body>
-          {isLoading && <Loader background full large />}
-          <Activity id={activity.id} />
+          {contents}
         </Modal.Body>
         <Modal.Footer>
           <LeftRight>

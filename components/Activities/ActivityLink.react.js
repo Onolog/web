@@ -1,36 +1,41 @@
 import {isEqual} from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
+import {connect} from 'react-redux';
 
 import ActivityModal from './ActivityModal.react';
 import ActivityViewModal from './ActivityViewModal.react';
 import Distance from '../Distance/Distance.react';
 import Link from '../Link/Link.react';
 
+import {makeRequest} from '../../actions';
+import requestCompleted from '../../utils/requestCompleted';
+
+import ActionTypes from '../../constants/ActionTypes';
+
 /**
  * ActivityLink.react
  */
 class ActivityLink extends React.Component {
-  static propTypes = {
-    activity: PropTypes.object.isRequired,
-  };
-
   state = {
     isEditing: false,
-    isLoading: false,
     showModal: false,
+    wasFetched: false,
   };
 
   componentWillReceiveProps(nextProps) {
-    // Close the modal if the activity was successfully updated.
-    if (!isEqual(nextProps.activity, this.props.activity)) {
+    if (!isEqual(this.props.activity, nextProps.activity)) {
+      this.setState({wasFetched: true});
+    }
+
+    if (requestCompleted(this.props, nextProps, ActionTypes.ACTIVITY_UPDATE)) {
       this._hideModal();
     }
   }
 
   render() {
     const {activity} = this.props;
-    const {isEditing, isLoading, showModal} = this.state;
+    const {isEditing, showModal, wasFetched} = this.state;
 
     const modal = isEditing ?
       <ActivityModal
@@ -41,7 +46,7 @@ class ActivityLink extends React.Component {
       /> :
       <ActivityViewModal
         activity={activity}
-        isLoading={isLoading}
+        isLoading={!wasFetched}
         onEdit={this._handleEdit}
         onHide={this._hideModal}
         show={showModal}
@@ -60,21 +65,66 @@ class ActivityLink extends React.Component {
 
   _handleEdit = () => {
     this.setState({isEditing: true});
-  };
+  }
 
   _hideModal = (e) => {
     e && e.stopPropagation();
 
     this.setState({
       isEditing: false,
-      isLoading: false,
       showModal: false,
     });
-  };
+  }
 
   _showModal = () => {
     this.setState({showModal: true});
-  };
+
+    const {activity, fetchActivity} = this.props;
+
+    if (!this.state.wasFetched) {
+      fetchActivity(activity.id);
+    }
+  }
 }
 
-export default ActivityLink;
+ActivityLink.propTypes = {
+  activity: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = ({pendingRequests}) => ({
+  pendingRequests,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchActivity: (activityId) => dispatch(makeRequest(`
+    query activities($activityId: ID) {
+      activities(id: $activityId) {
+        nodes {
+          avgHr,
+          calories,
+          distance,
+          duration,
+          elevationGain,
+          elevationLoss,
+          friends,
+          id,
+          maxHr,
+          notes,
+          startDate,
+          timezone,
+          shoeId,
+          shoe {
+            id,
+            name,
+          }
+          user {
+            id,
+            name,
+          }
+        }
+      },
+    }
+  `, {activityId}, ActionTypes.ACTIVITY_FETCH)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ActivityLink);

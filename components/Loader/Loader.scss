@@ -4,6 +4,7 @@
 .loader {
   display: block;
   min-height: 200px;
+  position: relative;
 
   &-icon {
     animation: rotate 1s infinite linear;
