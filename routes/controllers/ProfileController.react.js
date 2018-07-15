@@ -248,7 +248,7 @@ const mapDispatchToProps = (dispatch) => ({
             ${summaryFields}
           },
         },
-        activities(limit: 20) {
+        activities(limit: 20, order: "reverse:startDate") {
           ${summaryFields}
           nodes {
             id,
