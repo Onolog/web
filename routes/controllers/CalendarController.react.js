@@ -22,10 +22,12 @@ import {LEFT, RIGHT} from '../../constants/KeyCode';
 
 const getDateRange = (m) => {
   const start = m
+    .clone()
     .subtract(7, 'days')
     .toISOString(true);
 
   const end = m
+    .clone()
     .add(1, 'month')
     .add(7, 'days')
     .toISOString(true);
