@@ -16,6 +16,23 @@ import {makeRequest} from '../../actions';
 
 import ActionTypes from '../../constants/ActionTypes';
 
+const notEmpty = (value) => !!(value && value.trim());
+
+const FIELDS = {
+  firstName: {
+    error: 'First name cannot be empty.',
+    isValid: notEmpty,
+  },
+  lastName: {
+    error: 'Last name cannot be empty.',
+    isValid: notEmpty,
+  },
+  email: {
+    error: 'Email cannot be empty.',
+    isValid: notEmpty,
+  },
+};
+
 const TITLE = 'Settings';
 
 // Whitelist the settings that can be updated.
@@ -102,6 +119,7 @@ class SettingsController extends React.Component {
     return (
       <SettingsListGroup>
         <ProfileSettingsSection
+          errors={this.state.errors}
           onChange={this._handleChange}
           user={this.state}
         />
@@ -144,21 +162,17 @@ class SettingsController extends React.Component {
 
   _handleSave = (e) => {
     const {updateUser, user} = this.props;
-    const {email, firstName, lastName} = this.state;
 
-    // TODO: Better client-side validation.
-    if (!email.trim()) {
-      alert('Email cannot be empty.');
-      return;
-    }
+    const errors = {};
+    Object.keys(FIELDS).forEach((name) => {
+      const field = FIELDS[name];
+      if (!field.isValid(this.state[name])) {
+        errors[name] = field.error;
+      }
+    });
 
-    if (!firstName.trim()) {
-      alert('First name cannot be empty.');
-      return;
-    }
-
-    if (!lastName.trim()) {
-      alert('Last name cannot be empty.');
+    if (!isEmpty(errors)) {
+      this.setState({errors});
       return;
     }
 

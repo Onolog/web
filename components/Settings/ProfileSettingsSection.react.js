@@ -1,46 +1,52 @@
 import React from 'react';
-import {ControlLabel, FormControl, FormGroup} from 'react-bootstrap';
+import {ControlLabel, FormControl, FormGroup, HelpBlock} from 'react-bootstrap';
 
 import AppForm from '../Forms/AppForm.react';
 import SettingsListGroup from './SettingsListGroup.react';
 
-const ProfileSettingsSection = ({onChange, user}) => (
-  <SettingsListGroup.Item
-    description="Name, email, and avatar settings."
-    title="Profile">
-    <AppForm>
-      <FormGroup>
-        <ControlLabel>First Name</ControlLabel>
-        <FormControl
-          name="firstName"
-          onChange={onChange}
-          placeholder="Enter your first name"
-          type="text"
-          value={user.firstName}
-        />
-      </FormGroup>
-      <FormGroup>
-        <ControlLabel>Last Name</ControlLabel>
-        <FormControl
-          name="lastName"
-          onChange={onChange}
-          placeholder="Enter your last name"
-          type="text"
-          value={user.lastName}
-        />
-      </FormGroup>
-      <FormGroup>
-        <ControlLabel>Email Address</ControlLabel>
-        <FormControl
-          name="email"
-          onChange={onChange}
-          placeholder="Enter your email address"
-          type="text"
-          value={user.email}
-        />
-      </FormGroup>
-    </AppForm>
-  </SettingsListGroup.Item>
-);
+const ProfileSettingsSection = ({errors={}, onChange, user}) => {
+  const fields = [
+    {
+      label: 'First Name',
+      name: 'firstName',
+      placeholder: 'Enter your first name...',
+    },
+    {
+      label: 'Last Name',
+      name: 'lastName',
+      placeholder: 'Enter your last name...',
+    },
+    {
+      label: 'Email Address',
+      name: 'email',
+      placeholder: 'Enter your last email address...',
+    },
+  ];
+
+  return (
+    <SettingsListGroup.Item
+      description="Name, email, and avatar settings."
+      title="Profile">
+      <AppForm>
+        {fields.map(({label, name, placeholder}) => {
+          const error = errors[name];
+          return (
+            <FormGroup key={name} validationState={error ? 'error' : null}>
+              <ControlLabel>{label}</ControlLabel>
+              <FormControl
+                name={name}
+                onChange={onChange}
+                placeholder={placeholder}
+                type="text"
+                value={user[name]}
+              />
+              {error && <HelpBlock>{error}</HelpBlock>}
+            </FormGroup>
+          );
+        })}
+      </AppForm>
+    </SettingsListGroup.Item>
+  );
+};
 
 export default ProfileSettingsSection;
