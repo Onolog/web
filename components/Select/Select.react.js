@@ -19,7 +19,6 @@ class Select extends React.Component {
       }, -1));
     }
 
-    debugger;
     return (
       <select
         {...otherProps}
