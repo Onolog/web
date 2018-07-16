@@ -4,6 +4,7 @@ import {Button, ButtonGroup, Modal, OverlayTrigger, Tooltip} from 'react-bootstr
 import {LinkContainer} from 'react-router-bootstrap';
 
 import Activity from './Activity.react';
+import EmptyState from '../EmptyState.react';
 import LeftRight from '../LeftRight/LeftRight.react';
 import Loader from '../Loader/Loader.react';
 import MaterialIcon from '../Icons/MaterialIcon.react';
@@ -16,7 +17,9 @@ class ActivityViewModal extends React.Component {
     const {activity, isLoading, onEdit, onHide, show} = this.props;
 
     const contents = isLoading ?
-      <Loader background large /> :
+      <EmptyState>
+        <Loader background full />
+      </EmptyState> :
       <Activity id={activity.id} />;
 
     return (

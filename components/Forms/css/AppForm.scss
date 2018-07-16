@@ -37,21 +37,33 @@
     }
   }
 
-  .has-error .form-control {
-    background-color: $background-color-red-light;
-    border-color: $border-color-red;
+  .has-error {
+    .form-control {
+      background-color: $background-color-red-light;
+      border-color: $border-color-red;
 
-    &:focus {
-      box-shadow: 0 0 0 3px $background-color-red;
+      &:focus {
+        box-shadow: 0 0 0 3px $background-color-red;
+      }
+    }
+
+    .help-block {
+      color: $border-color-red;
     }
   }
 
-  .has-success .form-control {
-    background-color: $background-color-green-light;
-    border-color: $border-color-green;
+  .has-success {
+    .form-control {
+      background-color: $background-color-green-light;
+      border-color: $border-color-green;
 
-    &:focus {
-      box-shadow: 0 0 0 3px $background-color-green;
+      &:focus {
+        box-shadow: 0 0 0 3px $background-color-green;
+      }
+    }
+
+    .help-block {
+      color: $border-color-green;
     }
   }
 }

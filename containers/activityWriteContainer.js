@@ -228,7 +228,7 @@ const activityModalContainer = (Component) => {
         deleteActivity(id: $id)
       }
     `, {id}, ActionTypes.ACTIVITY_DELETE)),
-    hideActivityModal,
+    hideActivityModal: () => dispatch(hideActivityModal()),
     updateActivity: (id, input) => dispatch(makeRequest(`
       mutation updateActivity($id: ID!, $input: ActivityInput!) {
         updateActivity(id: $id, input: $input) {

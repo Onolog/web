@@ -1,7 +1,7 @@
 import {isEmpty} from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {ControlLabel, FormControl, FormGroup} from 'react-bootstrap';
+import {ControlLabel, FormControl, FormGroup, HelpBlock} from 'react-bootstrap';
 import {connect} from 'react-redux';
 
 import ActivityForm from './ActivityForm.react';
@@ -13,14 +13,13 @@ import {makeRequest} from '../../actions';
 import ActionTypes from '../../constants/ActionTypes';
 
 class ActivityFromUrlForm extends React.Component {
-  static propTypes = {
-    activity: PropTypes.object,
-    isLoading: PropTypes.bool,
-    onChange: PropTypes.func.isRequired,
+  state = {
+    error: null,
   };
 
   render() {
     const {activity, onChange, isLoading} = this.props;
+    const {error} = this.state;
 
     if (!isEmpty(activity)) {
       return (
@@ -42,7 +41,7 @@ class ActivityFromUrlForm extends React.Component {
     /* eslint-disable jsx-a11y/no-autofocus */
     return (
       <AppForm>
-        <FormGroup>
+        <FormGroup validationState={error ? 'error' : null}>
           <ControlLabel>
             Enter a Garmin Activity URL
           </ControlLabel>
@@ -51,6 +50,7 @@ class ActivityFromUrlForm extends React.Component {
             onChange={this._handleUrlChange}
             type="text"
           />
+          {error && <HelpBlock>{error}</HelpBlock>}
         </FormGroup>
       </AppForm>
     );
@@ -61,19 +61,26 @@ class ActivityFromUrlForm extends React.Component {
     const url = e.target.value;
 
     if (!url) {
+      this.setState({error: null});
       return;
     }
 
     // Extract the activity id and do some basic validation.
     const garminActivityId = parseInt(url.split('/').pop(), 10);
     if (!garminActivityId) {
-      alert('Invalid url');
-      return;
+      this.setState({error: 'Please enter a valid Garmin activity URL.'});
+    } else {
+      this.setState({error: null});
+      this.props.getGarminActivity(garminActivityId);
     }
-
-    this.props.getGarminActivity(garminActivityId);
   };
 }
+
+ActivityFromUrlForm.propTypes = {
+  activity: PropTypes.object,
+  isLoading: PropTypes.bool,
+  onChange: PropTypes.func.isRequired,
+};
 
 const mapDispatchToProps = (dispatch) => ({
   getGarminActivity: (garminActivityId) => dispatch(makeRequest(`
