@@ -1,4 +1,4 @@
-const env = require('dotenv').config().parsed;
+const {API_URL, NODE_ENV} = require('dotenv').config().parsed;
 const path = require('path');
 const webpack = require('webpack');
 
@@ -8,7 +8,7 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = (_, argv) => {
-  const PROD = env.NODE_ENV === 'production';
+  const PROD = NODE_ENV === 'production';
 
   return {
     context: path.join(__dirname),
@@ -32,7 +32,7 @@ module.exports = (_, argv) => {
         'redux-thunk',
       ],
     },
-    mode: env.NODE_ENV,
+    mode: NODE_ENV,
     module: {
       rules: [
         {
@@ -113,8 +113,8 @@ module.exports = (_, argv) => {
     plugins: [
       new webpack.DefinePlugin({
         'process.env': {
-          API_URL: JSON.stringify(env.API_URL),
-          NODE_ENV: JSON.stringify(env.NODE_ENV),
+          API_URL: JSON.stringify(API_URL),
+          NODE_ENV: JSON.stringify(NODE_ENV),
         },
       }),
       // Don't pull in all of Moment's locales
