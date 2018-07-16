@@ -1,4 +1,4 @@
-import {isEmpty, meanBy} from 'lodash';
+import {find, isEmpty, meanBy} from 'lodash';
 import moment from 'moment-timezone';
 import {Button, ButtonGroup, OverlayTrigger, Tooltip} from 'react-bootstrap';
 import PropTypes from 'prop-types';
@@ -17,6 +17,7 @@ import PageHeader from '../../components/Page/PageHeader.react';
 
 import {makeRequest} from '../../actions';
 import {metersToFeet, metersToMiles} from '../../utils/distanceUtils';
+import getParam from '../../utils/getParam';
 import homeUrl from '../../utils/homeUrl';
 import speedToPace from '../../utils/speedToPace';
 
@@ -67,7 +68,7 @@ class ActivityController extends React.Component {
   };
 
   componentWillMount() {
-    this.props.fetchData(this.props.match.params.activityId);
+    this.props.fetchData(getParam(this.props, 'activityId'));
   }
 
   componentWillReceiveProps(nextProps) {
@@ -183,8 +184,9 @@ ActivityController.propTypes = {
   pendingRequests: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = ({activities, pendingRequests, session}) => {
-  const activity = (activities.nodes && activities.nodes[0]) || {};
+const mapStateToProps = ({activities, pendingRequests, session}, props) => {
+  const nodes = (activities && activities.nodes) || [];
+  const activity = find(nodes, {id: +getParam(props, 'activityId')}) || {};
   const user = activity.user || {};
 
   return {
