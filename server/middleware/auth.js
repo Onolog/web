@@ -7,6 +7,19 @@ import graphql from '../../utils/graphql';
 
 import {AUTH_CALLBACK_PATH, INDEX_PATH} from '../../constants/paths';
 
+export const handleAuth = passport.authenticate('facebook', {
+  scope: [
+    'email',
+    'public_profile',
+    'user_friends',
+    'user_location',
+  ],
+});
+
+export const handleAuthCallback = passport.authenticate('facebook', {
+  failureRedirect: INDEX_PATH,
+});
+
 export function redirectIfAuthenticated(req, res, next) {
   if (!req.isAuthenticated()) {
     return next();
