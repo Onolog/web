@@ -8,20 +8,6 @@ import cx from 'classnames';
  * React wrapper around standard HTML <select> tag
  */
 class Select extends React.Component {
-  static displayName = 'Select';
-
-  static propTypes = {
-    options: PropTypes.array.isRequired,
-    /**
-     * Option to be used if there's no defaultValue
-     */
-    defaultLabel: PropTypes.string,
-  };
-
-  static defaultProps = {
-    defaultLabel: '',
-  };
-
   render() {
     const {className, defaultLabel, options, ...otherProps} = this.props;
 
@@ -33,6 +19,7 @@ class Select extends React.Component {
       }, -1));
     }
 
+    debugger;
     return (
       <select
         {...otherProps}
@@ -64,5 +51,17 @@ class Select extends React.Component {
     );
   };
 }
+
+Select.propTypes = {
+  options: PropTypes.array.isRequired,
+  /**
+   * Option to be used if there's no defaultValue
+   */
+  defaultLabel: PropTypes.string,
+};
+
+Select.defaultProps = {
+  defaultLabel: '',
+};
 
 export default Select;

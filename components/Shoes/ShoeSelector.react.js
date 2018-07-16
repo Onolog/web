@@ -1,11 +1,11 @@
 import {isEmpty} from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
+import {FormControl} from 'react-bootstrap';
 import {connect} from 'react-redux';
 
-import Select from '../Select/Select.react';
-import {makeRequest} from '../../actions';
 
+import {makeRequest} from '../../actions';
 import {convertDistance} from '../../utils/distanceUtils';
 import formatDistance from '../../utils/formatDistance';
 import getDistanceUnitString from '../../utils/getDistanceUnitString';
@@ -19,11 +19,6 @@ import {UNITS} from '../../constants/metrics';
  * HTML selector that displays all of a user's shoes, grouped by activity state.
  */
 class ShoeSelector extends React.Component {
-  state = {
-    // TODO: This is kind of a hack.
-    initialSelection: this.props.defaultValue,
-  };
-
   componentWillMount() {
     if (isEmpty(this.props.shoes)) {
       this.props.fetchData(this.props.session.user.id);
@@ -31,15 +26,16 @@ class ShoeSelector extends React.Component {
   }
 
   render() {
-    const {fetchData, shoes, value, ...props} = this.props;
+    const {fetchData, shoes, ...props} = this.props;
 
     return (
-      <Select
-        {...props}
-        defaultLabel="Select a shoe:"
-        options={this._getOptions(shoes.nodes || [])}
-        value={value || ''}
-      />
+      <FormControl {...props} componentClass="select">
+        {this._getOptions(shoes || []).map(({label, value}) => (
+          <option key={value} value={value}>
+            {label}
+          </option>
+        ))}
+      </FormControl>
     );
   }
 
@@ -50,10 +46,15 @@ class ShoeSelector extends React.Component {
   _getOptions = (shoes) => {
     // Filter out inactive shoes unless it's the initially selected shoe.
     shoes = shoes.filter((shoe) => (
-      !shoe.inactive || shoe.id === +this.state.initialSelection
+      shoe.id === this.props.defaultValue ||
+      shoe.id === this.props.value ||
+      !shoe.inactive
     ));
 
-    let options = [];
+    let options = [
+      {label: 'Select a shoe...', value: -1},
+    ];
+
     if (shoes && shoes.length) {
       const {units} = this.props;
 
@@ -74,16 +75,14 @@ class ShoeSelector extends React.Component {
 }
 
 ShoeSelector.propTypes = {
-  defaultValue: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string,
-  ]),
-  shoes: PropTypes.shape({
-    nodes: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.isRequired,
-    })),
-  }),
+  shoes: PropTypes.arrayOf(PropTypes.shape({
+    activities: PropTypes.shape({
+      sumDistance: PropTypes.number,
+    }),
+    id: PropTypes.number.isRequired,
+    inactive: PropTypes.bool.isRequired,
+    name: PropTypes.isRequired,
+  })),
   units: PropTypes.oneOf([
     UNITS.KILOMETERS,
     UNITS.MILES,
@@ -93,7 +92,7 @@ ShoeSelector.propTypes = {
 const mapStoreToProps = ({session, shoes}) => {
   return {
     session,
-    shoes,
+    shoes: (shoes && shoes.nodes) || [],
     units: (session && session.user.distanceUnits) || UNITS.MILES,
   };
 };
