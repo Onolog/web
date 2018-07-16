@@ -3,7 +3,7 @@ import Calendar from './controllers/CalendarController.react';
 import Data from './controllers/DataController.react';
 import Friends from './controllers/FriendsController.react';
 import Garmin from './controllers/GarminController.react';
-import Login from './controllers/LoginController.react';
+import Index from './controllers/IndexController.react';
 import NotFound from './controllers/NotFoundController.react';
 import Privacy from './controllers/PrivacyController.react';
 import Profile from './controllers/ProfileController.react';
@@ -12,10 +12,12 @@ import Shoes from './controllers/ShoesController.react';
 import Terms from './controllers/TermsController.react';
 import Vdot from './controllers/VdotController.react';
 
+import {INDEX_PATH} from '../constants/paths';
+
 export default [
   {
-    path: '/login',
-    component: Login,
+    path: INDEX_PATH,
+    component: Index,
     exact: true,
   },
   {

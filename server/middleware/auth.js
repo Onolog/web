@@ -5,6 +5,8 @@ import getJWT from '../utils/getJWT';
 import getHomePath from '../utils/getHomePath';
 import graphql from '../../utils/graphql';
 
+import {AUTH_CALLBACK_PATH, INDEX_PATH} from '../../constants/paths';
+
 export function redirectIfAuthenticated(req, res, next) {
   if (!req.isAuthenticated()) {
     return next();
@@ -18,7 +20,7 @@ export function requireAuthentication(req, res, next) {
   }
 
   req.session.redirectPath = req.url;
-  res.redirect('/login');
+  res.redirect(INDEX_PATH);
 }
 
 /**
@@ -34,7 +36,7 @@ export function requireAuthentication(req, res, next) {
 const CONFIG = {
   clientID: process.env.FB_APP_ID,
   clientSecret: process.env.FB_SECRET,
-  callbackURL: `${process.env.DOMAIN}/auth/facebook/callback`,
+  callbackURL: `${process.env.DOMAIN}${AUTH_CALLBACK_PATH}`,
   profileFields: [
     'id',
     'displayName',

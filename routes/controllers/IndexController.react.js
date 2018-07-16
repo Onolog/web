@@ -6,9 +6,9 @@ import FBLoginButton from '../../components/Facebook/FBLoginButton.react';
 import './css/Login.scss';
 
 /**
- * Login.react.js
+ * Controller class for the logged-out homepage, ie: https://www.onolog.com/
  */
-class LoginController extends React.Component {
+class IndexController extends React.Component {
   state = {
     windowHeight: null,
   };
@@ -60,4 +60,4 @@ class LoginController extends React.Component {
   }
 }
 
-module.exports = LoginController;
+module.exports = IndexController;
