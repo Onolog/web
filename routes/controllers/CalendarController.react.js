@@ -76,9 +76,21 @@ class CalendarController extends React.Component {
 
   render() {
     const {activities, match: {params}, pendingRequests} = this.props;
-    const isLoading =
-      !activities.nodes || pendingRequests[ActionTypes.ACTIVITIES_FETCH];
+
+    const isLoading = (
+      !activities.nodes ||
+      pendingRequests[ActionTypes.ACTIVITIES_FETCH]
+    );
+
     const m = getMoment(params);
+
+    const content = isLoading ?
+      null :
+      <ActivityCalendar
+        activities={activities.nodes || []}
+        date={m.toDate()}
+      />;
+
 
     return (
       <AppFullPage title="Calendar">
@@ -86,10 +98,7 @@ class CalendarController extends React.Component {
           {this._renderButtonGroup()}
         </PageHeader>
         <PageFrame fill isLoading={isLoading}>
-          <ActivityCalendar
-            activities={activities.nodes || []}
-            date={m.toDate()}
-          />
+          {content}
         </PageFrame>
       </AppFullPage>
     );
@@ -226,8 +235,6 @@ const mapStateToProps = ({activities, pendingRequests, session}) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  // TODO: Don't fetch full activity here. Fetch enough to render the calendar,
-  // then fetch the full activity when opening the activity modal.
   fetchData: (range, userId) => dispatch(makeRequest(`
     query activities($userId: ID, $range: [String]) {
       activities(userId: $userId, range: $range) {

@@ -6,21 +6,10 @@ import React from 'react';
  *
  * Renders the date in a single calendar cell.
  */
-class CalendarDate extends React.Component {
-  static displayName = 'CalendarDate';
+const CalendarDate = ({date}) => <h3>{date.getDate()}</h3>;
 
-  static propTypes = {
-    /**
-     * Date object for the day being rendered
-     */
-    date: PropTypes.instanceOf(Date).isRequired,
-  };
+CalendarDate.propTypes = {
+  date: PropTypes.instanceOf(Date).isRequired,
+};
 
-  render() {
-    return (
-      <h3>{this.props.date.getDate()}</h3>
-    );
-  }
-}
-
-module.exports = CalendarDate;
+export default CalendarDate;
