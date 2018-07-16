@@ -13,10 +13,6 @@ node_js:
 cache:
   directories: node_modules
 
-env:
-  - API_URL=http://localhost:4000
-  - NODE_ENV=development
-
 script:
   - npm run lint
   - npm run flow
