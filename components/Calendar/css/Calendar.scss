@@ -1,0 +1,136 @@
+@import '../../../public/css/base/_variables';
+
+/**
+ * Calendar.scss
+ *
+ * Provides general calendar styles
+ */
+
+.calendar {
+  background-color: $white;
+  height: 100%;
+  width: 100%;
+
+  h3 {
+    font-size: 13px;
+    color: $text-color-dark-gray;
+    margin: 0 0 5px;
+  }
+
+  td,
+  th  {
+    border-color: $border-color;
+    border-style: solid;
+    border-width: 1px 1px 0 0;
+
+    &:last-child {
+      border-right-width: 0;
+    }
+  }
+
+  th {
+    background-color: $background-color-gray;
+    border-top-width: 0;
+    color: $text-color-dark-gray;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 3px 5px;
+    text-align: left;
+    text-shadow: rgba(255, 255, 255, 1) 0 1px 0;
+  }
+
+  td {
+    vertical-align: top;
+    width: 12.5%;
+    padding: 5px;
+
+    /* Next Month + Previous Month */
+    &.lastMonth h3,
+    &.nextMonth h3 {
+      color: $text-color-light-gray;
+    }
+  }
+
+  .wrapper {
+    height: 100%;
+    margin-bottom: 25px;
+    position: relative;
+  }
+
+  .workout {
+    background-color: $background-color-orange-light;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    color: $text-color-orange;
+    display: block;
+    line-height: 14px;
+    padding: 4px 8px;
+    text-align: right;
+
+    & + .workout {
+      margin-top: 3px;
+    }
+
+    &:hover {
+      background-color: $background-color-orange;
+      text-decoration: none;
+    }
+  }
+
+  .total {
+    bottom: 0;
+    color: $text-color-dark-gray;
+    font-size: 9px;
+    position: absolute;
+    right: 0;
+    text-align: right;
+    text-shadow: rgba(255, 255, 255, 1) 0 1px 0;
+
+    .distance {
+      font-weight: bold;
+      font-size: 13px;
+    }
+  }
+
+  /* Today */
+  .today {
+    background-color: $background-color-blue-light;
+
+    h3,
+    .total {
+      color: $text-color-blue;
+    }
+
+    .workout {
+      background-color: $background-color-blue-light;
+      color: $text-color-blue;
+
+      &:hover {
+        background-color: $background-color-blue;
+      }
+    }
+  }
+
+  .add {
+    bottom: 0;
+    height: 23px;
+    left: 0;
+    line-height: 21px;
+    position: absolute;
+    visibility: hidden;
+    width: 24px;
+  }
+
+  td:hover .add,
+  td:focus .add {
+    visibility: visible;
+  }
+}
+
+/* Tablet & Mobile */
+@media (max-width: 991px) {
+  .calendar .add {
+    visibility: visible;
+  }
+}

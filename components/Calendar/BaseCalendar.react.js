@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import moment from 'moment';
 
-import './css/Calendar.css';
+import './css/Calendar.scss';
 
 const ISO_DAY_OF_WEEK = 'E';
 
@@ -10,23 +10,6 @@ const ISO_DAY_OF_WEEK = 'E';
  * BaseCalendar.react
  */
 class BaseCalendar extends React.Component {
-  static displayName = 'BaseCalendar';
-
-  static propTypes = {
-    borders: PropTypes.bool,
-    headerFormat: PropTypes.oneOf([
-      'd',    // M, T, W...
-      'dd',   // Mo, Tu, We...
-      'ddd',  // Mon, Tue, Wed...
-      'dddd', // Monday, Tuesday, Wednesday...
-    ]),
-  };
-
-  static defaultProps = {
-    borders: true,
-    headerFormat: 'ddd',
-  };
-
   render() {
     return (
       <table className={this.props.className}>
@@ -66,4 +49,19 @@ class BaseCalendar extends React.Component {
   };
 }
 
-module.exports = BaseCalendar;
+BaseCalendar.propTypes = {
+  borders: PropTypes.bool,
+  headerFormat: PropTypes.oneOf([
+    'd',    // M, T, W...
+    'dd',   // Mo, Tu, We...
+    'ddd',  // Mon, Tue, Wed...
+    'dddd', // Monday, Tuesday, Wednesday...
+  ]),
+};
+
+BaseCalendar.defaultProps = {
+  borders: true,
+  headerFormat: 'ddd',
+};
+
+export default BaseCalendar;

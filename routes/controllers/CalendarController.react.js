@@ -115,7 +115,7 @@ class CalendarController extends React.Component {
           pullRight
           title={<MaterialIcon icon="plus" />}>
           <MenuItem onClick={this._showImportModal}>
-            <MaterialIcon icon="cloud-upload" /> Import activity from URL
+            <MaterialIcon icon="cloud-download" /> Import activity from URL
           </MenuItem>
           <MenuItem onClick={this._showAddModal}>
             <MaterialIcon icon="calendar-plus" /> Add manual activity
