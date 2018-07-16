@@ -8,7 +8,7 @@ import FBImage from './FBImage.react';
 const IMG_PX = 32;
 
 import 'react-bootstrap-typeahead/css/Typeahead.css';
-import './css/FBFriendTokenizer.css';
+import './css/FBFriendTokenizer.scss';
 
 /**
  * FriendTokenizer.react
@@ -30,6 +30,7 @@ class FBFriendTokenizer extends React.Component {
 
     return (
       <Typeahead
+        className="fb-friend-tokenizer"
         labelKey="name"
         multiple
         onChange={this._handleChange}

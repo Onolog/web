@@ -26,12 +26,32 @@
   }
 
   .form-control {
-    background-color: $background-color-gray;
-    border: 0;
+    background-color: #fafafa;
+    border-color: $border-color;
     box-shadow: none;
 
     &:focus {
-      background-color: #fafafa;
+      background-color: $white;
+      box-shadow: 0 0 0 3px $background-color-blue;
+      border-color: $border-color-blue;
+    }
+  }
+
+  .has-error .form-control {
+    background-color: $background-color-red-light;
+    border-color: $border-color-red;
+
+    &:focus {
+      box-shadow: 0 0 0 3px $background-color-red;
+    }
+  }
+
+  .has-success .form-control {
+    background-color: $background-color-green-light;
+    border-color: $border-color-green;
+
+    &:focus {
+      box-shadow: 0 0 0 3px $background-color-green;
     }
   }
 }

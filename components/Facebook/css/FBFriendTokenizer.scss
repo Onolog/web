@@ -1,0 +1,25 @@
+@import '../../../public/css/base/variables';
+
+/**
+ * FBFriendTokenizer.scss
+ */
+.fb-friend-tokenizer {
+  .focus {
+    background-color: $white;
+    box-shadow: 0 0 0 3px $background-color-blue;
+    border-color: $border-color-blue;
+  }
+
+  &-item {
+    margin-left: -10px;
+
+    .innerBorder {
+      display: inline-block;
+      margin-right: 10px;
+    }
+
+    &-name {
+      vertical-align: middle;
+    }
+  }
+}
