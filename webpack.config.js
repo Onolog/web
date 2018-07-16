@@ -1,4 +1,5 @@
-const {API_URL, NODE_ENV} = require('dotenv').config().parsed;
+require('dotenv').config();
+
 const path = require('path');
 const webpack = require('webpack');
 
@@ -6,6 +7,8 @@ const ManifestPlugin = require('webpack-manifest-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+
+const {API_URL, NODE_ENV} = process.env;
 
 module.exports = (_, argv) => {
   const PROD = NODE_ENV === 'production';
