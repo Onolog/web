@@ -52,7 +52,10 @@ const getMutableFields = (user) => pick(user, MUTABLE_FIELDS);
 class SettingsController extends React.Component {
   constructor(props) {
     super(props);
-    this.state = props.user;
+    this.state = {
+      ...props.user,
+      errors: {},
+    };
   }
 
   componentWillMount() {
@@ -90,7 +93,7 @@ class SettingsController extends React.Component {
             bsSize="small"
             bsStyle="default"
             disabled={disabled}
-            onClick={() => this.setState(user)}>
+            onClick={() => this.setState({...user, errors: {}})}>
             Revert Changes
           </Button>
           <Button
@@ -171,8 +174,10 @@ class SettingsController extends React.Component {
       }
     });
 
+    // Set errors either way, to clear any that remain.
+    this.setState({errors});
+
     if (!isEmpty(errors)) {
-      this.setState({errors});
       return;
     }
 
