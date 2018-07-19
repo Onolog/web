@@ -1,24 +1,25 @@
 import * as d3 from 'd3';
 import moment from 'moment-timezone';
 import React from 'react';
-import {Panel} from 'react-bootstrap';
+import {OverlayTrigger, Panel, Tooltip} from 'react-bootstrap';
 
 import ActivityChart from '../../components/Data/ActivityChart.react';
 import AppPage from '../../components/Page/AppPage.react';
 import AreaChart from '../../components/Data/AreaChart.react';
 import BarChart from '../../components/Data/BarChart.react';
+import DailyMileageChart from '../../components/Data/DailyMileageChart.react';
 import LineChart from '../../components/Data/LineChart.react';
 import PageHeader from '../../components/Page/PageHeader.react';
 import ScatterChart from '../../components/Data/ScatterChart.react';
 import WeeklyMileageChart from '../../components/Data/WeeklyMileageChart.react';
 
-import {metersToFeet, metersToMiles} from 'utils/distanceUtils';
-import speedToPace from 'utils/speedToPace';
+import {metersToFeet, metersToMiles} from '../../utils/distanceUtils';
+import speedToPace from '../../utils/speedToPace';
 
-import '../components/Data/css/charts.scss';
+import '../../components/Data/css/charts.scss';
 
-import {METRICS} from 'constants/Garmin';
-import {ACTIVITIES, ACTIVITY_METRICS} from 'constants/TestData';
+import {METRICS} from '../../constants/Garmin';
+import {ACTIVITIES, ACTIVITY_METRICS} from '../../constants/TestData';
 
 const HEIGHT = 300;
 
@@ -71,64 +72,94 @@ class ChartController extends React.Component {
     return (
       <AppPage>
         <PageHeader title="Data" />
-        <Panel header={<h3>Month Data</h3>}>
-          <BarChart
-            data={monthData}
-            height={HEIGHT}
-            tooltip={(data) => (`
-              <strong>${moment().month(data.xVal).format('MMMM')}</strong>
-              <div>${data.yVal} Miles</div>
-            `)}
-            xFormat={(m) => moment().month(m).format('MMM')}
-          />
-        </Panel>
-        <Panel header={<h3>Week Data</h3>}>
-          <WeeklyMileageChart
-            data={d3.nest()
-              .key((d) => moment.tz(d.start_date, d.timezone).week())
-              .rollup((values) => d3.sum(values, (v) => v.distance))
-              .entries(activities)
-            }
-            height={200}
-            year={2016}
-          />
+        <Panel>
+          <Panel.Heading>
+            <Panel.Title>Daily Data</Panel.Title>
+          </Panel.Heading>
+          <Panel.Body>
+            <DailyMileageChart
+              activities={activities}
+              height={150}
+              year={(new Date(activities[0].startDate)).getFullYear()}
+            />
+          </Panel.Body>
         </Panel>
         <Panel>
-          <LineChart
-            data={weekData}
-            dots
-            height={HEIGHT}
-            tooltip={(data) => (`
-              <strong>Week ${moment().week(data.xVal).format('w')}</strong>
-              <div>${data.yVal} Miles</div>
-            `)}
-            xFormat={(w) => moment().week(w).format('ww')}
-          />
+          <Panel.Heading>
+            <Panel.Title>Monthly Data</Panel.Title>
+          </Panel.Heading>
+          <Panel.Body>
+            <BarChart
+              data={monthData}
+              height={HEIGHT}
+              tooltip={(data) => (`
+                <strong>${moment().month(data.xVal).format('MMMM')}</strong>
+                <div>${data.yVal} Miles</div>
+              `)}
+              xFormat={(m) => moment().month(m).format('MMM')}
+            />
+          </Panel.Body>
         </Panel>
         <Panel>
-          <AreaChart
-            data={weekData}
-            height={HEIGHT}
-            tooltip={(data) => (`
-              <strong>Week ${moment().week(data.xVal).format('w')}</strong>
-              <div>${data.yVal} Miles</div>
-            `)}
-            xFormat={(w) => moment().week(w).format('ww')}
-          />
+          <Panel.Heading>
+            <Panel.Title>Weekly Data</Panel.Title>
+          </Panel.Heading>
+          <Panel.Body>
+            <WeeklyMileageChart
+              data={d3.nest()
+                .key((d) => moment.tz(d.startDate, d.timezone).week())
+                .rollup((values) => d3.sum(values, (v) => v.distance))
+                .entries(activities)
+              }
+              height={200}
+              year={2016}
+            />
+          </Panel.Body>
         </Panel>
         <Panel>
-          <ScatterChart
-            data={weekData}
-            height={HEIGHT}
-            tooltip={(data) => (`
-              <strong>Week ${moment().week(data.xVal).format('w')}</strong>
-              <div>${data.yVal} Miles</div>
-            `)}
-            xFormat={(w) => moment().week(w).format('ww')}
-          />
+          <Panel.Body>
+            <LineChart
+              data={weekData}
+              dots
+              height={HEIGHT}
+              tooltip={(data) => (`
+                <strong>Week ${moment().week(data.xVal).format('w')}</strong>
+                <div>${data.yVal} Miles</div>
+              `)}
+              xFormat={(w) => moment().week(w).format('ww')}
+            />
+          </Panel.Body>
         </Panel>
         <Panel>
-          <ActivityChart data={activityData} />
+          <Panel.Body>
+            <AreaChart
+              data={weekData}
+              height={HEIGHT}
+              tooltip={(data) => (`
+                <strong>Week ${moment().week(data.xVal).format('w')}</strong>
+                <div>${data.yVal} Miles</div>
+              `)}
+              xFormat={(w) => moment().week(w).format('ww')}
+            />
+          </Panel.Body>
+        </Panel>
+        <Panel>
+          <Panel.Body>
+            <ScatterChart
+              data={weekData}
+              height={HEIGHT}
+              tooltip={(data) => (`
+                <strong>Week ${moment().week(data.xVal).format('w')}</strong>
+                <div>${data.yVal} Miles</div>
+              `)}
+              xFormat={(w) => moment().week(w).format('ww')}
+            />
+          </Panel.Body>
+        </Panel>
+        <Panel>
+          <Panel.Body>
+            <ActivityChart data={activityData} />
+          </Panel.Body>
         </Panel>
       </AppPage>
     );

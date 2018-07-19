@@ -4,8 +4,8 @@ import {Axis, Chart, Circle, Circles, Line} from 'r-d3';
 import {getInnerHeight, getInnerWidth, translate} from 'r-d3/lib/utils';
 import React from 'react';
 
-import d3Tooltip from '../../d3Tooltip';
-import fullWidthChart from '../../fullWidthChart';
+import d3Tooltip from '../../containers/d3Tooltip';
+import fullWidthChart from '../../containers/fullWidthChart';
 
 const TooltipCircle = d3Tooltip(Circle);
 

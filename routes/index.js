@@ -1,5 +1,6 @@
 import Activity from './controllers/ActivityController.react';
 import Calendar from './controllers/CalendarController.react';
+import Chart from './controllers/ChartController.react';
 import Data from './controllers/DataController.react';
 import Friends from './controllers/FriendsController.react';
 import Garmin from './controllers/GarminController.react';
@@ -48,11 +49,11 @@ export default [
     component: Settings,
     exact: true,
   },
-  // {
-  //   path: '/chart',
-  //   component: Chart,
-  //   exact: true,
-  // },
+  {
+    path: '/chart',
+    component: Chart,
+    exact: true,
+  },
   {
     path: '/garmin',
     component: Garmin,
