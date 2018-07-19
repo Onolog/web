@@ -1,18 +1,19 @@
 import * as d3 from 'd3';
 import moment from 'moment-timezone';
 import PropTypes from 'prop-types';
-import {Axis, Bar, Bars, Chart} from 'r-d3';
+import {Axis, Bar, Bars} from 'r-d3';
 import {getInnerHeight, getInnerWidth, translate} from 'r-d3/lib/utils';
 import React from 'react';
 import {OverlayTrigger, Tooltip} from 'react-bootstrap';
 
+import Chart from './Chart.react';
 import Distance from '../Distance/Distance.react';
 import fluidChart from '../../containers/fluidChart';
 import {MARGIN} from '../../constants/d3';
 
 class WeeklyMileageChart extends React.Component {
   render() {
-    const {activities, height, width, year} = this.props;
+    const {activities, height, width, year, ...props} = this.props;
 
     // Transform data for consumption.
     const data = d3.nest()
@@ -36,10 +37,7 @@ class WeeklyMileageChart extends React.Component {
       .range([innerHeight, 0]);
 
     return (
-      <Chart
-        height={height}
-        transform={translate(MARGIN.left, MARGIN.top)}
-        width={width}>
+      <Chart {...props} transform={translate(MARGIN.left, MARGIN.top)}>
         <Axis
           className="x-axis"
           orient="bottom"

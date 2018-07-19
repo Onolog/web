@@ -1,28 +1,45 @@
+import {ResizeSensor} from 'css-element-queries';
 import React from 'react';
 import {findDOMNode} from 'react-dom';
+
+// Subtracts the padding from the element.
+function getInnerWidth(node) {
+  const style = getComputedStyle(node);
+
+  const width = node.clientWidth; // width with padding
+  const padding =
+    parseFloat(style.paddingLeft) + parseFloat(style.paddingRight);
+
+  return width - padding;
+}
 
 export default function fluidChart(Component) {
   class WrappedChart extends React.Component {
     state = {
-      width: this.props.width || 400,
+      width: this.props.width || 0,
     };
 
     componentDidMount() {
-      this._setWidth();
-      window.addEventListener('resize', this._setWidth);
-    }
+      const {parentNode} = findDOMNode(this);
 
-    componentWillUnmount() {
-      window.removeEventListener('resize', this._setWidth);
+      // Detect if the parent node's width has changed and adjust accordingly.
+      new ResizeSensor(parentNode, () => this._setWidth(parentNode));
+      this._setWidth(parentNode);
     }
 
     render() {
-      return <Component {...this.props} {...this.state} />;
+      return (
+        <Component
+          {...this.props}
+          {...this.state}
+          preserveAspectRatio="none"
+          viewBox={`0 0 ${this.state.width} ${this.props.height}`}
+        />
+      );
     }
 
-    _setWidth = () => {
-      const width = findDOMNode(this).parentNode.offsetWidth;
-      this.setState({width});
+    _setWidth = (parentNode) => {
+      this.setState({width: getInnerWidth(parentNode)});
     }
   }
 

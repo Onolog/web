@@ -1,9 +1,10 @@
 import * as d3 from 'd3';
 import PropTypes from 'prop-types';
-import {Area, Axis, Chart, MouseTracker} from 'r-d3/lib';
+import {Area, Axis, MouseTracker} from 'r-d3/lib';
 import {getInnerHeight, getInnerWidth, translate} from 'r-d3/lib/utils';
 import React from 'react';
 
+import Chart from './Chart.react';
 import MouseIndicator from './MouseIndicator.react';
 
 import fluidChart from '../../containers/fluidChart';
@@ -18,6 +19,8 @@ class ElevationChart extends React.Component {
       data,
       height,
       mousePos,
+      preserveAspectRatio,
+      viewBox,
       width,
       ...otherProps
     } = this.props;
@@ -40,9 +43,9 @@ class ElevationChart extends React.Component {
     return (
       <Chart
         className={className}
-        height={height}
+        preserveAspectRatio={preserveAspectRatio}
         transform={translate(MARGIN.left, MARGIN.top)}
-        width={width}>
+        viewBox={viewBox}>
         <Axis
           className="x-axis"
           orient="bottom"

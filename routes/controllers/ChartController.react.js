@@ -2,9 +2,10 @@ import React from 'react';
 import {Panel} from 'react-bootstrap';
 
 import ActivityChart from '../../components/Data/ActivityChart.react';
-import AppPage from '../../components/Page/AppPage.react';
+import AppFullPage from '../../components/Page/AppFullPage.react';
 import DailyMileageChart from '../../components/Data/DailyMileageChart.react';
 import MonthlyMileageChart from '../../components/Data/MonthlyMileageChart.react';
+import PageFrame from '../../components/Page/PageFrame.react';
 import PageHeader from '../../components/Page/PageHeader.react';
 import WeeklyMileageChart from '../../components/Data/WeeklyMileageChart.react';
 
@@ -48,50 +49,52 @@ const year = (new Date(activities[0].startDate)).getFullYear();
 class ChartController extends React.Component {
   render() {
     return (
-      <AppPage>
-        <PageHeader title="Data" />
-        <Panel>
-          <Panel.Heading>
-            <Panel.Title>Daily Data</Panel.Title>
-          </Panel.Heading>
-          <Panel.Body>
-            <DailyMileageChart
-              activities={activities}
-              height={150}
-              year={year}
-            />
-          </Panel.Body>
-        </Panel>
-        <Panel>
-          <Panel.Heading>
-            <Panel.Title>Monthly Data</Panel.Title>
-          </Panel.Heading>
-          <Panel.Body>
-            <MonthlyMileageChart
-              activities={activities}
-              height={HEIGHT}
-              year={year}
-            />
-          </Panel.Body>
-        </Panel>
-        <Panel>
-          <Panel.Heading>
-            <Panel.Title>Weekly Data</Panel.Title>
-          </Panel.Heading>
-          <Panel.Body>
-            <WeeklyMileageChart
-              activities={activities}
-              height={HEIGHT}
-              year={year}
-            />
-          </Panel.Body>
-        </Panel>
-        <Panel>
-          <Panel.Body>
-            <ActivityChart data={activityData} />
-          </Panel.Body>
-        </Panel>
-      </AppPage>
+      <AppFullPage>
+        <PageHeader full title="Data" />
+        <PageFrame fill scroll>
+          <Panel>
+            <Panel.Heading>
+              <Panel.Title>Daily Data</Panel.Title>
+            </Panel.Heading>
+            <Panel.Body>
+              <DailyMileageChart
+                activities={activities}
+                height={150}
+                year={year}
+              />
+            </Panel.Body>
+          </Panel>
+          <Panel>
+            <Panel.Heading>
+              <Panel.Title>Monthly Data</Panel.Title>
+            </Panel.Heading>
+            <Panel.Body>
+              <MonthlyMileageChart
+                activities={activities}
+                height={HEIGHT}
+                year={year}
+              />
+            </Panel.Body>
+          </Panel>
+          <Panel>
+            <Panel.Heading>
+              <Panel.Title>Weekly Data</Panel.Title>
+            </Panel.Heading>
+            <Panel.Body>
+              <WeeklyMileageChart
+                activities={activities}
+                height={HEIGHT}
+                year={year}
+              />
+            </Panel.Body>
+          </Panel>
+          <Panel>
+            <Panel.Body>
+              <ActivityChart data={activityData} />
+            </Panel.Body>
+          </Panel>
+        </PageFrame>
+      </AppFullPage>
     );
   }
 }

@@ -1,9 +1,10 @@
 import * as d3 from 'd3';
 import PropTypes from 'prop-types';
-import {Axis, Chart, Line, MouseTracker} from 'r-d3/lib';
+import {Axis, Line, MouseTracker} from 'r-d3/lib';
 import {getInnerHeight, getInnerWidth, translate} from 'r-d3/lib/utils';
 import React from 'react';
 
+import Chart from './Chart.react';
 import MouseIndicator from './MouseIndicator.react';
 
 import fluidChart from '../../containers/fluidChart';
@@ -18,6 +19,8 @@ class VitalsChart extends React.Component {
       invert,
       metric,
       mousePos,
+      preserveAspectRatio,
+      viewBox,
       width,
       yFormat,
       ...otherProps
@@ -47,9 +50,9 @@ class VitalsChart extends React.Component {
     return (
       <Chart
         className={className}
-        height={height}
+        preserveAspectRatio={preserveAspectRatio}
         transform={translate(MARGIN.left, MARGIN.top)}
-        width={width}>
+        viewBox={viewBox}>
         <Axis
           className="y-axis"
           orient="left"

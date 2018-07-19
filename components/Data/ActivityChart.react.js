@@ -47,6 +47,7 @@ class ActivityChart extends React.Component {
           <VitalsChart
             {...commonProps}
             className="pace-chart"
+            height={80}
             invert
             metric="pace"
             yFormat={secondsToTime}
@@ -54,6 +55,7 @@ class ActivityChart extends React.Component {
           <VitalsChart
             {...commonProps}
             className="hr-chart"
+            height={80}
             metric="hr"
             yFormat={(y) => y}
           />
