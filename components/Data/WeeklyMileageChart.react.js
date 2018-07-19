@@ -4,14 +4,11 @@ import PropTypes from 'prop-types';
 import {Axis, Bar, Bars, Chart} from 'r-d3';
 import {getInnerHeight, getInnerWidth, translate} from 'r-d3/lib/utils';
 import React from 'react';
+import {OverlayTrigger, Tooltip} from 'react-bootstrap';
 
-import d3Tooltip from '../../containers/d3Tooltip';
+import Distance from '../Distance/Distance.react';
 import fullWidthChart from '../../containers/fullWidthChart';
-import formatDistance from '../../utils/formatDistance';
-
 import {MARGIN} from '../../constants/d3';
-
-const TooltipBar = d3Tooltip(Bar);
 
 class WeeklyMileageChart extends React.Component {
 
@@ -71,21 +68,28 @@ class WeeklyMileageChart extends React.Component {
     const m = moment().year(year).week(d.key).day(0);
     const weeksInYear = m.weeksInYear();
 
-    const tooltip = `
-      ${m.format('MMM D')} &ndash; ${m.add(6, 'days').format('MMM D')}
-      <div>${formatDistance(d.value)} miles</div>
-    `;
-
     return (
-      <TooltipBar
-        data={d}
-        height={getInnerHeight(height) - yScale(d.value)}
+      <OverlayTrigger
         key={d.key}
-        tooltip={tooltip}
-        width={getInnerWidth(width) / weeksInYear - 2}
-        x={xScale(m.toDate()) - 22}
-        y={yScale(d.value)}
-      />
+        overlay={
+          <Tooltip id={d.key}>
+            <strong>
+              {m.format('MMM D')} &ndash; {m.add(6, 'days').format('MMM D')}
+            </strong>
+            <div>
+              <Distance distance={d.value} />
+            </div>
+          </Tooltip>
+        }
+        placement="top">
+        <Bar
+          data={d}
+          height={getInnerHeight(height) - yScale(d.value)}
+          width={getInnerWidth(width) / weeksInYear - 2}
+          x={xScale(m.toDate()) - 22}
+          y={yScale(d.value)}
+        />
+      </OverlayTrigger>
     );
   };
 }

@@ -2,7 +2,7 @@ import * as d3 from 'd3';
 import {map} from 'lodash';
 import moment from 'moment-timezone';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, {Fragment} from 'react';
 import {Button, ButtonGroup, ListGroup, ListGroupItem, Panel} from 'react-bootstrap';
 
 import BarChart from './BarChart.react';
@@ -59,10 +59,16 @@ class ProfileYearPanel extends React.Component {
     switch (this.state.selectedGraph) {
       case MONTHLY:
         groupedActivities = groupActivities.byMonth(activities);
-        tooltip = (data) => (`
-          ${moment().month(data.xVal).year(year).format('MMMM YYYY')}
-          <div>${data.yVal} miles</div>
-        `);
+        tooltip = (data) => (
+          <Fragment>
+            <strong>
+              {moment().month(data.xVal).year(year).format('MMMM YYYY')}
+            </strong>
+            <div>
+              <Distance distance={data.yVal} />
+            </div>
+          </Fragment>
+        );
         xFormat = (m) => moment().month(m).format('MMM');
         break;
       case WEEKLY:

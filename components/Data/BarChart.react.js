@@ -3,13 +3,10 @@ import PropTypes from 'prop-types';
 import {Axis, Bar, Bars, Chart} from 'r-d3';
 import {getInnerHeight, getInnerWidth, translate} from 'r-d3/lib/utils';
 import React from 'react';
+import {OverlayTrigger, Tooltip} from 'react-bootstrap';
 
-import d3Tooltip from '../../containers/d3Tooltip';
 import fullWidthChart from '../../containers/fullWidthChart';
-
 import {MARGIN} from '../../constants/d3';
-
-const TooltipBar = d3Tooltip(Bar);
 
 const xScale = (data, width) => {
   return d3.scaleBand()
@@ -25,14 +22,6 @@ const yScale = (data, height) => {
 };
 
 class BarChart extends React.Component {
-  static propTypes = {
-    data: PropTypes.array.isRequired,
-    height: PropTypes.number.isRequired,
-    tooltip: PropTypes.func,
-    width: PropTypes.number,
-    xFormat: PropTypes.func,
-  };
-
   render() {
     const {data, height, width, xFormat} = this.props;
 
@@ -72,17 +61,33 @@ class BarChart extends React.Component {
     const y = yScale(data, height);
 
     return (
-      <TooltipBar
-        data={d}
-        height={getInnerHeight(height) - y(d.yVal)}
-        key={idx}
-        tooltip={tooltip && tooltip(d)}
-        width={getInnerWidth(width) / data.length - 2}
-        x={x(d.xVal)}
-        y={y(d.yVal)}
-      />
+      <OverlayTrigger
+        key={d.xVal}
+        overlay={
+          <Tooltip id={d.xVal}>
+            {tooltip(d)}
+          </Tooltip>
+        }
+        placement="top">
+        <Bar
+          data={d}
+          height={getInnerHeight(height) - y(d.yVal)}
+          key={idx}
+          width={getInnerWidth(width) / data.length - 2}
+          x={x(d.xVal)}
+          y={y(d.yVal)}
+        />
+      </OverlayTrigger>
     );
   };
 }
+
+BarChart.propTypes = {
+  data: PropTypes.array.isRequired,
+  height: PropTypes.number.isRequired,
+  tooltip: PropTypes.func,
+  width: PropTypes.number,
+  xFormat: PropTypes.func,
+};
 
 export default fullWidthChart(BarChart);
