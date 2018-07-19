@@ -6,7 +6,7 @@ import React from 'react';
 
 import MouseIndicator from './MouseIndicator.react';
 
-import fullWidthChart from '../../containers/fullWidthChart';
+import fluidChart from '../../containers/fluidChart';
 import {MARGIN} from '../../constants/d3';
 
 class VitalsChart extends React.Component {
@@ -110,4 +110,4 @@ VitalsChart.defaultProps = {
   invert: false,
 };
 
-export default fullWidthChart(VitalsChart);
+export default fluidChart(VitalsChart);

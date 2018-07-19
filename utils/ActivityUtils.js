@@ -19,7 +19,7 @@ type TimeUnit = 'year' | 'month' | 'week' | 'dayOfYear';
  */
 export function getGroupingInfo(activities: Activities): Object {
   return {
-    activity_count: activities.length,
+    activityCount: activities.length,
     distance: getAggregateDistance(activities),
     duration: getAggregateDuration(activities),
   };

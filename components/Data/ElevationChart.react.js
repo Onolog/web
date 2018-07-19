@@ -6,7 +6,7 @@ import React from 'react';
 
 import MouseIndicator from './MouseIndicator.react';
 
-import fullWidthChart from '../../containers/fullWidthChart';
+import fluidChart from '../../containers/fluidChart';
 
 import {MARGIN} from '../../constants/d3';
 const Y_TICKS = 3;
@@ -94,4 +94,4 @@ ElevationChart.propTypes = {
   width: PropTypes.number.isRequired,
 };
 
-export default fullWidthChart(ElevationChart);
+export default fluidChart(ElevationChart);

@@ -1,7 +1,7 @@
 import React from 'react';
 import {findDOMNode} from 'react-dom';
 
-export default function fullWidthChart(Component) {
+export default function fluidChart(Component) {
   class WrappedChart extends React.Component {
     state = {
       width: this.props.width || 400,

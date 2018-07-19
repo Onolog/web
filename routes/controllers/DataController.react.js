@@ -98,7 +98,7 @@ class DataController extends React.Component {
         <DataYearPanel
           activities={activitiesByYear[year]}
           key={year}
-          year={year}
+          year={+year}
         />
       );
     });

@@ -1,4 +1,5 @@
 import * as d3 from 'd3';
+import {range} from 'lodash';
 import moment from 'moment-timezone';
 import PropTypes from 'prop-types';
 import {Axis, Bar, Bars, Chart} from 'r-d3';
@@ -10,30 +11,29 @@ import Distance from '../Distance/Distance.react';
 import fluidChart from '../../containers/fluidChart';
 import {MARGIN} from '../../constants/d3';
 
-class WeeklyMileageChart extends React.Component {
+const MONTHS_IN_YEAR = 12;
+
+class MonthlyMileageChart extends React.Component {
   render() {
-    const {activities, height, width, year} = this.props;
+    const {activities, height, width} = this.props;
 
     // Transform data for consumption.
     const data = d3.nest()
-      .key((a) => moment.tz(a.startDate, a.timezone).week())
+      .key((a) => moment.tz(a.startDate, a.timezone).month())
       .rollup((activities) => d3.sum(activities, (a) => a.distance))
       .entries(activities);
 
     const innerHeight = getInnerHeight(height);
     const innerWidth = getInnerWidth(width);
 
-    const m = moment().year(year).startOf('year');
-    const startDate = m.clone().week(1).day(0).toDate();
-    const endDate = m.clone().week(m.weeksInYear() + 1).day(6).toDate();
-
-    const xScale = d3.scaleTime()
-      .domain([startDate, endDate])
-      .range([0, innerWidth]);
+    const xScale = d3.scaleBand()
+      .domain(range(MONTHS_IN_YEAR))
+      .rangeRound([0, innerWidth])
+      .padding(0.1);
 
     const yScale = d3.scaleLinear()
       .domain([0, d3.max(data, (d) => d.value)])
-      .range([innerHeight, 0]);
+      .rangeRound([innerHeight, 0]);
 
     return (
       <Chart
@@ -44,8 +44,8 @@ class WeeklyMileageChart extends React.Component {
           className="x-axis"
           orient="bottom"
           scale={xScale}
-          tickFormat={(date) => moment(date).format('MMM')}
-          ticks={12}
+          tickFormat={(month) => moment().month(month).format('MMM')}
+          ticks={MONTHS_IN_YEAR}
           transform={translate(0, innerHeight)}
         />
         <Axis
@@ -69,37 +69,36 @@ class WeeklyMileageChart extends React.Component {
   _renderBar = (d, xScale, yScale) => {
     const {height, width, year} = this.props;
 
-    // First day of the nth week for the given year.
-    const m = moment().year(year).week(d.key).day(0);
-    const weeksInYear = m.weeksInYear();
+    const distance = d.value;
+    const month = d.key;
 
     return (
       <OverlayTrigger
-        key={`${year}-${d.key}`}
+        key={month}
         overlay={
-          <Tooltip id={d.key}>
+          <Tooltip id={`${year}-${month}`}>
             <strong>
-              {m.format('MMM D')} &ndash; {m.add(6, 'days').format('MMM D')}
+              {moment().month(month).year(year).format('MMMM YYYY')}
             </strong>
             <div>
-              <Distance distance={d.value} />
+              <Distance distance={distance} />
             </div>
           </Tooltip>
         }
         placement="top">
         <Bar
           data={d}
-          height={getInnerHeight(height) - yScale(d.value)}
-          width={getInnerWidth(width) / weeksInYear - 2}
-          x={xScale(m.toDate()) - 22}
-          y={yScale(d.value)}
+          height={getInnerHeight(height) - yScale(distance)}
+          width={getInnerWidth(width) / MONTHS_IN_YEAR - 2}
+          x={xScale(month)}
+          y={yScale(distance)}
         />
       </OverlayTrigger>
     );
   };
 }
 
-WeeklyMileageChart.propTypes = {
+MonthlyMileageChart.propTypes = {
   activities: PropTypes.arrayOf(PropTypes.shape({
     distance: PropTypes.string.isRequired,
     startDate: PropTypes.string.isRequired,
@@ -110,4 +109,4 @@ WeeklyMileageChart.propTypes = {
   year: PropTypes.number.isRequired,
 };
 
-export default fluidChart(WeeklyMileageChart);
+export default fluidChart(MonthlyMileageChart);

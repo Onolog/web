@@ -109,7 +109,7 @@ class DailyMileageChart extends React.Component {
         overlay={
           <Tooltip>
             <strong>{m.format('ddd, MMMM Do YYYY')}</strong>
-            <br/>
+            <br />
             <Distance distance={distance} />
           </Tooltip>
         }
