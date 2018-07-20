@@ -42,12 +42,10 @@ class ActivityFromUrlForm extends React.Component {
     return (
       <AppForm>
         <FormGroup validationState={error ? 'error' : null}>
-          <ControlLabel>
-            Enter a Garmin Activity URL
-          </ControlLabel>
           <FormControl
             autoFocus
             onChange={this._handleUrlChange}
+            placeholder="Enter a Garmin activity URL..."
             type="text"
           />
           {error && <HelpBlock>{error}</HelpBlock>}
