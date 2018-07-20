@@ -20,15 +20,18 @@ import requestCompleted from '../../utils/requestCompleted';
 import ActionTypes from '../../constants/ActionTypes';
 import {LEFT, RIGHT} from '../../constants/KeyCode';
 
+// When fetching activities, add a week's worth of buffer on either side, since
+// those dates may be displayed in the calendar view.
 const getDateRange = (m) => {
   const start = m
     .clone()
+    .startOf('month')
     .subtract(7, 'days')
     .toISOString(true);
 
   const end = m
     .clone()
-    .add(1, 'month')
+    .endOf('month')
     .add(7, 'days')
     .toISOString(true);
 

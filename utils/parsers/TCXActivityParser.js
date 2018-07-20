@@ -1,8 +1,7 @@
 import {flatten, forEach, head, map, max, reduce} from 'lodash';
 
 import XMLParser from './XMLParser';
-import {TCX_SCHEMA_TAGS} from '../../constants/Garmin';
-const TAGS = TCX_SCHEMA_TAGS;
+import {TCX_SCHEMA_TAGS as TAGS} from '../../constants/Garmin';
 
 /**
  * TCXActivityParser
