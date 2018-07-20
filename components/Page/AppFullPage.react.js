@@ -91,10 +91,10 @@ AppFullPage.propTypes = {
   }).isRequired,
 };
 
-const mapStateToProps = ({navigation, session}) => {
+const mapStateToProps = ({session, ui}) => {
   return {
     session,
-    open: !!(navigation && navigation.sideNavOpen),
+    open: !!ui.sideNavOpen,
   };
 };
 

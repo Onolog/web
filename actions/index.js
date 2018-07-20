@@ -37,7 +37,7 @@ export const initializeSession = (session: Object) => ({
 
 export function toggleSideNav(): Function {
   return (dispatch: Function, getState: Function) => {
-    const sideNavOpen = !getState().navigation.sideNavOpen;
+    const sideNavOpen = !getState().ui.sideNavOpen;
     localStorage && localStorage.setItem('sideNavOpen', sideNavOpen);
     dispatch({
       data: {sideNavOpen},
