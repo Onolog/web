@@ -4,10 +4,10 @@ import React from 'react';
 import {Panel} from 'react-bootstrap';
 import {connect} from 'react-redux';
 
-import AppPage from '../../components/Page/AppPage.react';
+import AppFullPage from '../../components/Page/AppFullPage.react';
 import Distance from '../../components/Distance/Distance.react';
 import EmptyState from '../../components/EmptyState.react';
-import Loader from '../../components/Loader/Loader.react';
+import PageFrame from '../../components/Page/PageFrame.react';
 import PageHeader from '../../components/Page/PageHeader.react';
 import DataYearPanel from '../../components/Data/DataYearPanel.react';
 import Topline from '../../components/Topline/Topline.react';
@@ -36,18 +36,20 @@ class DataController extends React.Component {
       pendingRequests[ActionTypes.USER_FETCH]
     ) {
       return (
-        <AppPage>
-          <Loader />
-        </AppPage>
+        <AppFullPage>
+          <PageFrame isLoading />
+        </AppFullPage>
       );
     }
 
     return (
-      <AppPage className="profile" title="Your Activity">
-        <PageHeader title={user.name} />
-        {this._renderToplineStats()}
-        {this._renderContent()}
-      </AppPage>
+      <AppFullPage className="profile" title="Your Activity">
+        <PageHeader full title={user.name} />
+        <PageFrame scroll>
+          {this._renderToplineStats()}
+          {this._renderContent()}
+        </PageFrame>
+      </AppFullPage>
     );
   }
 
