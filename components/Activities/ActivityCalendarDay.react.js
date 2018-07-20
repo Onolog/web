@@ -1,13 +1,15 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import {Button, OverlayTrigger, Tooltip} from 'react-bootstrap';
+import {connect} from 'react-redux';
 
 import ActivityLink from './ActivityLink.react';
-import ActivityModal from './ActivityModal.react';
 import BaseCalendarDay from '../Calendar/BaseCalendarDay.react';
 import CalendarDate from '../Calendar/CalendarDate.react';
 import Distance from '../Distance/Distance.react';
 import MaterialIcon from '../Icons/MaterialIcon.react';
+
+import {showActivityModal} from '../../actions';
 
 const LAST_DAY_OF_WEEK = 6; // Saturday (Sunday is 0)
 
@@ -43,15 +45,10 @@ class ActivityCalendarDay extends React.Component {
               bsSize="xsmall"
               bsStyle="default"
               className="add"
-              onClick={this._showModal}>
+              onClick={() => this.props.showActivityModal({date})}>
               <MaterialIcon icon="plus" />
             </Button>
           </OverlayTrigger>
-          <ActivityModal
-            date={date}
-            onHide={this._hideModal}
-            show={this.state.showModal}
-          />
           {this._renderWeeklyTotal(date)}
         </div>
       </BaseCalendarDay>
@@ -79,14 +76,6 @@ class ActivityCalendarDay extends React.Component {
       );
     }
   }
-
-  _hideModal = () => {
-    this.setState({showModal: false});
-  }
-
-  _showModal = () => {
-    this.setState({showModal: true});
-  }
 }
 
 ActivityCalendarDay.propTypes = {
@@ -105,4 +94,8 @@ ActivityCalendarDay.propTypes = {
   weeklyMileage: PropTypes.number,
 };
 
-export default ActivityCalendarDay;
+const mapDispatchToProps = (dispatch) => ({
+  showActivityModal: (date) => dispatch(showActivityModal(date)),
+});
+
+export default connect(null, mapDispatchToProps)(ActivityCalendarDay);

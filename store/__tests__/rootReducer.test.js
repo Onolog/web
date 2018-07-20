@@ -11,10 +11,10 @@ describe('rootReducer', () => {
       'activities',
       'brands',
       'garminActivity',
-      'navigation',
       'pendingRequests',
       'session',
       'shoes',
+      'ui',
       'user',
     ]);
   });

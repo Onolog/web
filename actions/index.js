@@ -46,9 +46,15 @@ export function toggleSideNav(): Function {
   };
 }
 
+export function showActivityModal(data: ?any): Function {
+  return (dispatch: Function) => dispatch({
+    data,
+    type: ActionTypes.ACTIVITY_MODAL_SHOW,
+  });
+}
+
 export function hideActivityModal(): Function {
   return (dispatch: Function) => dispatch({
     type: ActionTypes.ACTIVITY_MODAL_HIDE,
   });
 }
-

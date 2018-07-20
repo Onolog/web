@@ -1,7 +1,7 @@
 import {isEmpty} from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {ControlLabel, FormControl, FormGroup, HelpBlock} from 'react-bootstrap';
+import {FormControl, FormGroup, HelpBlock} from 'react-bootstrap';
 import {connect} from 'react-redux';
 
 import ActivityForm from './ActivityForm.react';

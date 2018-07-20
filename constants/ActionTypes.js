@@ -21,6 +21,7 @@ const ActionTypes = [
   'USER_UPDATE',
 
   // UI/App
+  'ACTIVITY_MODAL_SHOW',
   'ACTIVITY_MODAL_HIDE',
   'ERROR_CLEAR',
   'NAV_TOGGLE',

@@ -13,7 +13,7 @@ import MaterialIcon from '../../components/Icons/MaterialIcon.react';
 import PageFrame from '../../components/Page/PageFrame.react';
 import PageHeader from '../../components/Page/PageHeader.react';
 
-import {makeRequest} from '../../actions';
+import {hideActivityModal, makeRequest, showActivityModal} from '../../actions';
 import isBrowser from '../../utils/isBrowser';
 import requestCompleted from '../../utils/requestCompleted';
 
@@ -66,7 +66,8 @@ class CalendarController extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (requestCompleted(this.props, nextProps, ActionTypes.ACTIVITY_CREATE)) {
-      this._hideModal();
+      this.setState({showImportModal: false});
+      this.props.hideActivityModal();
     }
   }
 
@@ -105,6 +106,15 @@ class CalendarController extends React.Component {
   }
 
   _renderButtonGroup = () => {
+    const {date, initialActivity, show} = this.props.activityModal;
+    const activityModal = show &&
+      <ActivityModal
+        date={date}
+        initialActivity={initialActivity}
+        onHide={this.props.hideActivityModal}
+        show={show}
+      />;
+
     return (
       <div>
         <DropdownButton
@@ -117,7 +127,7 @@ class CalendarController extends React.Component {
           <MenuItem onClick={this._showImportModal}>
             <MaterialIcon icon="cloud-download" /> Import activity from URL
           </MenuItem>
-          <MenuItem onClick={this._showAddModal}>
+          <MenuItem onClick={this.props.showActivityModal}>
             <MaterialIcon icon="calendar-plus" /> Add manual activity
           </MenuItem>
         </DropdownButton>
@@ -136,32 +146,22 @@ class CalendarController extends React.Component {
             <MaterialIcon icon="arrow-right" />
           </Button>
         </ButtonGroup>
-        <ActivityModal
-          onHide={this._hideModal}
-          show={this.state.showAddModal}
-        />
+        {activityModal}
         <ActivityImportModal
-          onHide={this._hideModal}
+          onHide={() => this.setState({showImportModal: false})}
           show={this.state.showImportModal}
         />
       </div>
     );
-  };
-
-  _hideModal = () => {
-    this.setState({
-      showAddModal: false,
-      showImportModal: false,
-    });
-  };
+  }
 
   _showAddModal = () => {
     this.setState({showAddModal: true});
-  };
+  }
 
   _showImportModal = () => {
     this.setState({showImportModal: true});
-  };
+  }
 
   _onKeyDown = (e) => {
     const tagName = e.target.tagName.toLowerCase();
@@ -194,15 +194,15 @@ class CalendarController extends React.Component {
     this._updateCalendar(
       getMoment(this.props.match.params).subtract({months: 1})
     );
-  };
+  }
 
   _onThisMonthClick = () => {
     this._updateCalendar(moment());
-  };
+  }
 
   _onNextMonthClick = () => {
     this._updateCalendar(getMoment(this.props.match.params).add({months: 1}));
-  };
+  }
 
   _updateCalendar = (newMoment) => {
     const {fetchData, history, match, user} = this.props;
@@ -215,7 +215,7 @@ class CalendarController extends React.Component {
     history.push(newMoment.format('/YYYY/MM'));
 
     fetchData(getDateRange(newMoment), user.id);
-  };
+  }
 }
 
 CalendarController.propTypes = {
@@ -226,13 +226,12 @@ CalendarController.propTypes = {
   }).isRequired,
 };
 
-const mapStateToProps = ({activities, pendingRequests, session}) => {
-  return {
-    activities,
-    pendingRequests,
-    user: session.user,
-  };
-};
+const mapStateToProps = ({activities, pendingRequests, session, ui}) => ({
+  activities,
+  activityModal: ui.activityModal || {},
+  pendingRequests,
+  user: session.user,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   fetchData: (range, userId) => dispatch(makeRequest(`
@@ -247,6 +246,8 @@ const mapDispatchToProps = (dispatch) => ({
       },
     }
   `, {range, userId}, ActionTypes.ACTIVITIES_FETCH)),
+  hideActivityModal: () => dispatch(hideActivityModal()),
+  showActivityModal: () => dispatch(showActivityModal()),
 });
 
 module.exports = connect(
