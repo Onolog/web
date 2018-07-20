@@ -65,11 +65,13 @@ class WeeklyMileageChart extends React.Component {
   }
 
   _renderBar = (d, xScale, yScale) => {
-    const {height, width, year} = this.props;
+    const {height, year} = this.props;
 
     // First day of the nth week for the given year.
     const m = moment().year(year).week(d.key).day(0);
     const weeksInYear = m.weeksInYear();
+
+    const width = getInnerWidth(this.props.width) / weeksInYear - 2;
 
     return (
       <OverlayTrigger
@@ -88,7 +90,7 @@ class WeeklyMileageChart extends React.Component {
         <Bar
           data={d}
           height={getInnerHeight(height) - yScale(d.value)}
-          width={getInnerWidth(width) / weeksInYear - 2}
+          width={width >= 0 ? width : 0}
           x={xScale(m.toDate()) - 22}
           y={yScale(d.value)}
         />

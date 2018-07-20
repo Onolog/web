@@ -65,10 +65,12 @@ class MonthlyMileageChart extends React.Component {
   }
 
   _renderBar = (d, xScale, yScale) => {
-    const {height, width, year} = this.props;
+    const {height, year} = this.props;
 
     const distance = d.value;
     const month = d.key;
+
+    const width = getInnerWidth(this.props.width) / MONTHS_IN_YEAR - 2;
 
     return (
       <OverlayTrigger
@@ -87,7 +89,7 @@ class MonthlyMileageChart extends React.Component {
         <Bar
           data={d}
           height={getInnerHeight(height) - yScale(distance)}
-          width={getInnerWidth(width) / MONTHS_IN_YEAR - 2}
+          width={width >= 0 ? width : 0}
           x={xScale(month)}
           y={yScale(distance)}
         />

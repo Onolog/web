@@ -23,8 +23,12 @@ export default function fluidChart(Component) {
       const {parentNode} = findDOMNode(this);
 
       // Detect if the parent node's width has changed and adjust accordingly.
-      new ResizeSensor(parentNode, () => this._setWidth(parentNode));
-      this._setWidth(parentNode);
+      this._sensor = new ResizeSensor(parentNode, this._setWidth);
+      this._setWidth();
+    }
+
+    componentWillUnmount() {
+      this._sensor.detach(findDOMNode(this).parentNode, this._setWidth);
     }
 
     render() {
@@ -38,7 +42,8 @@ export default function fluidChart(Component) {
       );
     }
 
-    _setWidth = (parentNode) => {
+    _setWidth = () => {
+      const {parentNode} = findDOMNode(this);
       this.setState({width: getInnerWidth(parentNode)});
     }
   }

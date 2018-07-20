@@ -144,6 +144,7 @@ const mapDispatchToProps = (dispatch) => ({
           nodes {
             distance,
             duration,
+            id,
             startDate,
             timezone
           }
