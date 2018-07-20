@@ -17,20 +17,6 @@ const LAST_DAY_OF_WEEK = 6; // Saturday (Sunday is 0)
 * ActivityCalendarDay.react
 */
 class ActivityCalendarDay extends React.Component {
-  state = {
-    showModal: false,
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const {activities} = this.props;
-    const thisCount = activities && activities.length;
-    const nextCount = nextProps.activities && nextProps.activities.length;
-
-    if (nextCount !== thisCount) {
-      this._hideModal();
-    }
-  }
-
   render() {
     const {date, month} = this.props;
     const tooltip = <Tooltip id={date.toISOString()}>Add activity</Tooltip>;

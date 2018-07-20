@@ -51,7 +51,6 @@ const getMoment = ({month, year}) => {
  */
 class CalendarController extends React.Component {
   state = {
-    showAddModal: false,
     showImportModal: false,
   };
 
@@ -155,10 +154,6 @@ class CalendarController extends React.Component {
     );
   }
 
-  _showAddModal = () => {
-    this.setState({showAddModal: true});
-  }
-
   _showImportModal = () => {
     this.setState({showImportModal: true});
   }
@@ -169,7 +164,7 @@ class CalendarController extends React.Component {
     // Don't cycle through the months if...
     if (
       // A modal is open...
-      this.state.showAddModal || this.state.showImportModal ||
+      this.props.activityModal.show || this.state.showImportModal ||
       // Typing in an input or textarea...
       tagName === 'input' || tagName === 'textarea' ||
       // The `command` or `control` key is also not pressed...
