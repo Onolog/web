@@ -1,6 +1,6 @@
 import {isEqual} from 'lodash';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, {Fragment} from 'react';
 import {connect} from 'react-redux';
 
 import ActivityModal from './ActivityModal.react';
@@ -53,13 +53,12 @@ class ActivityLink extends React.Component {
       />;
 
     return (
-      <Link className="workout" href="#" onClick={this._showModal}>
-        <Distance
-          abbreviate
-          distance={activity.distance}
-        />
+      <Fragment>
+        <Link className="workout" href="#" onClick={this._showModal}>
+          <Distance abbreviate distance={activity.distance} />
+        </Link>
         {modal}
-      </Link>
+      </Fragment>
     );
   }
 
