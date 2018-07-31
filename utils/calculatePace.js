@@ -8,7 +8,10 @@ import secondsToTime from './secondsToTime';
  *
  * Calculates the pace per mile/km, formatted as 'm:ss'
  */
-function calculatePace(distance: number, seconds: number): string {
+function calculatePace(distance: number|string, seconds: number): string {
+  // Ensure distance is a number.
+  distance = parseFloat(distance);
+
   if (!distance || !seconds) {
     // If distance hasn't been entered or has a value of zero, the
     // calculation will come back invalid. No time will just be zero.
