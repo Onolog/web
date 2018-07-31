@@ -45,7 +45,7 @@ class ActivityFromUrlForm extends React.Component {
           <FormControl
             autoFocus
             onChange={this._handleUrlChange}
-            placeholder="Enter a Garmin activity URL..."
+            placeholder="Enter a Garmin activity URL or ID..."
             type="text"
           />
           {error && <HelpBlock>{error}</HelpBlock>}
