@@ -17,7 +17,7 @@ import {groupActivities} from '../../utils/ActivityUtils';
 
 import ActionTypes from '../../constants/ActionTypes';
 
-import './css/Data.scss';
+import './styles/Data.scss';
 
 /**
  * DataController.react

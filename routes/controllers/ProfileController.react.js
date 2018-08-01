@@ -23,7 +23,7 @@ import isBrowser from '../../utils/isBrowser';
 
 import ActionTypes from '../../constants/ActionTypes';
 
-import './css/Profile.scss';
+import './styles/Profile.scss';
 
 const SummaryShape = PropTypes.shape({
   count: PropTypes.number,

@@ -14,10 +14,8 @@ export default (children, data) => {
         <title>Onolog</title>
         <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
         <link rel="stylesheet" type="text/css" href="//cdn.materialdesignicons.com/1.8.36/css/materialdesignicons.min.css" crossorigin="anonymous" />
-        <link rel="stylesheet" type="text/css" href="/css/base/base.css" />
-        <link rel="stylesheet" type="text/css" href="/css/base/bs-override.css" />
-        <link rel="stylesheet" type="text/css" href="/css/base/fonts.css" />
-        <link rel="stylesheet" type="text/css" href="/css/base/util.css" />
+        <link rel="stylesheet" type="text/css" href="/css/base.css" />
+        <link rel="stylesheet" type="text/css" href="/css/fonts.css" />
         <link rel="stylesheet" type="text/css" href="${webpackManifest['app.css']}" />
       </head>
       <body>

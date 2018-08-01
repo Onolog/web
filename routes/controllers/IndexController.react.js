@@ -3,7 +3,7 @@ import React from 'react';
 import BaseAppPage from '../../components/Page/BaseAppPage.react';
 import FBLoginButton from '../../components/Facebook/FBLoginButton.react';
 
-import './css/Login.scss';
+import './styles/Index.scss';
 
 /**
  * Controller class for the logged-out homepage, ie: https://www.onolog.com/
@@ -24,7 +24,7 @@ class IndexController extends React.Component {
 
   render() {
     return (
-      <BaseAppPage className="login" title="Welcome">
+      <BaseAppPage className="index" title="Welcome">
         <div
           className="jumbotronContainer"
           style={{height: this.state.windowHeight + 'px'}}>

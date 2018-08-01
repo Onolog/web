@@ -1,6 +1,86 @@
-/*
- * bs-override.css
- *
+/**
+ * Base CSS for Onolog
+ */
+body {
+  background: #f5f5f5;
+  color: #333;
+  font-family: 'BentonSans', sans-serif;
+}
+
+h1, h2, h3, h4, h5 {
+  text-shadow: #fff 0 1px 0;
+}
+
+::selection,
+::-moz-selection {
+  background: #ffe7cd;
+}
+
+/* Links */
+a,
+a:link,
+a:visited {
+  color: #1f8dd6;
+  text-decoration: none;
+}
+a:hover { text-decoration: underline; }
+
+a img {
+  border: none;
+}
+
+/* Just add a max-width to the element for this to work */
+.ellipses {
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.emptyState {
+  color: #808080;
+  font-size: 18px;
+  padding: 75px 0;
+  position: relative;
+  text-align: center;
+}
+
+/* Takes up the full height and width of its container */
+.full {
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 10;
+}
+
+.innerBorder {
+  position: relative;
+  display: block;
+}
+.innerBorder:after {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  bottom: 0;
+  content: '';
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.middot {
+  padding: 0 5px;
+}
+.middot:first-child {
+  padding-left: 0;
+}
+.middot:last-child {
+  padding-right: 0;
+}
+
+
+/**
  * Global overrides for bootstrap.css
  */
 
@@ -81,6 +161,7 @@ a.btn-default,
 
 /* Use consistent coloring for active/hover/primary states */
 .btn-primary,
+.dropdown-menu > .active > a,
 .label-primary,
 .list-group-item.active,
 .list-group-item.active:hover,
@@ -88,7 +169,7 @@ a.btn-default,
 .nav-pills > li.active > a,
 .nav-pills > li.active > a:hover,
 .nav-pills > li.active > a:focus {
-  background-color: #1f8dd6;
+  background-color: rgba(31, 141, 214, 1);
 }
 
 

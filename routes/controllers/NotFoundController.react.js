@@ -6,7 +6,7 @@ import Link from '../../components/Link/Link.react';
 import MaterialIcon from '../../components/Icons/MaterialIcon.react';
 import Middot from '../../components/Middot.react';
 
-import './css/NotFound.scss';
+import './styles/NotFound.scss';
 
 /**
  * NotFoundController.react

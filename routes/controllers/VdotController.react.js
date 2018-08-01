@@ -8,7 +8,7 @@ import PaceTable from '../../components/Vdot/PaceTable.react';
 import PageFrame from '../../components/Page/PageFrame.react';
 import PageHeader from '../../components/Page/PageHeader.react';
 
-import './css/Vdot.scss';
+import './styles/Vdot.scss';
 
 const TITLE = 'Daniels VDOT';
 

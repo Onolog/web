@@ -16,25 +16,6 @@ const PHOTO_DIMENSIONS = 75; // In px
  * ActivityHeader.react
  */
 class ActivityHeader extends React.Component {
-  static propTypes = {
-    activity: PropTypes.shape({
-      activity_type: PropTypes.string,
-      id: PropTypes.oneOfType([
-        PropTypes.number,
-        PropTypes.string,
-      ]).isRequired,
-      startDate: PropTypes.string.isRequired,
-      timezone: PropTypes.string.isRequired,
-    }),
-    athlete: PropTypes.shape({
-      id: PropTypes.oneOfType([
-        PropTypes.number,
-        PropTypes.string,
-      ]).isRequired,
-      name: PropTypes.string,
-    }).isRequired,
-  };
-
   render() {
     const {activity, athlete} = this.props;
 
@@ -73,7 +54,7 @@ class ActivityHeader extends React.Component {
     const date = moment.tz(startDate, timezone);
     const tooltip =
       <Tooltip id={timezone}>
-        {timezone + ' ('+ date.format('Z') +')'}
+        {`${timezone} (${date.format('Z')})`}
       </Tooltip>;
 
     return (
@@ -88,5 +69,24 @@ class ActivityHeader extends React.Component {
     );
   };
 }
+
+ActivityHeader.propTypes = {
+  activity: PropTypes.shape({
+    activity_type: PropTypes.string,
+    id: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string,
+    ]).isRequired,
+    startDate: PropTypes.string.isRequired,
+    timezone: PropTypes.string.isRequired,
+  }),
+  athlete: PropTypes.shape({
+    id: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string,
+    ]).isRequired,
+    name: PropTypes.string,
+  }).isRequired,
+};
 
 export default ActivityHeader;
