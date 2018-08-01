@@ -1,0 +1,22 @@
+.activity-search {
+  display: inline-block;
+  margin-right: 5px;
+  transition: width .25s ease;
+
+  .form-control:focus {
+    width: 350px;
+  }
+
+  &-item {
+    font-size: 12px;
+  }
+
+  &-metadata {
+    color: #808080;
+    font-size: 85%;
+  }
+
+  .active &-metadata {
+    color: #fff;
+  }
+}

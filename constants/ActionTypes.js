@@ -4,6 +4,7 @@ import {getErrorType, getSuccessType} from '../utils/actionTypes';
 const ActionTypes = [
   // Collections
   'ACTIVITIES_FETCH',
+  'ACTIVITIES_SEARCH',
   'BRANDS_FETCH',
   'SHOES_FETCH',
 

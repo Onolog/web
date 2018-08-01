@@ -7,6 +7,7 @@ import {connect} from 'react-redux';
 import ActivityCalendar from '../../components/Activities/ActivityCalendar.react';
 import ActivityImportModal from '../../components/Activities/ActivityImportModal.react';
 import ActivityModal from '../../components/Activities/ActivityModal.react';
+import ActivitySearch from '../../components/Activities/ActivitySearch.react';
 
 import AppFullPage from '../../components/Page/AppFullPage.react';
 import MaterialIcon from '../../components/Icons/MaterialIcon.react';
@@ -119,6 +120,7 @@ class CalendarController extends React.Component {
 
     return (
       <div>
+        <ActivitySearch />
         <DropdownButton
           bsSize="small"
           bsStyle="success"
