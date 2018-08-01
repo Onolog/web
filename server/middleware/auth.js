@@ -12,7 +12,9 @@ export const handleAuth = passport.authenticate('facebook', {
     'email',
     'public_profile',
     'user_friends',
-    'user_location',
+
+    // App needs review for the following permissions:
+    // 'user_location',
   ],
 });
 
