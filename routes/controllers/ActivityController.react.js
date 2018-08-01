@@ -18,7 +18,7 @@ import PageHeader from '../../components/Page/PageHeader.react';
 import {makeRequest} from '../../actions';
 import {metersToFeet, metersToMiles} from '../../utils/distanceUtils';
 import getParam from '../../utils/getParam';
-import homeUrl from '../../utils/homeUrl';
+import getHomePath from '../../utils/getHomePath';
 import speedToPace from '../../utils/speedToPace';
 
 import ActionTypes from '../../constants/ActionTypes';
@@ -83,7 +83,7 @@ class ActivityController extends React.Component {
 
     // Redirect if the activity was deleted.
     if (pendingRequests[ActionTypes.ACTIVITY_DELETE] && !nextProps.activity) {
-      this.props.history.push(homeUrl());
+      this.props.history.push(getHomePath());
       return;
     }
   }

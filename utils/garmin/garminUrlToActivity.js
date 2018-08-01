@@ -21,25 +21,23 @@ function garminUrlToActivity(data: Object): Activity {
     startTimeLocal,
   } = activity.summaryDTO;
 
+  // TODO: Add these models to the schema.
+  // device: {},
+  // laps: splits.lapDTOs,
+  // tracks: [],
+
   return {
     activityType: activity.activityTypeDTO.typeKey,
     avgHr: averageHR,
-    // TODO: Accept decimal values?
-    calories: calories && Math.round(calories),
+    calories: calories && Math.round(calories), // TODO: Accept decimal values?
     distance: metersToMiles(distance),
-    // TODO: Accept decimal values?
-    duration: Math.round(duration),
+    duration: Math.round(duration),             // TODO: Accept decimal values?
     elevationGain: metersToFeet(elevationGain),
     elevationLoss: metersToFeet(elevationLoss),
     garminActivityId: activity.activityId,
     maxHr: maxHR,
     startDate: moment(startTimeLocal).format(),
     timezone: activity.timeZoneUnitDTO.timeZone,
-
-    // TODO: Add these models to the schema.
-    // device: {},
-    // laps: splits.lapDTOs,
-    // tracks: [],
   };
 }
 

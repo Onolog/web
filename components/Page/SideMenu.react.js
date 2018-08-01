@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+
 import SideNav from '../Navigation/SideNav.react';
-import homeUrl from '../../utils/homeUrl';
+import getHomePath from '../../utils/getHomePath';
 
 function getNavItems(user) {
   return [
     {
-      href: homeUrl(),
+      href: getHomePath(),
       icon: 'calendar',
       label: 'Calendar',
     },

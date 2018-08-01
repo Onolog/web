@@ -2,7 +2,7 @@ import passport from 'passport';
 import {Strategy} from 'passport-facebook';
 
 import getJWT from '../utils/getJWT';
-import getHomePath from '../utils/getHomePath';
+import getHomePath from '../../utils/getHomePath';
 import graphql from '../../utils/graphql';
 
 import {AUTH_CALLBACK_PATH, INDEX_PATH} from '../../constants/paths';

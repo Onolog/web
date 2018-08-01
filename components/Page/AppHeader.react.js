@@ -8,7 +8,7 @@ import {LinkContainer} from 'react-router-bootstrap';
 import AccountNavItem from '../Navigation/AccountNavItem.react';
 import FBImage from '../Facebook/FBImage.react';
 
-import homeUrl from '../../utils/homeUrl';
+import getHomePath from '../../utils/getHomePath';
 
 import './css/AppHeader.css';
 
@@ -27,7 +27,7 @@ class AppHeader extends React.Component {
         inverse>
         <Navbar.Header>
           <Navbar.Brand>
-            <Link to={{pathname: homeUrl()}}>Onolog</Link>
+            <Link to={{pathname: getHomePath()}}>Onolog</Link>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
@@ -71,7 +71,7 @@ class AppHeader extends React.Component {
   _renderMainMenu = (user) => {
     if (user.id) {
       const links = [
-        {label: 'Calendar', pathname: homeUrl()},
+        {label: 'Calendar', pathname: getHomePath()},
         {label: 'Profile', pathname: `/users/${user.id}`},
         {label: 'Shoes', pathname: '/shoes'},
       ];
