@@ -1,3 +1,5 @@
+// @flow
+
 import {flatten, forEach, head, map, max, reduce} from 'lodash';
 
 import XMLParser from './XMLParser';
@@ -10,16 +12,8 @@ import {TCX_SCHEMA_TAGS as TAGS} from '../../constants/Garmin';
  * with the data.
  */
 class TCXActivityParser extends XMLParser {
-  constructor(node) {
-    super(node);
-
-    this.parseLap = this.parseLap.bind(this);
-    this.parseTrack = this.parseTrack.bind(this);
-    this.parseTrackpoint = this.parseTrackpoint.bind(this);
-
-    this.laps = [];
-    this.tracks = [];
-  }
+  laps = [];
+  tracks = [];
 
   parse() {
     // Parse each lap in the activity.
@@ -47,7 +41,7 @@ class TCXActivityParser extends XMLParser {
     };
   }
 
-  parseLap(lapNode, idx) {
+  parseLap = (lapNode: HTMLElement, idx: number) => {
     var avgHrNode = head(lapNode.getElementsByTagName(
       TAGS.lapAverageHeartRate
     ));
@@ -69,7 +63,7 @@ class TCXActivityParser extends XMLParser {
     });
   }
 
-  parseTrack(trackNode) {
+  parseTrack = (trackNode: HTMLElement) => {
     var track = [];
     var trackpointNodes = trackNode.getElementsByTagName(TAGS.trackPoint);
 
@@ -83,7 +77,7 @@ class TCXActivityParser extends XMLParser {
     track.length && this.tracks.push(track);
   }
 
-  parseTrackpoint(trackpointNode) {
+  parseTrackpoint = (trackpointNode: HTMLElement): ?Object => {
     const lat = +this.getTagValue(TAGS.positionLatitude, trackpointNode);
     const lng = +this.getTagValue(TAGS.positionLongitude, trackpointNode);
 
@@ -105,10 +99,10 @@ class TCXActivityParser extends XMLParser {
   /**
    * Returns info for the device that created the activity, if present.
    */
-  parseDevice() /*object*/ {
+  parseDevice = (): ?Object => {
     var deviceNode = head(this.getByTagName(TAGS.creator));
     if (!deviceNode) {
-      return;
+      return null;
     }
 
     var version = [
@@ -127,7 +121,7 @@ class TCXActivityParser extends XMLParser {
   }
 
   // TODO: Is this an accurate calculation?
-  _getAvgHeartRate() /*number*/ {
+  _getAvgHeartRate(): number {
     var total = this._getTotal('avg_hr') || 0;
 
     // Round to the nearest whole bpm.
@@ -137,7 +131,7 @@ class TCXActivityParser extends XMLParser {
   /**
    * Calculates total positive and negative elevation gain for the activity.
    */
-  _getElevationChange() /*object*/ {
+  _getElevationChange(): Object {
     var altitudeValues = map(flatten(this.tracks), 'altitude');
     var change;
     var elevationGain = [];
@@ -167,14 +161,14 @@ class TCXActivityParser extends XMLParser {
   /**
    * Gets the maximum value for the given field.
    */
-  _getMax(/*string*/ keyName) /*number*/ {
+  _getMax(keyName: string): number {
     return +max(map(this.laps, keyName)) || 0;
   }
 
   /**
    * Calculates the sum total for the given field.
    */
-  _getTotal(/*string*/ keyName) /*number*/ {
+  _getTotal(keyName: string): number {
     return map(this.laps, keyName).reduce((total, value) => {
       value = value || 0;
       return +value + total;
@@ -182,4 +176,4 @@ class TCXActivityParser extends XMLParser {
   }
 }
 
-module.exports = TCXActivityParser;
+export default TCXActivityParser;

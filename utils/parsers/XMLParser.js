@@ -11,6 +11,7 @@ class XMLParser {
     if (typeof node === 'string') {
       node = this.toDocument(node);
     }
+
     this.node = node;
   }
 

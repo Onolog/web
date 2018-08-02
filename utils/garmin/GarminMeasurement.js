@@ -12,55 +12,52 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
- * @fileoverview Garmin.Measurement - A datastructure designed to contain a single data measurement.
+ *
+ * @fileoverview Garmin.Measurement - A datastructure designed to contain a
+ * single data measurement.
  * @version 1.9
  */
 
 /**
  * Represent a real measurement.
  * @class Garmin.Measurement
- * @constructor 
+ * @constructor
  * @param value - value of the measurement
  * @param context - the context of the measurement (feet, seconds, etc...)
  */
-define(function() {
-
-  var GarminMeasurement = function(value, context) {
+class GarminMeasurement {
+  constructor(value, context) {
     this.value = value;
     this.context = context;
-  };
+  }
 
-  GarminMeasurement.prototype = {
-  	getContext: function() {
-  		return this.context;
-  	},
-  	
-  	setContext: function(context) {
-  		this.context = context;
-  	},
-  	
-  	getValue: function() {
-  		return this.value;
-  	},
-  	
-  	setValue: function(value) {
-  		this.value = value;
-  	},
-  	
-  	printMe: function(tabs) {
-  		var output = '';
-  		output += tabs + ' [Measurement]\n';
-  		output += tabs + ' value: ' + this.value + '\n';
-  		//output += tabs + "    context: " + this.context + '\n';
-  		return output;
-  	},
-  	
-  	toString: function() {
-  		return this.value + ' ' + this.context;
-  	}
-  };
-  
-  return GarminMeasurement;
+  getContext = () => {
+    return this.context;
+  }
 
-});
+  setContext = (context) => {
+    this.context = context;
+  }
+
+  getValue = () => {
+    return this.value;
+  }
+
+  setValue = (value) => {
+    this.value = value;
+  }
+
+  printMe = (tabs) => {
+    var output = '';
+    output += tabs + ' [Measurement]\n';
+    output += tabs + ' value: ' + this.value + '\n';
+    //output += tabs + "    context: " + this.context + '\n';
+    return output;
+  }
+
+  toString = () => {
+    return `${this.value} ${this.context}`;
+  }
+}
+
+export default GarminMeasurement;

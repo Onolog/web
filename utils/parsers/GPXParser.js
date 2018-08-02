@@ -1,4 +1,4 @@
-import GpxActivityFactory from '../../lib/garmin/activity/GpxActivityFactory';
+import GpxActivityFactory from '../garmin/GpxActivityFactory';
 import XMLParser from './XMLParser';
 
 /**
@@ -9,8 +9,8 @@ import XMLParser from './XMLParser';
  */
 class GPXParser extends XMLParser {
   parse() {
-    return GpxActivityFactory.parseDocument(this.node);
+    return (new GpxActivityFactory()).parseDocument(this.node);
   }
 }
 
-module.exports = GPXParser;
+export default GPXParser;
