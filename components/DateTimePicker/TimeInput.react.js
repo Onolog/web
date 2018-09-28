@@ -13,7 +13,7 @@ const MERIDIEM = {
 };
 
 function formatter(value) {
-  return pad(value, 2);
+  return pad(value);
 }
 
 /**

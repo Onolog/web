@@ -9,7 +9,7 @@ import HiddenInput from './HiddenInput.react';
 
 import pad from '../../utils/pad';
 
-const formatter = (value) => pad(value, 2);
+const formatter = (value) => pad(value);
 
 /**
  * DurationInput.react
