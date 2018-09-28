@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types';
+import {stringify} from 'qs';
 import React from 'react';
 
 import Image from '../Image/Image.react';
-
-import param from '../../utils/param';
 
 const GRAPH_URL = 'https://graph.facebook.com';
 
@@ -33,7 +32,7 @@ class FBImage extends React.Component {
     const {fbid, height, width} = this.props;
 
     // Double the height and width for retina displays
-    const params = param({
+    const params = stringify({
       height: height * 2,
       width: width * 2,
     });

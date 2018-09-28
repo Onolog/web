@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
+import {stringify} from 'qs';
 import React from 'react';
-
-import param from '../../utils/param';
 
 import {APP_ID} from '../../constants/Facebook';
 import {URL} from '../../constants/Onolog';
@@ -69,7 +68,7 @@ class FBLikeButton extends React.Component {
   };
 
   render() {
-    var params = param({
+    var params = stringify({
       href: URL + this.props.href,
       width: this.props.width,
       layout: this.props.layout,
