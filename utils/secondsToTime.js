@@ -1,7 +1,7 @@
 // @flow
 
-import moment from 'moment';
-import pad from './pad';
+const HOURS_PER_DAY = 24;
+const SECS_PER_DAY = 60 * 60 * HOURS_PER_DAY;
 
 /**
  * Formats given number of seconds into the following:
@@ -10,24 +10,21 @@ import pad from './pad';
  *    'm:ss'
  */
 export default function secondsToTime(seconds: number): string {
-  const time = moment.duration(parseInt(seconds, 10), 's');
-  const timeArr = [];
-  const dd = time.days();
+  const arr = new Date(seconds * 1000)
+    .toISOString()
+    .substr(11, 8)
+    .split(':');
 
-  let hh = time.hours();
-  let mm = time.minutes();
+  const days = Math.floor(seconds / SECS_PER_DAY);
+  const hours = parseInt(arr[0], 10) + days * HOURS_PER_DAY;
 
-  // If the time is more than a day, calculate the total number of hours
-  if (dd) {
-    hh += dd*24;
+  if (hours) {
+    arr[0] = '' + hours;
+  } else {
+    // If we're only dealing with minutes and seconds, don't display hours.
+    arr.shift();
+    arr[0] = '' + parseInt(arr[0], 10);
   }
 
-  if (hh) {
-    timeArr.push(hh);
-    mm = pad(mm);
-  }
-  timeArr.push(mm);
-  timeArr.push(pad(time.seconds()));
-
-  return timeArr.join(':');
+  return arr.join(':');
 }
