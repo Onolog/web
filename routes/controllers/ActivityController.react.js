@@ -250,7 +250,7 @@ const mapDispatchToProps = (dispatch) => ({
   `, {activityId}, ActionTypes.ACTIVITIES_FETCH)),
 });
 
-module.exports = connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(ActivityController);

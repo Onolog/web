@@ -272,4 +272,4 @@ const mapDispatchToProps = (dispatch) => ({
   `, {shoeId}, ActionTypes.SHOE_FETCH)),
 });
 
-module.exports = connect(mapStateToProps, mapDispatchToProps)(ShoesController);
+export default connect(mapStateToProps, mapDispatchToProps)(ShoesController);

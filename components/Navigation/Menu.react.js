@@ -7,31 +7,27 @@ import cx from 'classnames';
  *
  * Menu used in a dropdown.
  */
-class Menu extends React.Component {
-  static displayName = 'Menu';
+const Menu = props => (
+  <ul
+    className={cx('dropdown-menu', {
+      'dropdown-menu-right': props.align === 'right',
+    })}
+    role="menu">
+    {props.children}
+  </ul>
+);
 
-  static propTypes = {
-    /**
-     * Horizontal alignment of the menu.
-     */
-    align: PropTypes.oneOf(['left', 'right']),
-  };
+Menu.displayName = 'Menu';
 
-  static defaultProps = {
-    align: 'left',
-  };
+Menu.propTypes = {
+  /**
+   * Horizontal alignment of the menu.
+   */
+  align: PropTypes.oneOf(['left', 'right']),
+};
 
-  render() {
-    return (
-      <ul
-        className={cx('dropdown-menu', {
-          'dropdown-menu-right': this.props.align === 'right',
-        })}
-        role="menu">
-        {this.props.children}
-      </ul>
-    );
-  }
-}
+Menu.defaultProps = {
+  align: 'left',
+};
 
-module.exports = Menu;
+export default Menu;

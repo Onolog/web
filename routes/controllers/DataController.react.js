@@ -157,4 +157,4 @@ const mapDispatchToProps = (dispatch) => ({
   `, {userId}, ActionTypes.USER_FETCH)),
 });
 
-module.exports = connect(mapStateToProps, mapDispatchToProps)(DataController);
+export default connect(mapStateToProps, mapDispatchToProps)(DataController);

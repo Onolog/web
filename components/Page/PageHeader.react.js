@@ -13,11 +13,13 @@ import './css/PageHeader.css';
  * PageHeader
  */
 const PageHeader = (props) => {
-  const navbarToggle = props.full ?
+  const {children, className, full, title, toggleSideNav} = props;
+
+  const navbarToggle = full ?
     <div className="app-page-header-toggle">
       <NavbarToggle
         className="visible-xs-block"
-        onClick={() => props.dispatch(toggleSideNav())}
+        onClick={toggleSideNav}
       />
     </div> :
     null;
@@ -25,12 +27,12 @@ const PageHeader = (props) => {
   return (
     <header
       className={cx('app-page-header', {
-        'app-page-header-full': props.full,
-      }, props.className)}>
+        'app-page-header-full': full,
+      }, className)}>
       {navbarToggle}
-      <h2>{props.title}</h2>
+      <h2>{title}</h2>
       <div className="app-page-header-aux">
-        {props.children}
+        {children}
       </div>
     </header>
   );
@@ -38,6 +40,10 @@ const PageHeader = (props) => {
 
 PageHeader.propTypes = {
   title: PropTypes.string.isRequired,
-},
+};
 
-module.exports = connect()(PageHeader);
+const mapDispatchToProps = (dispatch) => ({
+  toggleSideNav: () => dispatch(toggleSideNav()),
+});
+
+export default connect(null, mapDispatchToProps)(PageHeader);

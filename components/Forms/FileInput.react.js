@@ -5,12 +5,6 @@ import React from 'react';
  *
  * React wrapper around a standard file input.
  */
-class FileInput extends React.Component {
-  static displayName = 'FileInput';
+const FileInput = props => <input {...props} type="file" />;
 
-  render() {
-    return <input {...this.props} type="file" />;
-  }
-}
-
-module.exports = FileInput;
+export default FileInput;

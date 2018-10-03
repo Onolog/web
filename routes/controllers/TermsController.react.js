@@ -121,4 +121,4 @@ const TermsController = (props) => (
   </LegalPage>
 );
 
-module.exports = TermsController;
+export default TermsController;

@@ -142,4 +142,4 @@ ShoeFields.propTypes = {
   user: PropTypes.object.isRequired,
 };
 
-module.exports = ShoeFields;
+export default ShoeFields;

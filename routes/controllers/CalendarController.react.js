@@ -250,7 +250,4 @@ const mapDispatchToProps = (dispatch) => ({
   showActivityModal: () => dispatch(showActivityModal()),
 });
 
-module.exports = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CalendarController);
+export default connect(mapStateToProps, mapDispatchToProps)(CalendarController);

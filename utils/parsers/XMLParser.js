@@ -80,4 +80,4 @@ class XMLParser {
   }
 }
 
-module.exports = XMLParser;
+export default XMLParser;

@@ -123,4 +123,4 @@ class DateInputCalendarPopover extends React.Component {
   };
 }
 
-module.exports = DateInputCalendarPopover;
+export default DateInputCalendarPopover;

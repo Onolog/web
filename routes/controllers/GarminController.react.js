@@ -124,4 +124,4 @@ class GarminUploader extends React.Component {
   };
 }
 
-module.exports = GarminUploader;
+export default GarminUploader;

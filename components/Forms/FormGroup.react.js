@@ -31,4 +31,4 @@ FormRow.propTypes = {
   name: PropTypes.string,
 };
 
-module.exports = FormRow;
+export default FormRow;

@@ -97,4 +97,4 @@ class TimeInput extends React.Component {
   };
 }
 
-module.exports = TimeInput;
+export default TimeInput;

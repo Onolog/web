@@ -171,4 +171,4 @@ const mapDispatchToProps = (dispatch) => ({
   `, {id, input}, ActionTypes.SHOE_UPDATE)),
 });
 
-module.exports = connect(mapStateToProps, mapDispatchToProps)(ShoeModal);
+export default connect(mapStateToProps, mapDispatchToProps)(ShoeModal);

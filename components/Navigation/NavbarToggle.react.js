@@ -21,4 +21,4 @@ const NavbarToggle = (props) => {
   );
 };
 
-module.exports = NavbarToggle;
+export default NavbarToggle;

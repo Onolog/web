@@ -48,4 +48,4 @@ class FBImage extends React.Component {
   }
 }
 
-module.exports = FBImage;
+export default FBImage;

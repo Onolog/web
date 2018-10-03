@@ -99,4 +99,4 @@ class ChartController extends React.Component {
   }
 }
 
-module.exports = ChartController;
+export default ChartController;

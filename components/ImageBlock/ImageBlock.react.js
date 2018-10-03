@@ -6,36 +6,30 @@ import cx from 'classnames';
 /**
  * ImageBlock.react
  */
-class ImageBlock extends React.Component {
-  static displayName = 'ImageBlock';
+const ImageBlock = ({align, children, image, ...props}) => (
+  <div className="media">
+    <div className="media-left">
+      {image}
+    </div>
+    <div className={cx('media-body', {
+      'media-top': align === 'top',
+      'media-middle': align === 'middle',
+      'media-bottom': align === 'bottom',
+    })}>
+      {children}
+    </div>
+  </div>
+);
 
-  static propTypes = {
-    align: PropTypes.oneOf(['top', 'middle', 'bottom']),
-    image: PropTypes.object.isRequired,
-  };
+ImageBlock.displayName = 'ImageBlock';
 
-  static defaultProps = {
-    align: 'top',
-  };
+ImageBlock.propTypes = {
+  align: PropTypes.oneOf(['top', 'middle', 'bottom']),
+  image: PropTypes.object.isRequired,
+};
 
-  render() {
-    const {align} = this.props;
+ImageBlock.defaultProps = {
+  align: 'top',
+};
 
-    return (
-      <div className="media">
-        <div className="media-left">
-          {this.props.image}
-        </div>
-        <div className={cx('media-body', {
-          'media-top': align === 'top',
-          'media-middle': align === 'middle',
-          'media-bottom': align === 'bottom',
-        })}>
-          {this.props.children}
-        </div>
-      </div>
-    );
-  }
-}
-
-module.exports = ImageBlock;
+export default ImageBlock;

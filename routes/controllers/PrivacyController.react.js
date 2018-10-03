@@ -131,4 +131,4 @@ const PrivacyPage = (props) => (
   </LegalPage>
 );
 
-module.exports = PrivacyPage;
+export default PrivacyPage;

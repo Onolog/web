@@ -237,7 +237,7 @@ const mapDispatchToProps = (dispatch) => ({
   `, {id, input}, ActionTypes.USER_UPDATE)),
 });
 
-module.exports = connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(SettingsController);

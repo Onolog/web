@@ -46,4 +46,4 @@ const NotFoundController = ({history}) => (
   </AppFullPage>
 );
 
-module.exports = withRouter(NotFoundController);
+export default withRouter(NotFoundController);

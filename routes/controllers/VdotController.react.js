@@ -72,4 +72,4 @@ class DanielsController extends React.Component {
   }
 }
 
-module.exports = DanielsController;
+export default DanielsController;

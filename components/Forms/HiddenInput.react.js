@@ -5,12 +5,6 @@ import React from 'react';
  *
  * React wrapper around a standard hidden input element.
  */
-class HiddenInput extends React.Component {
-  static displayName = 'HiddenInput';
+const HiddenInput = props => <input {...this.props} type="hidden" />;
 
-  render() {
-    return <input {...this.props} type="hidden" />;
-  }
-}
-
-module.exports = HiddenInput;
+export default HiddenInput;

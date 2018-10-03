@@ -65,4 +65,4 @@ class FriendsController extends React.Component {
   }
 }
 
-module.exports = FriendsController;
+export default FriendsController;

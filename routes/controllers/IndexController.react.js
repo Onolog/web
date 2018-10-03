@@ -60,4 +60,4 @@ class IndexController extends React.Component {
   }
 }
 
-module.exports = IndexController;
+export default IndexController;

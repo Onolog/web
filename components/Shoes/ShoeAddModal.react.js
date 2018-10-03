@@ -11,18 +11,6 @@ import ShoeFields from './ShoeFields.react';
  * Modal for adding a new shoe.
  */
 class ShoeAddModal extends React.Component {
-  static displayName = 'ShoeAddModal';
-
-  static propTypes = {
-    isLoading: PropTypes.bool,
-    onChange: PropTypes.func.isRequired,
-    onHide: PropTypes.func.isRequired,
-    onSave: PropTypes.func.isRequired,
-    shoe: PropTypes.object.isRequired,
-    show: PropTypes.bool,
-    user: PropTypes.object.isRequired,
-  };
-
   render() {
     const {isLoading, onChange, onSave, shoe, user, ...modalProps} = this.props;
 
@@ -58,4 +46,16 @@ class ShoeAddModal extends React.Component {
   }
 }
 
-module.exports = ShoeAddModal;
+ShoeAddModal.displayName = 'ShoeAddModal';
+
+ShoeAddModal.propTypes = {
+  isLoading: PropTypes.bool,
+  onChange: PropTypes.func.isRequired,
+  onHide: PropTypes.func.isRequired,
+  onSave: PropTypes.func.isRequired,
+  shoe: PropTypes.object.isRequired,
+  show: PropTypes.bool,
+  user: PropTypes.object.isRequired,
+};
+
+export default ShoeAddModal;

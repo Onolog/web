@@ -264,7 +264,4 @@ const mapDispatchToProps = (dispatch) => ({
   toggleSideNav: () => dispatch(toggleSideNav()),
 });
 
-module.exports = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ProfileController);
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileController);
