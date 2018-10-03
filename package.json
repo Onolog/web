@@ -13,6 +13,9 @@
     "test": "karma start karma.conf.js"
   },
   "dependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/polyfill": "^7.0.0",
+    "@babel/register": "^7.0.0",
     "autolinker": "^1.6.2",
     "classnames": "^2.2.6",
     "compression": "^1.7.2",
@@ -59,18 +62,16 @@
     "serve-favicon": "^2.5.0"
   },
   "devDependencies": {
-    "babel-core": "^6.26.3",
-    "babel-eslint": "^8.2.3",
-    "babel-loader": "^7.1.4",
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/plugin-proposal-export-default-from": "^7.0.0",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-flow": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-eslint": "^10.0.1",
+    "babel-loader": "^8.0.4",
     "babel-plugin-lodash": "^3.3.4",
     "babel-plugin-transform-imports": "^1.5.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.13",
-    "babel-polyfill": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-flow": "^6.23.0",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-1": "^6.24.1",
-    "babel-register": "^6.26.0",
     "chai": "^4.1.2",
     "css-loader": "^1.0.0",
     "enzyme": "^3.3.0",
@@ -101,6 +102,6 @@
     "webpack-md5-hash": "^0.0.6"
   },
   "engines": {
-    "node": "8.9.0"
+    "node": "^8.9.0"
   }
 }

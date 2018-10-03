@@ -11,6 +11,8 @@
   ],
   "plugins": [
     "lodash",
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-proposal-export-default-from",
     ["transform-imports", {
       "lodash": {
         "transform": "lodash/${member}",
@@ -31,14 +33,13 @@
     }]
   ],
   "presets": [
-    ["env", {
+    ["@babel/preset-env", {
       "targets": {
         "browsers": ["last 2 versions"],
         "node": "current",
       }
     }],
-    "flow",
-    "react",
-    "stage-1"
+    "@babel/preset-flow",
+    "@babel/preset-react"
   ],
 }
