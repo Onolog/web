@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import {findDOMNode} from 'react-dom';
 
-import isBrowser from '../../utils/isBrowser';
-
 import {API_KEY} from '../../constants/Google';
 
 const IMG_PATH = '/img/';
@@ -28,28 +26,26 @@ const MAP_TYPES = {
 };
 
 class GoogleMap extends React.Component {
-
   cursor = null;
+  google = null;
 
   componentDidMount() {
-    if (!isBrowser()) {
-      return;
-    }
-
+    // google-maps lib can only be used in the browser, so don't require until
+    // the component has mpounted.
     const GoogleMapsLoader = require('google-maps');
 
     GoogleMapsLoader.KEY = API_KEY;
     GoogleMapsLoader.LIBRARIES = ['geometry'];
     GoogleMapsLoader.load((google) => {
       // Make Google Maps API globally available.
-      window.google = google;
+      this.google = google;
       this._drawMap();
     });
   }
 
   componentWillReceiveProps(nextProps) {
     // Only re-draw the map if the path changes.
-    if (window.google && nextProps.path.length !== this.props.path.length) {
+    if (this.google && nextProps.path.length !== this.props.path.length) {
       this._drawMap();
       return;
     }
@@ -72,7 +68,7 @@ class GoogleMap extends React.Component {
     }
 
     const {mapTypeId, path} = this.props;
-    const {Map, Marker, Point, Polyline, Size} = window.google.maps;
+    const {Map, Marker, Point, Polyline, Size} = this.google.maps;
 
     const map = new Map(findDOMNode(this._instance), {
       zoom: DEFAULT_ZOOM,
@@ -141,7 +137,7 @@ class GoogleMap extends React.Component {
       return;
     }
 
-    const {computeDistanceBetween} = window.google.maps.geometry.spherical;
+    const {computeDistanceBetween} = this.google.maps.geometry.spherical;
     const path = this.polyline.getPath().getArray();
 
     let index = -1;
@@ -167,7 +163,7 @@ class GoogleMap extends React.Component {
   }
 
   _getBoundsForPath = (path) => {
-    const {LatLngBounds, LatLng} = window.google.maps;
+    const {LatLngBounds, LatLng} = this.google.maps;
     const bounds = new LatLngBounds();
     for (let ii = 0; ii < path.length-1; ii++) {
       bounds.extend(new LatLng(path[ii]));
