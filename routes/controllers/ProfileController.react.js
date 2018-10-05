@@ -19,8 +19,6 @@ import PageHeader from '../../components/Page/PageHeader.react';
 import Topline from '../../components/Topline/Topline.react';
 
 import {makeRequest, toggleSideNav} from '../../actions';
-import isBrowser from '../../utils/isBrowser';
-
 import ActionTypes from '../../constants/ActionTypes';
 
 import './styles/Profile.scss';
@@ -57,12 +55,10 @@ class ProfileController extends React.Component {
     showHeader: false,
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.fetchData(this.props.match.params.userId);
 
-    if (isBrowser()) {
-      window.addEventListener('scroll', this._showHeaderCheck, true);
-    }
+    window.addEventListener('scroll', this._showHeaderCheck, true);
   }
 
   componentWillReceiveProps({match: {params}}) {
@@ -73,9 +69,7 @@ class ProfileController extends React.Component {
   }
 
   componentWillUnmount() {
-    if (isBrowser()) {
-      window.removeEventListener('scroll', this._showHeaderCheck, true);
-    }
+    window.removeEventListener('scroll', this._showHeaderCheck, true);
   }
 
   _showHeaderCheck = () => {

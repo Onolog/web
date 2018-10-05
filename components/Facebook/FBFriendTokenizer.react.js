@@ -21,7 +21,7 @@ class FBFriendTokenizer extends React.Component {
     selected: [],
   };
 
-  componentWillMount() {
+  componentDidMount() {
     this._getFriends();
   }
 

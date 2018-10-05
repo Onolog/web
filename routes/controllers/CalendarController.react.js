@@ -15,7 +15,6 @@ import PageFrame from '../../components/Page/PageFrame.react';
 import PageHeader from '../../components/Page/PageHeader.react';
 
 import {hideActivityModal, makeRequest, showActivityModal} from '../../actions';
-import isBrowser from '../../utils/isBrowser';
 import requestCompleted from '../../utils/requestCompleted';
 
 import ActionTypes from '../../constants/ActionTypes';
@@ -58,13 +57,13 @@ class CalendarController extends React.Component {
     showImportModal: false,
   };
 
-  componentWillMount() {
+  componentDidMount() {
     const {fetchData, match: {params}, user} = this.props;
 
     // Load initial data.
     fetchData(getDateRange(getMoment(params)), user.id);
 
-    isBrowser() && window.addEventListener('keydown', this._onKeyDown);
+    window.addEventListener('keydown', this._onKeyDown);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -75,7 +74,7 @@ class CalendarController extends React.Component {
   }
 
   componentWillUnmount() {
-    isBrowser() && window.removeEventListener('keydown', this._onKeyDown);
+    window.removeEventListener('keydown', this._onKeyDown);
   }
 
   render() {

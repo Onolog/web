@@ -50,19 +50,13 @@ const getMutableFields = (user) => pick(user, MUTABLE_FIELDS);
  * SettingsController.react
  */
 class SettingsController extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ...props.user,
-      errors: {},
-    };
-  }
-
-  componentWillMount() {
-    this.props.fetchData(this.props.session.user.id);
-  }
+  state = {
+    ...this.props.user,
+    errors: {},
+  };
 
   componentDidMount() {
+    this.props.fetchData(this.props.session.user.id);
     this._unblockRouter = this.props.history.block(this._handleNavigateAway);
   }
 

@@ -40,7 +40,7 @@ class ShoesController extends React.Component {
     show: false,
   };
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.fetchShoes(this.props.session.user.id);
   }
 

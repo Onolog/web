@@ -23,7 +23,7 @@ import './styles/Data.scss';
  * DataController.react
  */
 class DataController extends React.Component {
-  componentWillMount() {
+  componentDidMount() {
     this.props.fetchData(this.props.session.user.id);
   }
 

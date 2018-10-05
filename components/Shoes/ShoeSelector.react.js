@@ -19,7 +19,7 @@ import {UNITS} from '../../constants/metrics';
  * HTML selector that displays all of a user's shoes, grouped by activity state.
  */
 class ShoeSelector extends React.Component {
-  componentWillMount() {
+  componentDidMount() {
     if (isEmpty(this.props.shoes)) {
       this.props.fetchData(this.props.session.user.id);
     }

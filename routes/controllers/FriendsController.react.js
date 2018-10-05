@@ -7,8 +7,6 @@ import Link from '../../components/Link/Link.react';
 import PageFrame from '../../components/Page/PageFrame.react';
 import PageHeader from '../../components/Page/PageHeader.react';
 
-import isBrowser from '../../utils/isBrowser';
-
 /**
  * FriendsController
  */
@@ -17,11 +15,7 @@ class FriendsController extends React.Component {
     friends: null,
   };
 
-  componentWillMount() {
-    if (!isBrowser()) {
-      return;
-    }
-
+  componentDidMount() {
     // Get all friends who are in the system
     const {FB} = window;
 

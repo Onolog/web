@@ -2,13 +2,7 @@ import cx from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import isBrowser from '../../utils/isBrowser';
-
 const setTitle = (title) => {
-  if (!isBrowser()) {
-    return;
-  }
-
   const prefix = 'Onolog';
   document.title = title ? `${prefix} \u00b7 ${title}` : prefix;
 };
@@ -20,7 +14,7 @@ const setTitle = (title) => {
  * every page.
  */
 class BaseAppPage extends React.Component {
-  componentWillMount() {
+  componentDidMount() {
     // Set the browser page title.
     setTitle(this.props.title);
   }

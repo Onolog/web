@@ -13,16 +13,7 @@ import ActionTypes from '../../constants/ActionTypes';
  * A selector element that displays all possible shoe brands.
  */
 class BrandSelector extends React.Component {
-  static displayName = 'BrandSelector';
-
-  static propTypes = {
-    brands: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-    })).isRequired,
-  };
-
-  componentWillMount() {
+  componentDidMount() {
     if (!this.props.brands.length) {
       this.props.fetchBrands();
     }
@@ -49,6 +40,13 @@ class BrandSelector extends React.Component {
     );
   }
 }
+
+BrandSelector.propTypes = {
+  brands: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+  })).isRequired,
+};
 
 const mapStateToProps = ({brands}) => ({
   brands,

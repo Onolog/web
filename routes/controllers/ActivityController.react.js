@@ -67,7 +67,7 @@ class ActivityController extends React.Component {
     showModal: false,
   };
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.fetchData(getParam(this.props, 'activityId'));
   }
 
