@@ -1,11 +1,15 @@
-import {connectRouter, routerMiddleware} from 'connected-react-router';
+// @flow
+
+import {routerMiddleware} from 'connected-react-router';
 import {applyMiddleware, createStore} from 'redux';
 import thunk from 'redux-thunk';
 
-import rootReducer from './reducers';
+import createRootReducer from './reducers';
 
-export default (history, initialState) => createStore(
-  connectRouter(history)(rootReducer),
+import type {History} from '../types/History';
+
+export default (history: History, initialState: Object) => createStore(
+  createRootReducer(history),
   initialState,
   applyMiddleware(thunk, routerMiddleware(history))
 );
