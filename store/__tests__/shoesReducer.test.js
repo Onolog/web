@@ -1,12 +1,12 @@
-import {expect} from 'chai';
+import { expect } from 'chai';
 
 import shoesReducer from '../reducers/shoesReducer';
-import {getSuccessType} from '../../utils/actionTypes';
+import { getSuccessType } from '../../utils/actionTypes';
 
 import ActionTypes from '../../constants/ActionTypes';
-import {SHOES, TEST_ACTION} from '../../constants/TestData';
+import { SHOES, TEST_ACTION } from '../../constants/TestData';
 
-const getShoeState = (nodes=[]) => ({
+const getShoeState = (nodes = []) => ({
   count: nodes.length,
   nodes,
 });
@@ -20,7 +20,7 @@ describe('shoesReducer', () => {
     const shoes = getShoeState(SHOES);
 
     const action = {
-      data: {shoes},
+      data: { shoes },
       type: getSuccessType(ActionTypes.SHOES_FETCH),
     };
 
@@ -28,9 +28,9 @@ describe('shoesReducer', () => {
   });
 
   it('returns the state when fetching a single shoe', () => {
-    const updatedShoe = {...SHOES[1], notes: 'test'};
+    const updatedShoe = { ...SHOES[1], notes: 'test' };
     const action = {
-      data: {shoes: getShoeState([updatedShoe])},
+      data: { shoes: getShoeState([updatedShoe]) },
       type: getSuccessType(ActionTypes.SHOE_FETCH),
     };
 
@@ -40,7 +40,7 @@ describe('shoesReducer', () => {
 
   it('returns the state when creating a shoe', () => {
     const action = {
-      data: {createShoe: SHOES[1]},
+      data: { createShoe: SHOES[1] },
       type: getSuccessType(ActionTypes.SHOE_CREATE),
     };
 
@@ -50,7 +50,7 @@ describe('shoesReducer', () => {
 
   it('returns the state when deleting a shoe', () => {
     const action = {
-      data: {deleteShoe: SHOES[0].id},
+      data: { deleteShoe: SHOES[0].id },
       type: getSuccessType(ActionTypes.SHOE_DELETE),
     };
 
@@ -59,9 +59,9 @@ describe('shoesReducer', () => {
   });
 
   it('returns the state when updating a shoe', () => {
-    const updatedShoe = {...SHOES[1], notes: 'test'};
+    const updatedShoe = { ...SHOES[1], notes: 'test' };
     const action = {
-      data: {updateShoe: updatedShoe},
+      data: { updateShoe: updatedShoe },
       type: getSuccessType(ActionTypes.SHOE_UPDATE),
     };
 

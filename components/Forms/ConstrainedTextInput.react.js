@@ -2,9 +2,8 @@ import cx from 'classnames';
 import invariant from 'invariant';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {findDOMNode} from 'react-dom';
 
-import {DOWN, UP} from '../../constants/KeyCode';
+import { DOWN, UP } from '../../constants/KeyCode';
 
 const TYPES = {
   any: 'any',
@@ -19,8 +18,6 @@ const TYPES = {
  * specific value, which will be validated on blur.
  */
 class ConstrainedTextInput extends React.Component {
-  static displayName = 'ConstrainedTextInput';
-
   static propTypes = {
     /**
      * Allows custom formatting of number values for display. For example:
@@ -49,15 +46,16 @@ class ConstrainedTextInput extends React.Component {
     type: TYPES.number,
   };
 
-  constructor(props, context) {
-    super(props, context);
-    const {defaultValue, value, values} = props;
+  constructor(props) {
+    super(props);
+
+    const { defaultValue, value, values } = props;
     const index = this._getIndex(defaultValue || value);
 
     invariant(
       index !== -1,
-      'ConstrainedInput: `' + (defaultValue || value) + '` must be in `' +
-      values + '`'
+      `ConstrainedInput: \`${defaultValue || value}\` must be in \`${
+        values}\``
     );
 
     this.state = {
@@ -76,8 +74,8 @@ class ConstrainedTextInput extends React.Component {
   }
 
   render() {
-    const {format, maxLength, type, values, ...props} = this.props;
-    const {index, tempValue} = this.state;
+    const { format, maxLength, type, values, ...props } = this.props;
+    const { index, tempValue } = this.state;
 
     let value = tempValue;
     if (value == null) {
@@ -94,6 +92,7 @@ class ConstrainedTextInput extends React.Component {
         onBlur={this._onBlur}
         onChange={this._onKeyboardEntry}
         onKeyDown={this._onKeydown}
+        ref={(input) => this._input = input}
         size={maxLength}
         type="text"
         value={value}
@@ -102,7 +101,7 @@ class ConstrainedTextInput extends React.Component {
   }
 
   getValue = () => {
-    return findDOMNode(this).value;
+    return this._input.value;
   };
 
   _getIndex = (value) => {
@@ -120,11 +119,11 @@ class ConstrainedTextInput extends React.Component {
 
     switch (e.keyCode) {
       case UP:
-        index++;
+        index += 1;
         index = index < count ? index : 0;
         break;
       case DOWN:
-        index--;
+        index -= 1;
         index = index >= 0 ? index : count - 1;
         break;
       default:
@@ -138,13 +137,13 @@ class ConstrainedTextInput extends React.Component {
   };
 
   _onBlur = (evt) => {
-    var tempValue = this.state.tempValue;
+    const { tempValue } = this.state;
     if (tempValue == null) {
       return;
     }
 
     // Validate the stored value against the allowed values.
-    var index = this._getIndex(tempValue);
+    let index = this._getIndex(tempValue);
     if (index === -1) {
       index = this.state.lastValidIndex;
     }
@@ -158,7 +157,7 @@ class ConstrainedTextInput extends React.Component {
    * When typing in a value, store it as a temp value until the blur event.
    */
   _onKeyboardEntry = (e) => {
-    this.setState({tempValue: e.target.value});
+    this.setState({ tempValue: e.target.value });
   };
 
   _onChange = (index) => {

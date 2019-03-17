@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {OverlayTrigger, Tooltip} from 'react-bootstrap';
-import {Link} from 'react-router-dom';
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 import FBImage from './FBImage.react';
 import Loader from '../Loader/Loader.react';
@@ -29,7 +29,7 @@ class FBFacepile extends React.Component {
       return <Loader className="FacepileLoader" />;
     }
 
-    var faces = this.state.friends.map(this._renderFace);
+    const faces = this.state.friends.map(this._renderFace);
     return (
       <div className="FacepileContainer">
         {faces}
@@ -53,13 +53,13 @@ class FBFacepile extends React.Component {
   };
 
   _getFriends = () => {
-    var friends = this.props.friends + '';
+    const friends = `${this.props.friends}`;
     if (!friends) {
       return;
     }
 
-    var fbids = friends.split(',');
-    var batch = [];
+    const fbids = friends.split(',');
+    const batch = [];
 
     // Construct the batch query
     fbids.forEach((fbid) => {
@@ -71,18 +71,18 @@ class FBFacepile extends React.Component {
 
     // Retrieve the public data for each FBID
     FB.getLoginStatus((response) => {
-      FB.api('/', 'POST', {batch}, this._parseFriendData);
+      FB.api('/', 'POST', { batch }, this._parseFriendData);
     });
   };
 
   _parseFriendData = (response) => {
-    var friends = [];
+    const friends = [];
     response.forEach((data) => {
       if (data.code === 200) {
         friends.push(JSON.parse(data.body));
       }
     });
-    this.setState({friends});
+    this.setState({ friends });
   };
 }
 

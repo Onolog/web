@@ -6,7 +6,7 @@ import React from 'react';
  *
  * Renders the date in a single calendar cell.
  */
-const CalendarDate = ({date}) => <h3>{date.getDate()}</h3>;
+const CalendarDate = ({ date }) => <h3>{date.getDate()}</h3>;
 
 CalendarDate.propTypes = {
   date: PropTypes.instanceOf(Date).isRequired,

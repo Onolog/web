@@ -1,10 +1,10 @@
 // @flow
 
 import ActionTypes from '../../constants/ActionTypes';
-import {getBaseType, isBaseType} from '../../utils/actionTypes';
+import { getBaseType, isBaseType } from '../../utils/actionTypes';
 
 export default (state: Object = {}, action: {type: string}): Object => {
-  const {type} = action;
+  const { type } = action;
 
   // Filter out any actions that are not whitelisted.
   if (!ActionTypes[type]) {

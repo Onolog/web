@@ -11,7 +11,14 @@ type Props = {
 };
 
 const Chart = (props: Props) => {
-  const {children, className, height, transform, width, ...otherProps} = props;
+  const {
+    children,
+    className,
+    height,
+    transform,
+    width,
+    ...otherProps
+  } = props;
 
   return (
     <svg

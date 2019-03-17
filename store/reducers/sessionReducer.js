@@ -1,11 +1,13 @@
+/* eslint-disable no-case-declarations */
+
 // @flow
 
-import {getSuccessType} from '../../utils/actionTypes';
+import { getSuccessType } from '../../utils/actionTypes';
 import ActionTypes from '../../constants/ActionTypes';
 
-import type {Action} from '../../types/Action';
+import type { Action } from '../../types/Action';
 
-export default (state: Object={}, action: Action): Object => {
+export default (state: Object = {}, action: Action): Object => {
   switch (action.type) {
     case getSuccessType(ActionTypes.SESSION_INITIALIZE):
       return action.data.session;

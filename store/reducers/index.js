@@ -1,7 +1,7 @@
 // @flow
 
-import {connectRouter} from 'connected-react-router';
-import {combineReducers} from 'redux';
+import { connectRouter } from 'connected-react-router';
+import { combineReducers } from 'redux';
 
 import activities from './activitiesReducer';
 import brands from './brandsReducer';
@@ -13,7 +13,7 @@ import shoes from './shoesReducer';
 import ui from './uiReducer';
 import user from './userReducer';
 
-import type {History} from '../../types/History';
+import type { History } from '../../types/History';
 
 export default (history: History) => combineReducers({
   activities,

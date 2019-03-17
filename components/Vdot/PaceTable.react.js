@@ -4,7 +4,7 @@ import React from 'react';
 import ScrollContainer from '../ScrollContainer/ScrollContainer.react';
 import secondsToTime from '../../utils/secondsToTime';
 
-import {PACES} from '../../constants/Daniels';
+import { PACES } from '../../constants/Daniels';
 
 function formatTime(seconds) {
   return seconds < 100 ? seconds : secondsToTime(seconds);
@@ -61,30 +61,18 @@ class PaceTable extends React.Component {
     const vdots = this.props.vdot ? [this.props.vdot] : Object.keys(PACES);
 
     vdots.forEach((vdot) => {
-      rows.push(
-        <tr key={vdot}>
-          {this._getCells(vdot)}
-        </tr>
-      );
+      rows.push(this._getRow(vdot));
     });
 
     return rows;
   };
 
-  _getCells = (vdot) => {
+  _getRow = (vdot) => {
     const cells = [];
     const paces = PACES[vdot];
 
-    for (let intensity in paces) {
-      if (!paces.hasOwnProperty(intensity)) {
-        continue;
-      }
-
-      for (let distance in paces[intensity]) {
-        if (!paces[intensity].hasOwnProperty(distance)) {
-          continue;
-        }
-
+    Object.keys(paces).forEach((intensity) => {
+      Object.keys(paces[intensity]).forEach((distance) => {
         const seconds = paces[intensity][distance];
 
         cells.push(
@@ -92,14 +80,20 @@ class PaceTable extends React.Component {
             {seconds ? formatTime(seconds) : '·'}
           </td>
         );
-      }
-    }
+      });
+    });
 
-    // Add the vdot value as the first and last cell
-    cells.unshift(<td className="vdot" key={vdot + '-l'}>{vdot}</td>);
-    cells.push(<td className="vdot" key={vdot + '-r'}>{vdot}</td>);
-
-    return cells;
+    return (
+      <tr key={vdot}>
+        <td className="vdot" key={`${vdot}-l`}>
+          {vdot}
+        </td>
+        {cells}
+        <td className="vdot" key={`${vdot}-r`}>
+          {vdot}
+        </td>
+      </tr>
+    );
   };
 }
 

@@ -1,6 +1,6 @@
 // @flow
 
-import {METERS_PER_KM, METERS_PER_MILE} from '../constants/metrics';
+import { METERS_PER_KM, METERS_PER_MILE } from '../constants/metrics';
 
 /**
  * Converts speed (in meters/second) to pace (in seconds/mile or seconds/km).

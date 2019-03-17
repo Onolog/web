@@ -1,14 +1,14 @@
-import {isArray, map} from 'lodash';
+import { isArray, map } from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {Typeahead} from 'react-bootstrap-typeahead';
+import { Typeahead } from 'react-bootstrap-typeahead';
 
 import FBImage from './FBImage.react';
 
-const IMG_PX = 32;
-
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 import './css/FBFriendTokenizer.scss';
+
+const IMG_PX = 32;
 
 /**
  * FriendTokenizer.react
@@ -26,7 +26,7 @@ class FBFriendTokenizer extends React.Component {
   }
 
   render() {
-    const {selected, options} = this.state;
+    const { selected, options } = this.state;
 
     return (
       <Typeahead
@@ -62,13 +62,13 @@ class FBFriendTokenizer extends React.Component {
 
   _getFriends = () => {
     // Get all taggable friends
-    var batch = [{
+    const batch = [{
       method: 'GET',
       relative_url: 'me/friends',
     }];
 
     // Get info for any already-tagged friends
-    var {friends} = this.props;
+    const { friends } = this.props;
     if (friends) {
       friends.toString().split(',').forEach((fbid) => {
         batch.push({
@@ -79,14 +79,14 @@ class FBFriendTokenizer extends React.Component {
     }
 
     // Get taggable + already tagged FB friends
-    FB.api('/', 'POST', {batch}, this._handleGraphResponse);
+    FB.api('/', 'POST', { batch }, this._handleGraphResponse);
   };
 
   /**
    * Simulate firing an onChange event
    */
   _handleChange = (selected) => {
-    this.setState({selected});
+    this.setState({ selected });
 
     this.props.onChange && this.props.onChange({
       target: {
@@ -106,8 +106,8 @@ class FBFriendTokenizer extends React.Component {
 
     // The first item in the response is the full list of taggable friends.
     // The other items are friends who are already tagged,
-    var options = JSON.parse(response.shift().body).data;
-    var selected = [];
+    const options = JSON.parse(response.shift().body).data;
+    const selected = [];
 
     response.forEach((data) => {
       if (data.code === 200) {
@@ -115,7 +115,7 @@ class FBFriendTokenizer extends React.Component {
       }
     });
 
-    this.setState({options, selected});
+    this.setState({ options, selected });
   };
 }
 

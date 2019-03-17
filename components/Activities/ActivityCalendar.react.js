@@ -9,16 +9,16 @@ import BaseCalendarWeek from '../Calendar/BaseCalendarWeek.react';
 
 import calendarGrid from '../../utils/calendarGrid';
 
-const CURRENT_TIMEZONE = jstz.determine().name();
-
 import './css/ActivityCalendar.css';
+
+const CURRENT_TIMEZONE = jstz.determine().name();
 
 /**
  * ActivityCalendar.react
  */
 class ActivityCalendar extends React.Component {
   render() {
-    const {date} = this.props;
+    const { date } = this.props;
     const grid = calendarGrid(date.getMonth(), date.getFullYear());
 
     return (

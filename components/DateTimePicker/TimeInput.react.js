@@ -1,4 +1,4 @@
-import {range} from 'lodash';
+import { range } from 'lodash';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -23,8 +23,6 @@ function formatter(value) {
  * or uncontrolled input similar to a normal form field.
  */
 class TimeInput extends React.Component {
-  static displayName = 'TimeInput';
-
   static propTypes = {
     hours: PropTypes.number.isRequired,
     minutes: PropTypes.number.isRequired,
@@ -32,7 +30,7 @@ class TimeInput extends React.Component {
   };
 
   render() {
-    var m = moment({
+    const m = moment({
       hours: this.props.hours,
       minutes: this.props.minutes,
     });
@@ -59,7 +57,7 @@ class TimeInput extends React.Component {
             className="meridiem"
             maxLength={2}
             onChange={this._onMeridiemChange}
-            ref="meridiem"
+            ref={(input) => this._meridiemInput = input}
             type="any"
             value={m.format('A')}
             values={Object.keys(MERIDIEM)}
@@ -70,13 +68,13 @@ class TimeInput extends React.Component {
   }
 
   _onHoursChange = (hours) => {
-    var meridiem = this.refs.meridiem.getValue();
+    const meridiem = this._meridiemInput.getValue();
 
     // Display is 12-hour, time is 24-hour. Adjust accordingly.
     if (meridiem === MERIDIEM.PM && hours < 12) {
-      hours = hours + 12;
+      hours += 12;
     } else if (meridiem === MERIDIEM.AM && hours >= 12) {
-      hours = hours - 12;
+      hours -= 12;
     }
 
     this._onChange(hours, this.props.minutes);
@@ -87,13 +85,13 @@ class TimeInput extends React.Component {
   };
 
   _onMeridiemChange = (meridiem) => {
-    var {hours} = this.props;
+    let { hours } = this.props;
     hours = (meridiem === MERIDIEM.PM && hours < 12) ? hours + 12 : hours - 12;
     this._onChange(hours, this.props.minutes);
   };
 
-  _onChange = (/*number*/ hours, /*number*/ minutes) => {
-    this.props.onChange({hours, minutes});
+  _onChange = (/* number */ hours, /* number */ minutes) => {
+    this.props.onChange({ hours, minutes });
   };
 }
 

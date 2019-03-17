@@ -1,15 +1,15 @@
-import {isEmpty} from 'lodash';
+import { isEmpty } from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {FormControl, FormGroup, HelpBlock} from 'react-bootstrap';
-import {connect} from 'react-redux';
+import { FormControl, FormGroup, HelpBlock } from 'react-bootstrap';
+import { connect } from 'react-redux';
 
 import ActivityForm from './ActivityForm.react';
 import AppForm from '../Forms/AppForm.react';
 import EmptyState from '../EmptyState.react';
 import Loader from '../Loader/Loader.react';
 
-import {makeRequest} from '../../actions';
+import { makeRequest } from '../../actions';
 import ActionTypes from '../../constants/ActionTypes';
 
 class ActivityFromUrlForm extends React.Component {
@@ -18,8 +18,8 @@ class ActivityFromUrlForm extends React.Component {
   };
 
   render() {
-    const {activity, onChange, isLoading} = this.props;
-    const {error} = this.state;
+    const { activity, onChange, isLoading } = this.props;
+    const { error } = this.state;
 
     if (!isEmpty(activity)) {
       return (
@@ -38,7 +38,6 @@ class ActivityFromUrlForm extends React.Component {
       );
     }
 
-    /* eslint-disable jsx-a11y/no-autofocus */
     return (
       <AppForm>
         <FormGroup validationState={error ? 'error' : null}>
@@ -52,23 +51,22 @@ class ActivityFromUrlForm extends React.Component {
         </FormGroup>
       </AppForm>
     );
-    /* eslint-enable jsx-a11y/no-autofocus */
   }
 
   _handleUrlChange = (e) => {
     const url = e.target.value;
 
     if (!url) {
-      this.setState({error: null});
+      this.setState({ error: null });
       return;
     }
 
     // Extract the activity id and do some basic validation.
     const garminActivityId = parseInt(url.split('/').pop(), 10);
     if (!garminActivityId) {
-      this.setState({error: 'Please enter a valid Garmin activity URL.'});
+      this.setState({ error: 'Please enter a valid Garmin activity URL.' });
     } else {
-      this.setState({error: null});
+      this.setState({ error: null });
       this.props.getGarminActivity(garminActivityId);
     }
   };
@@ -97,7 +95,7 @@ const mapDispatchToProps = (dispatch) => ({
         timezone,
       }
     }
-  `, {garminActivityId}, ActionTypes.GARMIN_ACTIVITY_FETCH)),
+  `, { garminActivityId }, ActionTypes.GARMIN_ACTIVITY_FETCH)),
 });
 
 export default connect(null, mapDispatchToProps)(ActivityFromUrlForm);

@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {findDOMNode} from 'react-dom';
-import {FormControl} from 'react-bootstrap';
+import { FormControl } from 'react-bootstrap';
 
 import AppForm from '../Forms/AppForm.react';
 import DateTimePicker from '../DateTimePicker/DateTimePicker.react';
@@ -29,11 +28,11 @@ const FIELDNAMES = {
 class ActivityForm extends React.Component {
   componentDidMount() {
     // Auto-focus the distance field
-    findDOMNode(this._distanceInput).focus();
+    this._distanceInput.focus();
   }
 
   render() {
-    const {activity, errors} = this.props;
+    const { activity, errors } = this.props;
     const pace = calculatePace(
       activity.distance || 0,
       activity.duration || 0
@@ -47,7 +46,7 @@ class ActivityForm extends React.Component {
             defaultValue={activity[FIELDNAMES.DISTANCE]}
             name={FIELDNAMES.DISTANCE}
             onChange={this._onInputChange}
-            ref={(input) => this._distanceInput = input}
+            inputRef={(input) => this._distanceInput = input}
             type="number"
           />
           <span className="colon">
@@ -119,14 +118,14 @@ class ActivityForm extends React.Component {
   }
 
   _onInputChange = (e) => {
-    const {name, value} = e.target;
-    const activity = {...this.props.activity};
+    const { name, value } = e.target;
+    const activity = { ...this.props.activity };
     activity[name] = value;
 
     this._onChange(activity);
   };
 
-  _onDateChange = (startDate: string, timezone: string) => {
+  _onDateChange = (startDate, timezone) => {
     const activity = {
       ...this.props.activity,
       startDate,

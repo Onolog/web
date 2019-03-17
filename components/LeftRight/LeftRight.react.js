@@ -13,52 +13,49 @@ const DIRECTION = {
  *
  * Simple left right positioning tool.
  */
-class LeftRight extends React.Component {
-  static displayName = 'LeftRight';
+const LeftRight = (props) => {
+  const children = [];
 
-  static propTypes = {
-    direction: PropTypes.oneOf(Object.keys(DIRECTION)),
-  };
+  React.Children.forEach(props.children, (child) => {
+    children.push(child);
+  });
 
-  static defaultProps = {
-    direction: DIRECTION.both,
-  };
+  const dir = props.direction || DIRECTION.both;
+  const both = (dir === DIRECTION.both);
 
-  render() {
-    const children = [];
-    React.Children.forEach(this.props.children, (child) => {
-      children.push(child);
-    });
+  const firstClass = both || dir === DIRECTION.left ? 'pull-left' : '';
+  const secondClass = both || dir === DIRECTION.right ? 'pull-right' : '';
 
-    const dir = this.props.direction || DIRECTION.both;
-    const both = (dir === DIRECTION.both);
+  const firstChild =
+    <div className={firstClass} key="left">
+      {children[0]}
+    </div>;
 
-    const firstClass = both || dir === DIRECTION.left ? 'pull-left' : '';
-    const secondClass = both || dir === DIRECTION.right ? 'pull-right' : '';
+  const secondChild = children.length < 2 ?
+    null :
+    <div className={secondClass} key="right">
+      {children[1]}
+    </div>;
 
-    const firstChild =
-      <div className={firstClass} key="left">
-        {children[0]}
-      </div>;
+  const orderedChildren = (dir === DIRECTION.right && secondChild) ?
+    [secondChild, firstChild] :
+    [firstChild, secondChild];
 
-    const secondChild = children.length < 2 ?
-      null :
-      <div className={secondClass} key="right">
-        {children[1]}
-      </div>;
+  return (
+    <div
+      {...props}
+      className={cx(props.className, 'clearfix')}>
+      {orderedChildren}
+    </div>
+  );
+};
 
-    const orderedChildren = (dir === DIRECTION.right && secondChild) ?
-      [secondChild, firstChild] :
-      [firstChild, secondChild];
+LeftRight.propTypes = {
+  direction: PropTypes.oneOf(Object.keys(DIRECTION)),
+};
 
-    return (
-      <div
-        {...this.props}
-        className={cx(this.props.className, 'clearfix')}>
-        {orderedChildren}
-      </div>
-    );
-  }
-}
+LeftRight.defaultProps = {
+  direction: DIRECTION.both,
+};
 
 export default LeftRight;

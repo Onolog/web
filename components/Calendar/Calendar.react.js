@@ -40,7 +40,7 @@ class Calendar extends React.Component {
   };
 
   _renderDay = (day, idx) => {
-    const date = day.date;
+    const { date } = day;
     return (
       <BaseCalendarDay
         date={date}

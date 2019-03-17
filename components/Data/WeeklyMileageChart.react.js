@@ -1,19 +1,19 @@
 import * as d3 from 'd3';
 import moment from 'moment-timezone';
 import PropTypes from 'prop-types';
-import {Axis, Bar, Bars} from 'r-d3';
-import {getInnerHeight, getInnerWidth, translate} from 'r-d3/lib/utils';
+import { Axis, Bar, Bars } from 'r-d3';
+import { getInnerHeight, getInnerWidth, translate } from 'r-d3/lib/utils';
 import React from 'react';
-import {OverlayTrigger, Tooltip} from 'react-bootstrap';
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 import Chart from './Chart.react';
 import Distance from '../Distance/Distance.react';
 import fluidChart from '../../containers/fluidChart';
-import {MARGIN} from '../../constants/d3';
+import { MARGIN } from '../../constants/d3';
 
 class WeeklyMileageChart extends React.Component {
   render() {
-    const {activities, height, width, year, ...props} = this.props;
+    const { activities, height, width, year, ...props } = this.props;
 
     // Transform data for consumption.
     const data = d3.nest()
@@ -65,7 +65,7 @@ class WeeklyMileageChart extends React.Component {
   }
 
   _renderBar = (d, xScale, yScale) => {
-    const {height, year} = this.props;
+    const { height, year } = this.props;
 
     // First day of the nth week for the given year.
     const m = moment().year(year).week(d.key).day(0);

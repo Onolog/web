@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {Nav, Navbar, NavItem} from 'react-bootstrap';
-import {connect} from 'react-redux';
-import {Link} from 'react-router-dom';
-import {LinkContainer} from 'react-router-bootstrap';
+import { Nav, Navbar, NavItem } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { LinkContainer } from 'react-router-bootstrap';
 
 import AccountNavItem from '../Navigation/AccountNavItem.react';
 import FBImage from '../Facebook/FBImage.react';
@@ -17,7 +17,7 @@ import './css/AppHeader.css';
  */
 class AppHeader extends React.Component {
   render() {
-    const {user} = this.props;
+    const { user } = this.props;
 
     return (
       <Navbar
@@ -27,7 +27,7 @@ class AppHeader extends React.Component {
         inverse>
         <Navbar.Header>
           <Navbar.Brand>
-            <Link to={{pathname: getHomePath()}}>Onolog</Link>
+            <Link to={{ pathname: getHomePath() }}>Onolog</Link>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
@@ -71,15 +71,15 @@ class AppHeader extends React.Component {
   _renderMainMenu = (user) => {
     if (user.id) {
       const links = [
-        {label: 'Calendar', pathname: getHomePath()},
-        {label: 'Profile', pathname: `/users/${user.id}`},
-        {label: 'Shoes', pathname: '/shoes'},
+        { label: 'Calendar', pathname: getHomePath() },
+        { label: 'Profile', pathname: `/users/${user.id}` },
+        { label: 'Shoes', pathname: '/shoes' },
       ];
 
       return (
         <Nav>
-          {links.map(({label, pathname}, idx) => (
-            <LinkContainer key={idx} to={{pathname}}>
+          {links.map(({ label, pathname }) => (
+            <LinkContainer key={label} to={{ pathname }}>
               <NavItem>{label}</NavItem>
             </LinkContainer>
           ))}
@@ -112,7 +112,7 @@ AppHeader.propTypes = {
   }).isRequired,
 };
 
-const mapStateToProps = ({session}) => ({
+const mapStateToProps = ({ session }) => ({
   user: session.user,
 });
 

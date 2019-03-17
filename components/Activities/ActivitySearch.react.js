@@ -1,13 +1,13 @@
 import moment from 'moment-timezone';
 import React from 'react';
-import {AsyncTypeahead, Highlighter, Menu, MenuItem} from 'react-bootstrap-typeahead';
-import {connect} from 'react-redux';
-import {withRouter} from 'react-router';
+import { AsyncTypeahead, Highlighter, Menu, MenuItem } from 'react-bootstrap-typeahead';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import Distance from '../Distance/Distance.react';
 import Middot from '../Middot.react';
 
-import {makeRequest} from '../../actions';
+import { makeRequest } from '../../actions';
 import secondsToTime from '../../utils/secondsToTime';
 import ActionTypes from '../../constants/ActionTypes';
 
@@ -19,7 +19,7 @@ class ActivitySearch extends React.Component {
   };
 
   render() {
-    const {history, onSearch, pendingRequests, searchResults} = this.props;
+    const { history, onSearch, pendingRequests, searchResults } = this.props;
 
     const isLoading =
       !!(pendingRequests && pendingRequests[ActionTypes.ACTIVITIES_SEARCH]);
@@ -28,7 +28,7 @@ class ActivitySearch extends React.Component {
       <AsyncTypeahead
         bsSize="small"
         className="app-form activity-search"
-        filterBy={(option, {text}) => (
+        filterBy={(option, { text }) => (
           // Custom filterBy function to bypass use of labelKey.
           option.notes.toLowerCase().indexOf(text.toLowerCase()) > -1
         )}
@@ -43,7 +43,7 @@ class ActivitySearch extends React.Component {
         onChange={(selected) => {
           history.push(`/activities/${selected[0].id}`);
         }}
-        onInputChange={(value) => this.setState({value})}
+        onInputChange={(value) => this.setState({ value })}
         onSearch={onSearch}
         options={searchResults}
         paginate={false}
@@ -82,7 +82,7 @@ class ActivitySearch extends React.Component {
   }
 }
 
-const mapStateToProps = ({pendingRequests, searchResults}) => ({
+const mapStateToProps = ({ pendingRequests, searchResults }) => ({
   pendingRequests,
   searchResults,
 });
@@ -101,7 +101,7 @@ const mapDispatchToProps = (dispatch) => ({
         },
       },
     }
-  `, {filter}, ActionTypes.ACTIVITIES_SEARCH)),
+  `, { filter }, ActionTypes.ACTIVITIES_SEARCH)),
 });
 
 export default connect(

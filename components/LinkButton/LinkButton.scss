@@ -1,0 +1,19 @@
+/**
+ * Plain button styled to look and behave like a link for a11y purposes.
+ */
+.linkButton {
+  background-color: transparent;
+  border: 0;
+  margin: 0;
+  outline: none;
+  padding: 0;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &.block {
+    display: block;
+    width: 100%;
+  }
+}

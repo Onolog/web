@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {RETURN} from '../../constants/KeyCode';
+import { RETURN } from '../../constants/KeyCode';
 
 /**
  * Link.react
@@ -10,7 +10,7 @@ import {RETURN} from '../../constants/KeyCode';
  */
 class Link extends React.Component {
   render() {
-    const {children, role, ...props} = this.props;
+    const { children, role, ...props } = this.props;
 
     /* eslint-disable jsx-a11y/no-static-element-interactions */
     return (

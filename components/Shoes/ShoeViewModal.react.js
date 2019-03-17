@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {Button, Modal} from 'react-bootstrap';
+import { Button, Modal } from 'react-bootstrap';
 
 import ShoeView from './ShoeView.react';
 
 /**
  * ShoeViewModal.react
  */
-const ShoeViewModal = ({activities, onHide, shoe, show}) => {
+const ShoeViewModal = ({ activities, onHide, shoe, show }) => {
   return (
     <Modal onHide={onHide} show={show}>
       <Modal.Header closeButton>

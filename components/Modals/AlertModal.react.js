@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {Alert, Modal} from 'react-bootstrap';
+import { Alert, Modal } from 'react-bootstrap';
 
 import './css/AlertModal.scss';
 
 const AUTOHIDE_INTERVAL = 10 * 1000; // 10 seconds
 
-const AlertModal = ({autohideInterval, bsStyle, children, onHide, show}) => (
+const AlertModal = ({ autohideInterval, bsStyle, children, onHide, show }) => (
   <Modal
     backdrop={false}
     bsSize="small"

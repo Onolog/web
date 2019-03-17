@@ -19,9 +19,9 @@ const BaseCalendarDay = (props) => {
   return (
     <td
       className={cx({
-        'lastMonth': month === lastMonth,
-        'nextMonth': month === nextMonth,
-        'today': moment().isSame(dateObj, 'day'),
+        lastMonth: month === lastMonth,
+        nextMonth: month === nextMonth,
+        today: moment().isSame(dateObj, 'day'),
       })}>
       {props.children}
     </td>

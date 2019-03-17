@@ -1,8 +1,8 @@
-import {keys} from 'lodash';
+import { keys } from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {Panel} from 'react-bootstrap';
-import {connect} from 'react-redux';
+import { Panel } from 'react-bootstrap';
+import { connect } from 'react-redux';
 
 import AppFullPage from '../../components/Page/AppFullPage.react';
 import Distance from '../../components/Distance/Distance.react';
@@ -12,8 +12,8 @@ import PageHeader from '../../components/Page/PageHeader.react';
 import DataYearPanel from '../../components/Data/DataYearPanel.react';
 import Topline from '../../components/Topline/Topline.react';
 
-import {makeRequest} from '../../actions';
-import {groupActivities} from '../../utils/ActivityUtils';
+import { makeRequest } from '../../actions';
+import { groupActivities } from '../../utils/ActivityUtils';
 
 import ActionTypes from '../../constants/ActionTypes';
 
@@ -28,7 +28,7 @@ class DataController extends React.Component {
   }
 
   render() {
-    const {activities, pendingRequests, user} = this.props;
+    const { activities, pendingRequests, user } = this.props;
 
     if (
       !user.name ||
@@ -54,7 +54,7 @@ class DataController extends React.Component {
   }
 
   _renderToplineStats = () => {
-    const {count, sumDistance} = this.props.activities;
+    const { count, sumDistance } = this.props.activities;
 
     return (
       <Panel>
@@ -81,7 +81,7 @@ class DataController extends React.Component {
   };
 
   _renderContent = () => {
-    const {activities} = this.props;
+    const { activities } = this.props;
 
     // Render an empty state when there's no data.
     if (!activities.count) {
@@ -122,7 +122,7 @@ DataController.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  const {activities, pendingRequests, shoes, session, user} = state;
+  const { activities, pendingRequests, shoes, session, user } = state;
   return {
     activities,
     pendingRequests,
@@ -154,7 +154,7 @@ const mapDispatchToProps = (dispatch) => ({
         }
       }
     }
-  `, {userId}, ActionTypes.USER_FETCH)),
+  `, { userId }, ActionTypes.USER_FETCH)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DataController);

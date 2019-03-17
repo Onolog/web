@@ -1,6 +1,6 @@
 // @flow
 
-import {BASE_IMG_URL} from '../constants/Garmin';
+import { BASE_IMG_URL } from '../constants/Garmin';
 
 /**
  * Converts the full Garmin device name to an image URL
@@ -8,13 +8,13 @@ import {BASE_IMG_URL} from '../constants/Garmin';
 export function getDeviceImageSrc(deviceName: string): string {
   // Convert from something like: 'Garmin Forerunner 910XT'
   // to: 'forerunner-910xt'
-  var model = deviceName
+  const model = deviceName
     .toLowerCase()
     .replace('garmin ', '')
     .split(' ')
     .join('-');
 
-  return BASE_IMG_URL + model + '.png';
+  return `${BASE_IMG_URL + model}.png`;
 }
 
 /**

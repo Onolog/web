@@ -1,4 +1,4 @@
-import {expect} from 'chai';
+import { expect } from 'chai';
 import moment from 'moment';
 
 import getHomePath from '../getHomePath';

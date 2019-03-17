@@ -1,6 +1,6 @@
-import {head} from 'lodash';
+import { head } from 'lodash';
 import moment from 'moment';
-import {Panel} from 'react-bootstrap';
+import { Panel } from 'react-bootstrap';
 import React from 'react';
 
 import Activity from '../../components/Activities/Activity.react';
@@ -8,7 +8,7 @@ import AppFullPage from '../../components/Page/AppFullPage.react';
 import EmptyState from '../../components/EmptyState.react';
 import FileInput from '../../components/Forms/FileInput.react';
 
-import {metersToFeet, metersToMiles} from '../../utils/distanceUtils';
+import { metersToFeet, metersToMiles } from '../../utils/distanceUtils';
 import FileParser from '../../utils/parsers/FileParser';
 import GoogleTimezone from '../../utils/GoogleTimezone';
 
@@ -21,7 +21,7 @@ class GarminUploader extends React.Component {
   };
 
   render() {
-    const {activity} = this.state;
+    const { activity } = this.state;
     const athlete = {
       id: 517820043,
       name: 'Eric Giovanola',
@@ -31,7 +31,7 @@ class GarminUploader extends React.Component {
       name: 'ASICS DS Trainer 19.2',
     };
 
-    let contents = activity ?
+    const contents = activity ?
       <Activity
         activity={this._normalizeActivity(activity)}
         athlete={athlete}
@@ -79,23 +79,18 @@ class GarminUploader extends React.Component {
 
     return {
       ...activity,
-
-      // General activity data
-      id: 0,
-      startDate: moment(activity.startDate).format(),
-
-      // Athlete-specific data
       distance: metersToMiles(activity.distance),
-      // time: activity.duration,
       elevationGain: metersToFeet(activity.elevationGain),
       elevationLoss: metersToFeet(activity.elevationLoss),
       friends,
+      id: 0,
       notes,
+      startDate: moment(activity.startDate).format(),
     };
   };
 
   _handleChange = (e) => {
-    const {files} = e.target;
+    const { files } = e.target;
     const reader = new FileReader();
 
     reader.onloadend = this._onLoadEnd;
@@ -118,7 +113,7 @@ class GarminUploader extends React.Component {
         timestamp: moment(start.time).unix(),
       }, (data) => {
         activity.timezone = data.timeZoneId;
-        this.setState({activity: activity});
+        this.setState({ activity });
       });
     }
   };

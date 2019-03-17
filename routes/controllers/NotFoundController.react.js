@@ -1,5 +1,5 @@
 import React from 'react';
-import {withRouter} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import AppFullPage from '../../components/Page/AppFullPage.react';
 import Link from '../../components/Link/Link.react';
@@ -13,7 +13,7 @@ import './styles/NotFound.scss';
  *
  * Catch-all page if a route doesn't match.
  */
-const NotFoundController = ({history}) => (
+const NotFoundController = ({ history }) => (
   <AppFullPage title="Page Not Found">
     <div className="error-page">
       <div className="container">
@@ -28,6 +28,7 @@ const NotFoundController = ({history}) => (
         </p>
         <ul className="list-inline">
           <li>
+            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
             <Link onClick={history.goBack}>
               Back
             </Link>

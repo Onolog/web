@@ -11,7 +11,7 @@ import XMLParser from './XMLParser';
  */
 class TCXParser extends XMLParser {
   parse() {
-    let activityNodes = this.getByTagName('Activity');
+    const activityNodes = this.getByTagName('Activity');
 
     // TODO: Should this be an error or just an empty array/object?
     invariant(

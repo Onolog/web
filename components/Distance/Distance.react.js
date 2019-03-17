@@ -1,23 +1,23 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
-import {convertDistance} from '../../utils/distanceUtils';
+import { convertDistance } from '../../utils/distanceUtils';
 import formatDistance from '../../utils/formatDistance';
 import getDistanceUnitString from '../../utils/getDistanceUnitString';
 
-import {UNITS} from '../../constants/metrics';
+import { UNITS } from '../../constants/metrics';
 
 import './Distance.scss';
 
-const mapStateToProps = ({session: {user}}) => {
+const mapStateToProps = ({ session: { user } }) => {
   return {
     units: user ? user.distanceUnits : UNITS.MILES,
   };
 };
 
 const DistanceLabel = (props) => {
-  const {abbreviate, units} = props;
+  const { abbreviate, units } = props;
   return (
     <span className="distance-label">
       {getDistanceUnitString(units, abbreviate)}
@@ -38,7 +38,7 @@ DistanceLabel.defaultProps = {
 };
 
 const Distance = (props) => {
-  const {distance, label, units, ...labelProps} = props;
+  const { distance, label, units, ...labelProps } = props;
   return (
     <span className="distance">
       {formatDistance(convertDistance(distance, units))}

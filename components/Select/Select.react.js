@@ -9,9 +9,9 @@ import cx from 'classnames';
  */
 class Select extends React.Component {
   render() {
-    const {className, defaultLabel, options, ...otherProps} = this.props;
+    const { className, defaultLabel, options, ...otherProps } = this.props;
 
-    let selectOptions = options.map(this._renderOptions);
+    const selectOptions = options.map(this._renderOptions);
     if (defaultLabel) {
       selectOptions.unshift(this._renderOption({
         label: defaultLabel,
@@ -28,11 +28,11 @@ class Select extends React.Component {
     );
   }
 
-  _renderOptions = (/*object*/ option, /*number*/ idx) => /*object*/ {
+  _renderOptions = (/* object */ option, /* number */ idx) => /* object */ {
     // If the option contains sub-options, render an <optgroup>
     if (option.options && Array.isArray(option.options)) {
       return (
-        <optgroup key={'optgroup-' + idx} label={option.label}>
+        <optgroup key={`optgroup-${idx}`} label={option.label}>
           {option.options.map(this._renderOption)}
         </optgroup>
       );
@@ -42,7 +42,7 @@ class Select extends React.Component {
     return this._renderOption(option, idx);
   };
 
-  _renderOption = (/*object*/ option, /*number*/ idx) => /*object*/ {
+  _renderOption = (/* object */ option, /* number */ idx) => /* object */ {
     return (
       <option key={idx} value={option.value}>
         {option.label}

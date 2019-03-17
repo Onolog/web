@@ -1,4 +1,4 @@
-import {head} from 'lodash';
+import { head } from 'lodash';
 
 /**
  * XMLParser
@@ -6,20 +6,15 @@ import {head} from 'lodash';
  * Base parser for parsing XML activity files, like TCX or GPX.
  */
 class XMLParser {
-  constructor(node) {
+  constructor(nodeOrString) {
+    let node = nodeOrString;
+
     // Convert to a document if we're working with a string.
     if (typeof node === 'string') {
       node = this.toDocument(node);
     }
 
     this.node = node;
-  }
-
-  /**
-   * Convenience method.
-   */
-  getByTagName(tagName) {
-    return this.node.getElementsByTagName(tagName);
   }
 
   /**
@@ -35,16 +30,12 @@ class XMLParser {
    *
    *    this.getTagValue('ChildNode', node); // 'SomeValue'
    */
-  getTagValue(tagName, parentNode) {
+  static getTagValue(tagName, parentNode) {
     if (parentNode) {
-      var childNode = head(parentNode.getElementsByTagName(tagName));
+      const childNode = head(parentNode.getElementsByTagName(tagName));
       return (childNode && childNode.innerHTML) || 0;
     }
     return 0;
-  }
-
-  getAttribute(attributeName) {
-    return this.node.getAttribute(attributeName);
   }
 
   /**
@@ -52,11 +43,11 @@ class XMLParser {
    * @param {String} fromString is the xml string to convert
    * @returns {Document}
    */
-  toDocument(fromString) {
+  static toDocument(fromString) {
     // Internet Explorer
     if (window.ActiveXObject) {
-      var {ActiveXObject} = window;
-      var doc = new ActiveXObject('Microsoft.XMLDOM');
+      const { ActiveXObject } = window;
+      const doc = new ActiveXObject('Microsoft.XMLDOM');
       doc.async = 'false';
       doc.loadXML(fromString);
       return doc;
@@ -70,13 +61,24 @@ class XMLParser {
    * @param {Document} fromDocument is the DOM Object to convert
    * @returns {String}
    */
-  toString(fromDocument) {
+  static toString(fromDocument) {
     if (window.ActiveXObject) {
       return fromDocument.xml;
     }
 
-    var serializer = new XMLSerializer();
+    const serializer = new XMLSerializer();
     return serializer.serializeToString(fromDocument);
+  }
+
+  /**
+   * Convenience method.
+   */
+  getByTagName(tagName) {
+    return this.node.getElementsByTagName(tagName);
+  }
+
+  getAttribute(attributeName) {
+    return this.node.getAttribute(attributeName);
   }
 }
 

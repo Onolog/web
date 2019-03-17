@@ -41,7 +41,7 @@ class GarminSample {
   dom = null;
   factory = null;
   isLazyLoaded = false; // Lazy loading related values
-  measurements = {};    // Measurements of this sample
+  measurements = {}; // Measurements of this sample
 
   setLazyLoading = (isLazyLoaded, factory, dom) => {
     this.isLazyLoaded = isLazyLoaded;
@@ -96,7 +96,7 @@ class GarminSample {
       !this.measurements[mKey] ||
       !(this.measurements[mKey] instanceof GarminMeasurement)
     ) {
-      this.measurements[mKey]= new GarminMeasurement(mValue, mContext);
+      this.measurements[mKey] = new GarminMeasurement(mValue, mContext);
     } else {
       this.measurements[mKey].setValue(mValue);
       this.measurements[mKey].setContext(mContext);
@@ -108,8 +108,8 @@ class GarminSample {
    * @return True if latitude and longitude exist, false otherwise
    */
   isValidLocation = () => {
-    var latitude = this.getMeasurement(MEASUREMENT_KEYS.latitude);
-    var longitude = this.getMeasurement(MEASUREMENT_KEYS.longitude);
+    const latitude = this.getMeasurement(MEASUREMENT_KEYS.latitude);
+    const longitude = this.getMeasurement(MEASUREMENT_KEYS.longitude);
     return (
       (latitude && latitude.getValue() !== null) &&
       (longitude && longitude.getValue() !== null)
@@ -127,18 +127,18 @@ class GarminSample {
 
   printMe = (tabs) => {
     let output = '';
-    output += tabs + '  [Sample]\n';
+    output += `${tabs}  [Sample]\n`;
 
-    let measKeys = Object.keys(this.measurements);
+    const measKeys = Object.keys(this.measurements);
     for (let i = 0; i < measKeys.length; i++) {
-      output += tabs + '    ' + measKeys[i] + ':\n';
-      output += this.measurements[measKeys[i]].printMe(tabs + '    ');
+      output += `${tabs}    ${measKeys[i]}:\n`;
+      output += this.measurements[measKeys[i]].printMe(`${tabs}    `);
     }
 
     return output;
   }
 
-  toString() {
+  toString = () => {
     return '[GarminSample]';
   }
 }

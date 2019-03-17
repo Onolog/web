@@ -2,13 +2,16 @@ import moment from 'moment';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import cx from 'classnames';
 import DateInputCalendar from './DateInputCalendar.react';
-import Link from '../Link/Link.react';
+import LinkButton from '../LinkButton/LinkButton.react';
 import MaterialIcon from '../Icons/MaterialIcon.react';
 
-import cx from 'classnames';
+import { ESC, LEFT, RIGHT } from '../../constants/KeyCode';
 
-import {ESC, LEFT, RIGHT} from '../../constants/KeyCode';
+function getMoment({ date, months, years }) {
+  return moment().year(years).month(months).date(date);
+}
 
 /**
  * DateInputCalendarPopover.react.js
@@ -18,8 +21,7 @@ import {ESC, LEFT, RIGHT} from '../../constants/KeyCode';
  * externally.
  */
 class DateInputCalendarPopover extends React.Component {
-  static displayName = 'DateInputCalendarPopover';
-
+  /* eslint-disable react/no-unused-prop-types */
   static propTypes = {
     date: PropTypes.number.isRequired,
     months: PropTypes.number.isRequired,
@@ -27,6 +29,11 @@ class DateInputCalendarPopover extends React.Component {
     onHide: PropTypes.func.isRequired,
     show: PropTypes.bool.isRequired,
     years: PropTypes.number.isRequired,
+  };
+  /* eslint-enable react/no-unused-prop-types */
+
+  state = {
+    calendarMoment: getMoment(this.props),
   };
 
   componentDidMount() {
@@ -37,7 +44,7 @@ class DateInputCalendarPopover extends React.Component {
     // When hiding or showing the popover, the date shown by the calendar
     // should be the same as the selected date.
     if (this.props.show !== nextProps.show) {
-      this.setState({calendarMoment: this._getMoment(nextProps)});
+      this.setState({ calendarMoment: getMoment(nextProps) });
     }
   }
 
@@ -50,33 +57,31 @@ class DateInputCalendarPopover extends React.Component {
       return null;
     }
 
-    const {calendarMoment} = this.state;
+    const { calendarMoment } = this.state;
 
     return (
       <div className={cx('popover', 'fade', 'bottom', 'in')}>
         <div className="arrow" />
         <div className="popover-header DateInputCalendarControls">
-          <Link
+          <LinkButton
             className="monthArrow arrowLeft"
-            href="#"
             onClick={this._onPrevMonthClick}>
             <MaterialIcon icon="arrow-left" />
-          </Link>
+          </LinkButton>
           <div className="DateInputCalendarControls-monthYear">
             {calendarMoment.format('MMMM YYYY')}
           </div>
-          <Link
+          <LinkButton
             className="monthArrow arrowRight"
-            href="#"
             onClick={this._onNextMonthClick}>
             <MaterialIcon icon="arrow-right" />
-          </Link>
+          </LinkButton>
         </div>
         <div className="popover-content">
           <DateInputCalendar
             month={calendarMoment.month()}
             onChange={this.props.onChange}
-            selectedDate={this._getMoment(this.props).toDate()}
+            selectedDate={getMoment(this.props).toDate()}
             year={calendarMoment.year()}
           />
         </div>
@@ -96,30 +101,24 @@ class DateInputCalendarPopover extends React.Component {
         case RIGHT:
           this._onNextMonthClick(e);
           break;
+        default:
+          break;
       }
     }
   };
 
   _onPrevMonthClick = (e) => {
     e.preventDefault();
-    this.setState({
-      calendarMoment: this.state.calendarMoment.subtract(1, 'month'),
-    });
+    this.setState((state) => ({
+      calendarMoment: state.calendarMoment.subtract(1, 'month'),
+    }));
   };
 
   _onNextMonthClick = (e) => {
     e.preventDefault();
-    this.setState({
-      calendarMoment: this.state.calendarMoment.add(1, 'month'),
-    });
-  };
-
-  _getMoment = ({date, months, years}) => {
-    return moment().year(years).month(months).date(date);
-  };
-
-  state = {
-    calendarMoment: this._getMoment(this.props),
+    this.setState((state) => ({
+      calendarMoment: state.calendarMoment.add(1, 'month'),
+    }));
   };
 }
 

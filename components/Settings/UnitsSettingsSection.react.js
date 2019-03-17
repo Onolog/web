@@ -1,15 +1,15 @@
 import React from 'react';
-import {ControlLabel, FormGroup, Radio} from 'react-bootstrap';
+import { ControlLabel, FormGroup, Radio } from 'react-bootstrap';
 
 import AppForm from '../Forms/AppForm.react';
 import SettingsListGroup from './SettingsListGroup.react';
 
-import {UNITS} from '../../constants/metrics';
+import { UNITS } from '../../constants/metrics';
 
-const UnitsSettingsSection = ({onChange, user}) => {
+const UnitsSettingsSection = ({ onChange, user }) => {
   const units = [
-    {label: 'Miles', value: UNITS.MILES},
-    {label: 'Kilometers', value: UNITS.KILOMETERS},
+    { label: 'Miles', value: UNITS.MILES },
+    { label: 'Kilometers', value: UNITS.KILOMETERS },
   ];
 
   return (
@@ -19,7 +19,7 @@ const UnitsSettingsSection = ({onChange, user}) => {
       <AppForm>
         <FormGroup>
           <ControlLabel>Distance Units</ControlLabel>
-          {units.map(({label, value}) => (
+          {units.map(({ label, value }) => (
             <Radio
               checked={user.distanceUnits === value}
               key={value}

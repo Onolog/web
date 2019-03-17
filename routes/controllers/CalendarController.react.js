@@ -1,8 +1,8 @@
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {Button, ButtonGroup, DropdownButton, MenuItem} from 'react-bootstrap';
-import {connect} from 'react-redux';
+import { Button, ButtonGroup, DropdownButton, MenuItem } from 'react-bootstrap';
+import { connect } from 'react-redux';
 
 import ActivityCalendar from '../../components/Activities/ActivityCalendar.react';
 import ActivityImportModal from '../../components/Activities/ActivityImportModal.react';
@@ -14,11 +14,11 @@ import MaterialIcon from '../../components/Icons/MaterialIcon.react';
 import PageFrame from '../../components/Page/PageFrame.react';
 import PageHeader from '../../components/Page/PageHeader.react';
 
-import {hideActivityModal, makeRequest, showActivityModal} from '../../actions';
+import { hideActivityModal, makeRequest, showActivityModal } from '../../actions';
 import requestCompleted from '../../utils/requestCompleted';
 
 import ActionTypes from '../../constants/ActionTypes';
-import {LEFT, RIGHT} from '../../constants/KeyCode';
+import { LEFT, RIGHT } from '../../constants/KeyCode';
 
 // When fetching activities, add a week's worth of buffer on either side, since
 // those dates may be displayed in the calendar view.
@@ -38,8 +38,8 @@ const getDateRange = (m) => {
   return [start, end];
 };
 
-const getMoment = ({month, year}) => {
-  let m = moment({month: +month - 1, year});
+const getMoment = ({ month, year }) => {
+  let m = moment({ month: +month - 1, year });
 
   // Set path to today if params are invalid.
   if (!m.isValid()) {
@@ -58,7 +58,7 @@ class CalendarController extends React.Component {
   };
 
   componentDidMount() {
-    const {fetchData, match: {params}, user} = this.props;
+    const { fetchData, match: { params }, user } = this.props;
 
     // Load initial data.
     fetchData(getDateRange(getMoment(params)), user.id);
@@ -68,7 +68,7 @@ class CalendarController extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (requestCompleted(this.props, nextProps, ActionTypes.ACTIVITY_CREATE)) {
-      this.setState({showImportModal: false});
+      this.setState({ showImportModal: false });
       this.props.hideActivityModal();
     }
   }
@@ -78,7 +78,7 @@ class CalendarController extends React.Component {
   }
 
   render() {
-    const {activities, match: {params}, pendingRequests} = this.props;
+    const { activities, match: { params }, pendingRequests } = this.props;
 
     const isLoading = (
       !activities.nodes ||
@@ -108,7 +108,7 @@ class CalendarController extends React.Component {
   }
 
   _renderButtonGroup = () => {
-    const {date, initialActivity, show} = this.props.activityModal;
+    const { date, initialActivity, show } = this.props.activityModal;
     const activityModal = show &&
       <ActivityModal
         date={date}
@@ -151,7 +151,7 @@ class CalendarController extends React.Component {
         </ButtonGroup>
         {activityModal}
         <ActivityImportModal
-          onHide={() => this.setState({showImportModal: false})}
+          onHide={() => this.setState({ showImportModal: false })}
           show={this.state.showImportModal}
         />
       </div>
@@ -159,7 +159,7 @@ class CalendarController extends React.Component {
   }
 
   _showImportModal = () => {
-    this.setState({showImportModal: true});
+    this.setState({ showImportModal: true });
   }
 
   _onKeyDown = (e) => {
@@ -186,12 +186,14 @@ class CalendarController extends React.Component {
         e.preventDefault();
         this._onNextMonthClick();
         break;
+      default:
+        break;
     }
   }
 
   _onLastMonthClick = () => {
     this._updateCalendar(
-      getMoment(this.props.match.params).subtract({months: 1})
+      getMoment(this.props.match.params).subtract({ months: 1 })
     );
   }
 
@@ -200,11 +202,11 @@ class CalendarController extends React.Component {
   }
 
   _onNextMonthClick = () => {
-    this._updateCalendar(getMoment(this.props.match.params).add({months: 1}));
+    this._updateCalendar(getMoment(this.props.match.params).add({ months: 1 }));
   }
 
   _updateCalendar = (newMoment) => {
-    const {fetchData, history, match, user} = this.props;
+    const { fetchData, history, match, user } = this.props;
 
     // Don't update if the month hasn't changed.
     if (newMoment.isSame(getMoment(match.params), 'month')) {
@@ -225,7 +227,7 @@ CalendarController.propTypes = {
   }).isRequired,
 };
 
-const mapStateToProps = ({activities, pendingRequests, session, ui}) => ({
+const mapStateToProps = ({ activities, pendingRequests, session, ui }) => ({
   activities,
   activityModal: ui.activityModal || {},
   pendingRequests,
@@ -244,7 +246,7 @@ const mapDispatchToProps = (dispatch) => ({
         }
       },
     }
-  `, {range, userId}, ActionTypes.ACTIVITIES_FETCH)),
+  `, { range, userId }, ActionTypes.ACTIVITIES_FETCH)),
   hideActivityModal: () => dispatch(hideActivityModal()),
   showActivityModal: () => dispatch(showActivityModal()),
 });

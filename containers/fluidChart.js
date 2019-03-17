@@ -1,6 +1,8 @@
-import {ResizeSensor} from 'css-element-queries';
+/* eslint-disable react/no-find-dom-node */
+
+import { ResizeSensor } from 'css-element-queries';
 import React from 'react';
-import {findDOMNode} from 'react-dom';
+import { findDOMNode } from 'react-dom';
 
 // Subtracts the padding from the element.
 function getInnerWidth(node) {
@@ -20,7 +22,7 @@ export default function fluidChart(Component) {
     };
 
     componentDidMount() {
-      const {parentNode} = findDOMNode(this);
+      const { parentNode } = findDOMNode(this);
 
       // Detect if the parent node's width has changed and adjust accordingly.
       this._sensor = new ResizeSensor(parentNode, this._setWidth);
@@ -43,8 +45,8 @@ export default function fluidChart(Component) {
     }
 
     _setWidth = () => {
-      const {parentNode} = findDOMNode(this);
-      this.setState({width: getInnerWidth(parentNode)});
+      const { parentNode } = findDOMNode(this);
+      this.setState({ width: getInnerWidth(parentNode) });
     }
   }
 

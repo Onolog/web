@@ -1,8 +1,8 @@
-import {sortBy} from 'lodash';
+import { sortBy } from 'lodash';
 import moment from 'moment-timezone';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {Table} from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
 
 import ActivitySection from '../Activities/ActivitySection.react';
 import Distance from '../Distance/Distance.react';
@@ -19,7 +19,7 @@ import secondsToTime from '../../utils/secondsToTime';
  */
 class ShoeView extends React.Component {
   render() {
-    const {shoe} = this.props;
+    const { shoe } = this.props;
 
     const sizeItem = shoe.size ?
       <Topline.Item label="Size">
@@ -59,7 +59,7 @@ class ShoeView extends React.Component {
   };
 
   _renderActivities = () => {
-    const {activities, isLoading} = this.props;
+    const { activities, isLoading } = this.props;
 
     if (isLoading) {
       return (

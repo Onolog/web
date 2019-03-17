@@ -1,6 +1,6 @@
 // @flow
 
-import {some} from 'lodash';
+import { some } from 'lodash';
 
 type Props = {
   pendingRequests: Object,
@@ -9,8 +9,10 @@ type Props = {
 function requestCompleted(
   props: Props,
   nextProps: Props,
-  types: string|Array<string>
+  actionTypes: string | Array<string>
 ) {
+  let types = actionTypes;
+
   if (typeof types === 'string') {
     types = [types];
   }

@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
-import {stringify} from 'qs';
+import { stringify } from 'qs';
 import React from 'react';
 
-import {APP_ID} from '../../constants/Facebook';
-import {URL} from '../../constants/Onolog';
+import { APP_ID } from '../../constants/Facebook';
+import { URL } from '../../constants/Onolog';
 
 const FB_URL = '//www.facebook.com/plugins/like.php';
 
@@ -54,6 +54,10 @@ class FBLikeButton extends React.Component {
      * Includes a Share button beside the Like button.
      */
     useShare: PropTypes.bool,
+    /**
+     * The width of the button, in pixels.
+     */
+    width: PropTypes.number,
   };
 
   /**
@@ -68,7 +72,7 @@ class FBLikeButton extends React.Component {
   };
 
   render() {
-    var params = stringify({
+    const params = stringify({
       href: URL + this.props.href,
       width: this.props.width,
       layout: this.props.layout,
@@ -81,7 +85,7 @@ class FBLikeButton extends React.Component {
 
     return (
       <iframe
-        allowtransparency="true"
+        allowTransparency="true"
         frameBorder="0"
         scrolling="no"
         src={`${FB_URL}?${params}`}
@@ -97,11 +101,11 @@ class FBLikeButton extends React.Component {
   }
 
   _getHeight = () => {
-    var heights = {
-      'standard': this.props.showFaces ? 80 : 35,
-      'box_count': 65,
-      'button_count': 21,
-      'button': 35,
+    const heights = {
+      standard: this.props.showFaces ? 80 : 35,
+      box_count: 65,
+      button_count: 21,
+      button: 35,
     };
     return heights[this.props.layout];
   };

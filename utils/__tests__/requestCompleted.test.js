@@ -1,4 +1,6 @@
-import {expect} from 'chai';
+/*  eslint-disable no-multi-assign */
+
+import { expect } from 'chai';
 
 import requestCompleted from '../requestCompleted';
 
@@ -10,8 +12,8 @@ describe('requestCompleted', () => {
   beforeEach(() => {
     props = nextProps = {
       pendingRequests: {
-        FOO: false,
         BAR: false,
+        FOO: false,
       },
     };
   });
@@ -21,8 +23,8 @@ describe('requestCompleted', () => {
 
     props = {
       pendingRequests: {
-        FOO: true,
         BAR: false,
+        FOO: true,
       },
     };
 

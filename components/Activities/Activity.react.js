@@ -1,11 +1,13 @@
+/* eslint-disable react/no-danger */
+
 import Autolinker from 'autolinker';
-import {find} from 'lodash';
+import { find } from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {findDOMNode} from 'react-dom';
-import {Tab, Tabs} from 'react-bootstrap';
-import {connect} from 'react-redux';
+import { Tab, Tabs } from 'react-bootstrap';
+import { connect } from 'react-redux';
 
+import cx from 'classnames';
 import ActivityDeviceInfo from './ActivityDeviceInfo.react';
 import ActivityHeader from './ActivityHeader.react';
 import ActivitySection from './ActivitySection.react';
@@ -15,7 +17,6 @@ import GoogleMap from '../Google/GoogleMap.react';
 
 import FBFacepile from '../Facebook/FBFacepile.react';
 
-import cx from 'classnames';
 
 import './css/Activity.css';
 
@@ -40,11 +41,11 @@ class Activity extends React.Component {
   }
 
   render() {
-    const {activity} = this.props;
-    const {tracks} = activity;
+    const { activity } = this.props;
+    const { tracks } = activity;
 
     let content = this._renderDetailsContent(activity);
-    let splitsTab = this._renderSplitsTab(activity);
+    const splitsTab = this._renderSplitsTab(activity);
 
     if (splitsTab) {
       content =
@@ -57,10 +58,12 @@ class Activity extends React.Component {
     }
 
     return (
-      <div className={cx('activityContainer', 'clearfix', {
-        'noMap': !(tracks && tracks.length),
-        'horizontal': this.state.isHorizontal,
-      })}>
+      <div
+        className={cx('activityContainer', 'clearfix', {
+          noMap: !(tracks && tracks.length),
+          horizontal: this.state.isHorizontal,
+        })}
+        ref={(node) => this._container = node}>
         {this._renderMap(tracks)}
         <div className="activityInfo">
           <ActivityHeader {...this.props} />
@@ -71,9 +74,9 @@ class Activity extends React.Component {
   }
 
   _renderDetailsContent = (activity) => {
-    const {device, friends, notes} = activity;
+    const { device, friends, notes } = activity;
 
-    let content = [];
+    const content = [];
     content.push(
       <ActivitySection key="stats">
         <ActivityStats activity={activity} />
@@ -85,13 +88,13 @@ class Activity extends React.Component {
         <ActivitySection key="notes" title="Notes">
           <div
             className="activityNotes"
-            dangerouslySetInnerHTML={{__html: Autolinker.link(notes)}}
+            dangerouslySetInnerHTML={{ __html: Autolinker.link(notes) }}
           />
         </ActivitySection>
       );
     }
 
-    const {shoe} = this.props;
+    const { shoe } = this.props;
     if (shoe) {
       content.push(
         <ActivitySection key="shoe" title="Shoes">
@@ -132,7 +135,7 @@ class Activity extends React.Component {
     }
   };
 
-  _renderSplitsTab = (/*array*/ {laps}) => {
+  _renderSplitsTab = (/* array */ { laps }) => {
     if (laps && laps.length) {
       return (
         <Tab className="activityNavPane" eventKey={2} title="Splits">
@@ -146,7 +149,7 @@ class Activity extends React.Component {
 
   _setOrientation = () => {
     this.setState({
-      isHorizontal: findDOMNode(this).offsetWidth > 750,
+      isHorizontal: this._container.offsetWidth > 750,
     });
   };
 }
@@ -164,8 +167,8 @@ Activity.propTypes = {
   }),
 };
 
-const mapStateToProps = ({activities}, props) => {
-  const activity = find(activities.nodes, {id: props.id});
+const mapStateToProps = ({ activities }, props) => {
+  const activity = find(activities.nodes, { id: props.id });
 
   if (!activity) {
     return {};

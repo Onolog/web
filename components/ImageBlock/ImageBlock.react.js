@@ -6,7 +6,7 @@ import cx from 'classnames';
 /**
  * ImageBlock.react
  */
-const ImageBlock = ({align, children, image, ...props}) => (
+const ImageBlock = ({ align, children, image, ...props }) => (
   <div className="media">
     <div className="media-left">
       {image}

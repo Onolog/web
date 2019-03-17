@@ -7,7 +7,7 @@ import PageHeader from './PageHeader.react';
 
 import './css/LegalPage.css';
 
-const LegalPage = ({children, title}) => (
+const LegalPage = ({ children, title }) => (
   <AppFullPage title={title}>
     <PageHeader full title={title} />
     <PageFrame fill scroll>

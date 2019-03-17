@@ -1,5 +1,5 @@
 import React from 'react';
-import {Panel} from 'react-bootstrap';
+import { Panel } from 'react-bootstrap';
 
 import ActivityChart from '../../components/Data/ActivityChart.react';
 import AppFullPage from '../../components/Page/AppFullPage.react';
@@ -9,13 +9,13 @@ import PageFrame from '../../components/Page/PageFrame.react';
 import PageHeader from '../../components/Page/PageHeader.react';
 import WeeklyMileageChart from '../../components/Data/WeeklyMileageChart.react';
 
-import {metersToFeet, metersToMiles} from '../../utils/distanceUtils';
+import { metersToFeet, metersToMiles } from '../../utils/distanceUtils';
 import speedToPace from '../../utils/speedToPace';
 
 import '../../components/Data/css/charts.scss';
 
-import {METRICS} from '../../constants/Garmin';
-import {ACTIVITIES, ACTIVITY_METRICS} from '../../constants/TestData';
+import { METRICS } from '../../constants/Garmin';
+import { ACTIVITIES, ACTIVITY_METRICS } from '../../constants/TestData';
 
 const HEIGHT = 200;
 
@@ -25,7 +25,7 @@ const activities = ACTIVITIES.map((a) => ({
   timezone: 'America/Los_Angeles',
 }));
 
-const activityData = ACTIVITY_METRICS.map(({metrics}) => {
+const activityData = ACTIVITY_METRICS.map(({ metrics }) => {
   const distance = metersToMiles(metrics[METRICS.SUM_DISTANCE]);
   const pace = speedToPace(metrics[METRICS.SPEED]);
 
@@ -46,57 +46,53 @@ const year = (new Date(activities[0].startDate)).getFullYear();
  *
  * Static page for testing data & charting libs.
  */
-class ChartController extends React.Component {
-  render() {
-    return (
-      <AppFullPage>
-        <PageHeader full title="Data" />
-        <PageFrame fill scroll>
-          <Panel>
-            <Panel.Heading>
-              <Panel.Title>Daily Data</Panel.Title>
-            </Panel.Heading>
-            <Panel.Body>
-              <DailyMileageChart
-                activities={activities}
-                height={150}
-                year={year}
-              />
-            </Panel.Body>
-          </Panel>
-          <Panel>
-            <Panel.Heading>
-              <Panel.Title>Monthly Data</Panel.Title>
-            </Panel.Heading>
-            <Panel.Body>
-              <MonthlyMileageChart
-                activities={activities}
-                height={HEIGHT}
-                year={year}
-              />
-            </Panel.Body>
-          </Panel>
-          <Panel>
-            <Panel.Heading>
-              <Panel.Title>Weekly Data</Panel.Title>
-            </Panel.Heading>
-            <Panel.Body>
-              <WeeklyMileageChart
-                activities={activities}
-                height={HEIGHT}
-                year={year}
-              />
-            </Panel.Body>
-          </Panel>
-          <Panel>
-            <Panel.Body>
-              <ActivityChart data={activityData} />
-            </Panel.Body>
-          </Panel>
-        </PageFrame>
-      </AppFullPage>
-    );
-  }
-}
+const ChartController = (props) => (
+  <AppFullPage>
+    <PageHeader full title="Data" />
+    <PageFrame fill scroll>
+      <Panel>
+        <Panel.Heading>
+          <Panel.Title>Daily Data</Panel.Title>
+        </Panel.Heading>
+        <Panel.Body>
+          <DailyMileageChart
+            activities={activities}
+            height={150}
+            year={year}
+          />
+        </Panel.Body>
+      </Panel>
+      <Panel>
+        <Panel.Heading>
+          <Panel.Title>Monthly Data</Panel.Title>
+        </Panel.Heading>
+        <Panel.Body>
+          <MonthlyMileageChart
+            activities={activities}
+            height={HEIGHT}
+            year={year}
+          />
+        </Panel.Body>
+      </Panel>
+      <Panel>
+        <Panel.Heading>
+          <Panel.Title>Weekly Data</Panel.Title>
+        </Panel.Heading>
+        <Panel.Body>
+          <WeeklyMileageChart
+            activities={activities}
+            height={HEIGHT}
+            year={year}
+          />
+        </Panel.Body>
+      </Panel>
+      <Panel>
+        <Panel.Body>
+          <ActivityChart data={activityData} />
+        </Panel.Body>
+      </Panel>
+    </PageFrame>
+  </AppFullPage>
+);
 
 export default ChartController;

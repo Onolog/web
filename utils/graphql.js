@@ -5,18 +5,18 @@ function handleGraphQLError(error) {
   console.error(`GraphQL Error: ${error.message}`, error);
 }
 
-export default function graphql(query, {authToken, variables}) {
+export default function graphql(query, { authToken, variables }) {
   return fetch(process.env.API_URL, {
-    method: 'POST',
+    body: JSON.stringify({ query, variables }),
     headers: {
       'Accept-Encoding': 'gzip',
-      'Authorization': `Bearer ${authToken}`,
+      Authorization: `Bearer ${authToken}`,
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({query, variables}),
+    method: 'POST',
   })
     .then((res) => res.json())
-    .then(({data, errors}) => {
+    .then(({ data, errors }) => {
       if (errors) {
         // Even when there are errors, some of the data returned may be valid.
         // Log the errors, but return the data.

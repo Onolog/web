@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {Table} from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
 
-import {map} from 'lodash';
-import {metersToFeet, metersToMiles} from '../../utils/distanceUtils';
+import { map } from 'lodash';
+import { metersToFeet, metersToMiles } from '../../utils/distanceUtils';
 import secondsToTime from '../../utils/secondsToTime';
 
 /**
@@ -42,7 +42,7 @@ class ActivitySplitsTable extends React.Component {
   };
 
   _renderBody = () => {
-    const {laps} = this.props;
+    const { laps } = this.props;
     if (laps && laps.length) {
       return <tbody>{laps.map(this._renderRows)}</tbody>;
     }
@@ -71,7 +71,7 @@ class ActivitySplitsTable extends React.Component {
     return <tr key={idx}>{cells}</tr>;
   };
 
-  _getColumns = () => /*array*/ {
+  _getColumns = () => /* array */ {
     return [{
       label: 'Lap',
       key: 'lap',
@@ -94,7 +94,7 @@ class ActivitySplitsTable extends React.Component {
   };
 
   _formatDistance = (distance) => {
-    return metersToMiles(distance) + ' mi';
+    return `${metersToMiles(distance)} mi`;
   };
 }
 

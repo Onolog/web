@@ -6,7 +6,7 @@ import React from 'react';
 import BaseCalendar from '../Calendar/BaseCalendar.react';
 import BaseCalendarDay from '../Calendar/BaseCalendarDay.react';
 import BaseCalendarWeek from '../Calendar/BaseCalendarWeek.react';
-import Link from '../Link/Link.react';
+import LinkButton from '../LinkButton/LinkButton.react';
 
 import calendarGrid from '../../utils/calendarGrid';
 
@@ -14,8 +14,6 @@ import calendarGrid from '../../utils/calendarGrid';
  * DateInputCalendar.react.js
  */
 class DateInputCalendar extends React.Component {
-  static displayName = 'DateInputCalendar';
-
   static propTypes = {
     /**
      * The month being displayed by the calendar.
@@ -58,19 +56,19 @@ class DateInputCalendar extends React.Component {
         date={dayDate}
         key={idx}
         month={this.props.month}>
-        <Link
-          className={cx({
-            'selected': moment(dayDate).isSame(this.props.selectedDate, 'day'),
+        <LinkButton
+          block
+          className={cx('calendarDay', {
+            selected: moment(dayDate).isSame(this.props.selectedDate, 'day'),
           })}
-          href="#"
-          onClick={this._onDayClick.bind(this, dayDate)}>
+          onClick={(e) => this._onDayClick(dayDate, e)}>
           {dayDate.getDate()}
-        </Link>
+        </LinkButton>
       </BaseCalendarDay>
     );
   };
 
-  _onDayClick = (/*Date*/ selectedDate, e) => {
+  _onDayClick = (selectedDate, e) => {
     e.preventDefault();
     this.props.onChange && this.props.onChange({
       date: selectedDate.getDate(),

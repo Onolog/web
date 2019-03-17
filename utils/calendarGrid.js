@@ -1,12 +1,14 @@
+/* eslint-disable no-plusplus */
+
 // @flow
 
 import invariant from 'invariant';
-import {isInteger} from 'lodash';
+import { isInteger } from 'lodash';
 
 const DAYS_IN_WEEK = 7;
 
 function getDate(year: number, month: number, day: number): Date {
-  var now = new Date();
+  const now = new Date();
   return new Date(
     year,
     month,
@@ -36,16 +38,16 @@ function calendarGrid(month: number, year: number): Array<Array<Object>> {
   const monthStartDay = getDate(year, month, 1).getDay();
 
   let day;
-  let monthArr = [];
+  const monthArr = [];
   let weekArr = [];
-  let ii = 0;  // Day counter
+  let ii = 0; // Day counter
 
   // Start the month on the right day of the week
   if (monthStartDay !== 0) {
     for (ii = 0; ii < monthStartDay; ii++) {
       // Calculate the days from the previous month to display
       day = ii + 1 - monthStartDay;
-      weekArr.push({date: getDate(year, month, day)});
+      weekArr.push({ date: getDate(year, month, day) });
     }
   }
 
@@ -57,7 +59,7 @@ function calendarGrid(month: number, year: number): Array<Array<Object>> {
     }
 
     // Add the record
-    weekArr.push({date: getDate(year, month, day)});
+    weekArr.push({ date: getDate(year, month, day) });
 
     ii++;
 

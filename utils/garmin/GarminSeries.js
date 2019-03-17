@@ -48,7 +48,7 @@ class GarminSeries {
   }
 
   getSample = (index) => {
-    var targetSample = null;
+    let targetSample = null;
     if (index >= 0 && index < this.samples.length) {
       targetSample = this.samples[index];
     }
@@ -70,7 +70,7 @@ class GarminSeries {
   }
 
   getLastValidLocationSample = () => {
-    return this.findNearestValidLocationSample(this.getSamplesLength()-1, -1);
+    return this.findNearestValidLocationSample(this.getSamplesLength() - 1, -1);
   }
 
   /** Find the nearest valid location point to the index given
@@ -103,7 +103,7 @@ class GarminSeries {
         this._findNearestValidLocationSampleInternal(
           index + incDirection,
           incDirection,
-          ++count
+          ++count /* eslint-disable-line no-plusplus */
         );
     }
 
@@ -119,11 +119,11 @@ class GarminSeries {
   }
 
   printMe = (tabs) => {
-    var output = tabs + '  [Series]\n';
-    output += tabs + '    seriesType: ' + this.seriesType + '\n';
-    output += tabs + '    samples:\n';
-    for (var i = 0; i < this.samples.length; i++) {
-      output += this.samples[i].printMe(tabs + '    ');
+    let output = `${tabs}  [Series]\n`;
+    output += `${tabs}    seriesType: ${this.seriesType}\n`;
+    output += `${tabs}    samples:\n`;
+    for (let i = 0; i < this.samples.length; i++) {
+      output += this.samples[i].printMe(`${tabs}    `);
     }
     return output;
   }
@@ -134,10 +134,10 @@ class GarminSeries {
 }
 
 GarminSeries.TYPES = {
+  course: 'course',
   history: 'history',
   route: 'route',
   waypoint: 'waypoint',
-  course: 'course',
 };
 
 export default GarminSeries;

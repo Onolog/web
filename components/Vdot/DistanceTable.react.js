@@ -4,9 +4,9 @@ import React from 'react';
 import ScrollContainer from '../ScrollContainer/ScrollContainer.react';
 import secondsToTime from '../../utils/secondsToTime';
 
-import {DISTANCES, PACES, TIMES} from '../../constants/Daniels';
+import { DISTANCES, PACES, TIMES } from '../../constants/Daniels';
 
-function formatTime(/*number*/ seconds) /*string*/ {
+function formatTime(/* number */ seconds) /* string */ {
   const [sec, dec] = seconds.toString().split('.');
   const arr = [secondsToTime(sec)];
 
@@ -34,9 +34,7 @@ class DistanceTable extends React.Component {
         <div className="table-header">
           <table className="paces">
             <thead>
-              <tr className="header">
-                {this._getHeaderCells()}
-              </tr>
+              {this._getHeaderRow()}
             </thead>
           </table>
         </div>
@@ -51,48 +49,54 @@ class DistanceTable extends React.Component {
     );
   }
 
-  _getHeaderCells = () => /*array*/ {
-    const headerCells = DISTANCES.map((distance) => (
-      <th key={distance.value}>
-        {distance.label}
-      </th>
-    ));
-
-    headerCells.push(<th key="vdot-r">VDOT</th>);
-    headerCells.unshift(<th key="vdot-l">VDOT</th>);
-
-    return headerCells;
+  _getHeaderRow = () => {
+    return (
+      <tr className="header">
+        <th key="vdot-r">VDOT</th>
+        {DISTANCES.map((distance) => (
+          <th key={distance.value}>
+            {distance.label}
+          </th>
+        ))}
+        <th key="vdot-l">VDOT</th>
+      </tr>
+    );
   };
 
-  _getRows = () => /*array*/ {
-    const {vdot} = this.props;
+  _getRows = () => {
+    const { vdot } = this.props;
     const rows = [];
     const vdots = vdot ? [vdot] : Object.keys(PACES);
 
     vdots.forEach((vdot) => {
-      rows.push(<tr key={vdot}>{this._getCells(vdot)}</tr>);
+      rows.push(this._getCells(vdot));
     });
 
     return rows;
   };
 
-  _getCells = (vdot) => /*array*/ {
+  _getCells = (vdot) => {
     const cells = [];
-    const distances = Object.keys(TIMES);
 
-    distances.forEach((distance, idx) => {
+    Object.keys(TIMES).forEach((distance) => {
       cells.push(
-        <td key={idx}>
+        <td key={distance}>
           {formatTime(TIMES[distance][vdot])}
         </td>
       );
     });
 
-    // Add the vdot value as the first and last cell
-    cells.unshift(<td className="vdot" key={vdot + '-l'}>{vdot}</td>);
-    cells.push(<td className="vdot" key={vdot + '-r'}>{vdot}</td>);
-
-    return cells;
+    return (
+      <tr key={vdot}>
+        <td className="vdot" key={`${vdot}-l`}>
+          {vdot}
+        </td>
+        {cells}
+        <td className="vdot" key={`${vdot}-r`}>
+          {vdot}
+        </td>
+      </tr>
+    );
   };
 }
 

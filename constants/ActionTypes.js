@@ -1,4 +1,4 @@
-import {getErrorType, getSuccessType} from '../utils/actionTypes';
+import { getErrorType, getSuccessType } from '../utils/actionTypes';
 
 // TODO: Generate once on app initialization.
 const ActionTypes = [
@@ -27,11 +27,11 @@ const ActionTypes = [
   'ERROR_CLEAR',
   'NAV_TOGGLE',
   'SESSION_INITIALIZE',
-].reduce((obj, type) => {
-  obj[type] = type;
-  obj[getErrorType(type)] = getErrorType(type);
-  obj[getSuccessType(type)] = getSuccessType(type);
-  return obj;
-}, {});
+].reduce((obj, type) => ({
+  ...obj,
+  [type]: type,
+  [getErrorType(type)]: getErrorType(type),
+  [getSuccessType(type)]: getSuccessType(type),
+}), {});
 
 export default ActionTypes;

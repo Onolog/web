@@ -1,11 +1,11 @@
 import React from 'react';
-import {ControlLabel, FormGroup} from 'react-bootstrap';
+import { ControlLabel, FormGroup } from 'react-bootstrap';
 
 import AppForm from '../Forms/AppForm.react';
 import SettingsListGroup from './SettingsListGroup.react';
 import TimezoneSelector from '../Forms/TimezoneSelector.react';
 
-const LocationSettingsSection = ({onChange, user}) => (
+const LocationSettingsSection = ({ onChange, user }) => (
   <SettingsListGroup.Item
     description="Default location and timezone settings."
     title="Location">

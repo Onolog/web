@@ -1,9 +1,9 @@
-import {find, isEmpty, meanBy} from 'lodash';
+import { find, isEmpty, meanBy } from 'lodash';
 import moment from 'moment-timezone';
-import {Button, ButtonGroup, OverlayTrigger, Tooltip} from 'react-bootstrap';
+import { Button, ButtonGroup, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 import Activity from '../../components/Activities/Activity.react';
 import ActivityChart from '../../components/Data/ActivityChart.react';
@@ -15,14 +15,14 @@ import MaterialIcon from '../../components/Icons/MaterialIcon.react';
 import PageFrame from '../../components/Page/PageFrame.react';
 import PageHeader from '../../components/Page/PageHeader.react';
 
-import {makeRequest} from '../../actions';
-import {metersToFeet, metersToMiles} from '../../utils/distanceUtils';
+import { makeRequest } from '../../actions';
+import { metersToFeet, metersToMiles } from '../../utils/distanceUtils';
 import getParam from '../../utils/getParam';
 import getHomePath from '../../utils/getHomePath';
 import speedToPace from '../../utils/speedToPace';
 
 import ActionTypes from '../../constants/ActionTypes';
-import {METRICS} from '../../constants/Garmin';
+import { METRICS } from '../../constants/Garmin';
 
 const DATE_FORMAT = 'dddd, MMMM Do, YYYY';
 
@@ -40,6 +40,7 @@ const convertActivityMetrics = (activityMetrics) => {
     if (lat && lng) {
       // Normalize & compress outlying data.
       // TODO: Don't modify the data, change the bounds of the chart.
+      /* eslint-disable-next-line no-restricted-properties */
       const paceThreshold = Math.pow(meanPace, 2) / 400;
       const pace = speedToPace(metrics[METRICS.SPEED]);
 
@@ -72,24 +73,23 @@ class ActivityController extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const {pendingRequests} = this.props;
+    const { pendingRequests } = this.props;
 
     if (
       pendingRequests[ActionTypes.ACTIVITY_UPDATE] &&
       !nextProps.pendingRequests[ActionTypes.ACTIVITY_UPDATE]
     ) {
-      this.setState({showModal: false});
+      this.setState({ showModal: false });
     }
 
     // Redirect if the activity was deleted.
     if (pendingRequests[ActionTypes.ACTIVITY_DELETE] && !nextProps.activity) {
       this.props.history.push(getHomePath());
-      return;
     }
   }
 
   render() {
-    const {activity, pendingRequests} = this.props;
+    const { activity, pendingRequests } = this.props;
 
     if (isEmpty(activity) || pendingRequests[ActionTypes.ACTIVITIES_FETCH]) {
       return (
@@ -123,38 +123,40 @@ class ActivityController extends React.Component {
   }
 
   _renderButtonGroup = () => {
-    const {activity, canEdit} = this.props;
-    const {showModal} = this.state;
+    const { activity, canEdit } = this.props;
+    const { showModal } = this.state;
 
-    if (canEdit) {
-      return (
-        <ButtonGroup bsSize="small">
-          <OverlayTrigger
-            overlay={<Tooltip id="edit">Edit Activity</Tooltip>}
-            placement="bottom">
-            <Button onClick={this._handleActivityEdit}>
-              <MaterialIcon icon="pencil" />
-            </Button>
-          </OverlayTrigger>
-          <OverlayTrigger
-            overlay={<Tooltip id="delete">Delete Activity</Tooltip>}
-            placement="bottom">
-            <Button onClick={this._handleActivityDelete}>
-              <MaterialIcon icon="delete" />
-            </Button>
-          </OverlayTrigger>
-          <ActivityModal
-            initialActivity={activity}
-            onHide={() => this.setState({showModal: false})}
-            show={showModal}
-          />
-        </ButtonGroup>
-      );
+    if (!canEdit) {
+      return null;
     }
+
+    return (
+      <ButtonGroup bsSize="small">
+        <OverlayTrigger
+          overlay={<Tooltip id="edit">Edit Activity</Tooltip>}
+          placement="bottom">
+          <Button onClick={this._handleActivityEdit}>
+            <MaterialIcon icon="pencil" />
+          </Button>
+        </OverlayTrigger>
+        <OverlayTrigger
+          overlay={<Tooltip id="delete">Delete Activity</Tooltip>}
+          placement="bottom">
+          <Button onClick={this._handleActivityDelete}>
+            <MaterialIcon icon="delete" />
+          </Button>
+        </OverlayTrigger>
+        <ActivityModal
+          initialActivity={activity}
+          onHide={() => this.setState({ showModal: false })}
+          show={showModal}
+        />
+      </ButtonGroup>
+    );
   };
 
   _renderActivityMetrics = () => {
-    const {details} = this.props.activity;
+    const { details } = this.props.activity;
 
     if (!(details && details.length)) {
       return null;
@@ -174,7 +176,7 @@ class ActivityController extends React.Component {
   };
 
   _handleActivityEdit = () => {
-    this.setState({showModal: true});
+    this.setState({ showModal: true });
   };
 }
 
@@ -184,9 +186,9 @@ ActivityController.propTypes = {
   pendingRequests: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = ({activities, pendingRequests, session}, props) => {
+const mapStateToProps = ({ activities, pendingRequests, session }, props) => {
   const nodes = (activities && activities.nodes) || [];
-  const activity = find(nodes, {id: +getParam(props, 'activityId')}) || {};
+  const activity = find(nodes, { id: +getParam(props, 'activityId') }) || {};
   const user = activity.user || {};
 
   return {
@@ -201,7 +203,7 @@ const mapDispatchToProps = (dispatch) => ({
     mutation deleteActivity($activityId: ID!) {
       deleteActivity(id: $activityId)
     }
-  `, {activityId}, ActionTypes.ACTIVITY_DELETE)),
+  `, { activityId }, ActionTypes.ACTIVITY_DELETE)),
   fetchData: (activityId) => dispatch(makeRequest(`
     query activities($activityId: ID) {
       activities(id: $activityId) {
@@ -247,7 +249,7 @@ const mapDispatchToProps = (dispatch) => ({
         }
       },
     }
-  `, {activityId}, ActionTypes.ACTIVITIES_FETCH)),
+  `, { activityId }, ActionTypes.ACTIVITIES_FETCH)),
 });
 
 export default connect(

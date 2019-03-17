@@ -24,8 +24,8 @@ const ATTRIBUTE_KEYS = {
   activityName: 'activityName',
   activitySport: 'activitySport',
   creatorName: 'creatorName',
-  creatorUnitId: 'creatorUnitId',
   creatorProdId: 'creatorProductId',
+  creatorUnitId: 'creatorUnitId',
   creatorVersion: 'creatorVersion',
   dom: 'documentObjectModel',
 };
@@ -44,7 +44,7 @@ const SUMMARY_KEYS = {
 
 const SECTION_KEYS = {
   gpsSignals: 'gpsSignal',
-  heartRateSignals:	'heartRateSignal',
+  heartRateSignals: 'heartRateSignal',
   laps: 'laps',
   tracks: 'tracks',
 };
@@ -129,7 +129,7 @@ class GarminActivity {
   }
 
   getSoftwareVersionString = () => {
-    var v = this.getAttribute(ATTRIBUTE_KEYS.creatorVersion);
+    const v = this.getAttribute(ATTRIBUTE_KEYS.creatorVersion);
     return v && [
       v.versionMajor,
       v.versionMinor,
@@ -193,13 +193,13 @@ class GarminActivity {
    * Returns the total time for the activity in seconds
    */
   getTotalTime = () => {
-    var startTime = this.getStartTime().getDate().getTime();
-    var endTime = this.getEndTime().getDate().getTime();
+    const startTime = this.getStartTime().getDate().getTime();
+    const endTime = this.getEndTime().getDate().getTime();
     return (endTime - startTime) / 1000;
   }
 
-  _getValue = (/*string*/ key) /*?any*/ => {
-    var summaryValue = this.getSummaryValue(key);
+  _getValue = (/* string */ key) /* ?any */ => {
+    const summaryValue = this.getSummaryValue(key);
     return summaryValue && summaryValue.getValue();
   }
 
@@ -207,18 +207,18 @@ class GarminActivity {
     let output = '';
     output += `${tabs}\n\n[Activity]\n`;
 
-    output += tabs + '  attributes:\n';
-    var attKeys = Object.keys(this.attributes);
+    output += `${tabs}  attributes:\n`;
+    const attKeys = Object.keys(this.attributes);
     for (let ii = 0; ii < attKeys.length; ii++) {
       output += `${tabs}    ${attKeys[ii]}: ${this.attributes[attKeys[ii]]}\n`;
     }
 
     output += `${tabs}  summary:\n`;
-    output += this.summary.printMe(tabs + '  ');
+    output += this.summary.printMe(`${tabs}  `);
     output += `${tabs}  series:\n`;
 
     for (let jj = 0; jj < this.series.length; jj++) {
-      output += this.series[jj].printMe(tabs + '  ');
+      output += this.series[jj].printMe(`${tabs}  `);
     }
 
     return output;

@@ -1,7 +1,7 @@
-import {expect} from 'chai';
+import { expect } from 'chai';
 
 import getDistanceUnitString from '../getDistanceUnitString';
-import {UNITS} from '../../constants/metrics';
+import { UNITS } from '../../constants/metrics';
 
 describe('getDistanceUnitString', () => {
   it('returns the correct distance string', () => {

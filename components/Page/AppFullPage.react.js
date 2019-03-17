@@ -1,7 +1,7 @@
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 import AccountNavItem from '../Navigation/AccountNavItem.react';
 import BaseAppPage from './BaseAppPage.react';
@@ -12,11 +12,11 @@ import ScrollContainer from '../ScrollContainer/ScrollContainer.react';
 import SideMenu from './SideMenu.react';
 import SideNav from '../Navigation/SideNav.react';
 
-import {toggleSideNav} from '../../actions';
+import { toggleSideNav } from '../../actions';
 
 import './css/AppFullPage.scss';
 
-const SideColumn = ({onToggle, open, user}) => (
+const SideColumn = ({ onToggle, open, user }) => (
   <FlexContainer className="side-col" column>
     <div className="side-col-header clearfix">
       <div className="side-col-brand">Onolog</div>
@@ -45,26 +45,25 @@ const SideColumn = ({onToggle, open, user}) => (
   </FlexContainer>
 );
 
-class SideColBackdrop extends React.Component {
-  render() {
-    return this.props.open ?
-      <div
-        className="side-col-backdrop modal-backdrop fade in"
-        onClick={this.props.onToggle}
-        role="presentation"
-      /> : null;
-  }
-}
+const SideColBackdrop = ({ onToggle, open }) => {
+  return open ?
+    <div
+      className="side-col-backdrop modal-backdrop fade in"
+      onClick={onToggle}
+      role="presentation"
+    /> :
+    null;
+};
 
 /**
  * AppFullPage.react
  */
 const AppFullPage = (props) => {
-  const {children, className, handleToggle, open, session, title} = props;
+  const { children, className, handleToggle, open, session, title } = props;
 
   return (
     <BaseAppPage
-      className={cx('app-full-page', {'open': open}, className)}
+      className={cx('app-full-page', { open }, className)}
       title={title}>
       <SideColumn
         onToggle={handleToggle}
@@ -91,7 +90,7 @@ AppFullPage.propTypes = {
   }).isRequired,
 };
 
-const mapStateToProps = ({session, ui}) => {
+const mapStateToProps = ({ session, ui }) => {
   return {
     session,
     open: !!ui.sideNavOpen,

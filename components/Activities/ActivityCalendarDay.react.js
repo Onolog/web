@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {Button, OverlayTrigger, Tooltip} from 'react-bootstrap';
-import {connect} from 'react-redux';
+import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { connect } from 'react-redux';
 
 import ActivityLink from './ActivityLink.react';
 import BaseCalendarDay from '../Calendar/BaseCalendarDay.react';
@@ -9,7 +9,7 @@ import CalendarDate from '../Calendar/CalendarDate.react';
 import Distance from '../Distance/Distance.react';
 import MaterialIcon from '../Icons/MaterialIcon.react';
 
-import {showActivityModal} from '../../actions';
+import { showActivityModal } from '../../actions';
 
 const LAST_DAY_OF_WEEK = 6; // Saturday (Sunday is 0)
 
@@ -18,7 +18,7 @@ const LAST_DAY_OF_WEEK = 6; // Saturday (Sunday is 0)
 */
 class ActivityCalendarDay extends React.Component {
   render() {
-    const {date, month} = this.props;
+    const { date, month } = this.props;
     const tooltip = <Tooltip id={date.toISOString()}>Add activity</Tooltip>;
 
     return (
@@ -31,7 +31,7 @@ class ActivityCalendarDay extends React.Component {
               bsSize="xsmall"
               bsStyle="default"
               className="add"
-              onClick={() => this.props.showActivityModal({date})}>
+              onClick={() => this.props.showActivityModal({ date })}>
               <MaterialIcon icon="plus" />
             </Button>
           </OverlayTrigger>
@@ -41,8 +41,8 @@ class ActivityCalendarDay extends React.Component {
     );
   }
 
-  _renderActivities = () => /*?object*/ {
-    const {activities} = this.props;
+  _renderActivities = () => /* ?object */ {
+    const { activities } = this.props;
     if (activities.length) {
       return activities.map((a) => (
         <ActivityLink activity={a} key={a.id} />

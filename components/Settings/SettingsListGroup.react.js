@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {Col, Row, ListGroup, ListGroupItem} from 'react-bootstrap';
+import { Col, Row, ListGroup, ListGroupItem } from 'react-bootstrap';
 
 import './css/SettingsListGroup.css';
 

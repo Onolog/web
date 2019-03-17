@@ -1,8 +1,8 @@
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {Nav, NavItem, OverlayTrigger, Tooltip} from 'react-bootstrap';
-import {LinkContainer} from 'react-router-bootstrap';
+import { Nav, NavItem, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 
 import MaterialIcon from '../Icons/MaterialIcon.react';
 
@@ -14,9 +14,9 @@ const SideNav = (props) => (
   </Nav>
 );
 
-const SideNavItem = ({children, className, icon, open, pathname}) => {
+const SideNavItem = ({ children, className, icon, open, pathname }) => {
   const navItem =
-    <LinkContainer to={{pathname}}>
+    <LinkContainer to={{ pathname }}>
       <NavItem className={cx('app-side-nav-item', className)}>
         {icon}
         <SideNavItemLabel>
@@ -41,7 +41,7 @@ const SideNavItemLabel = (props) => (
   </span>
 );
 
-const SideNavIcon = ({icon}) => (
+const SideNavIcon = ({ icon }) => (
   <MaterialIcon className="app-side-nav-item-icon" icon={icon} />
 );
 

@@ -1,3 +1,5 @@
+/* eslint-disable react/no-unescaped-entities */
+
 import React from 'react';
 
 import LegalPage from '../../components/Page/LegalPage.react';

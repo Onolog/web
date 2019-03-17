@@ -13,7 +13,7 @@ import Shoes from './controllers/ShoesController.react';
 import Terms from './controllers/TermsController.react';
 import Vdot from './controllers/VdotController.react';
 
-import {INDEX_PATH} from '../constants/paths';
+import { INDEX_PATH } from '../constants/paths';
 
 export default [
   {

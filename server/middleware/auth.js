@@ -1,11 +1,11 @@
 import passport from 'passport';
-import {Strategy} from 'passport-facebook';
+import { Strategy } from 'passport-facebook';
 
 import getJWT from '../utils/getJWT';
 import getHomePath from '../../utils/getHomePath';
 import graphql from '../../utils/graphql';
 
-import {AUTH_CALLBACK_PATH, INDEX_PATH} from '../../constants/paths';
+import { AUTH_CALLBACK_PATH, INDEX_PATH } from '../../constants/paths';
 
 export const handleAuth = passport.authenticate('facebook', {
   scope: [
@@ -49,9 +49,9 @@ export function requireAuthentication(req, res, next) {
  */
 
 const CONFIG = {
+  callbackURL: `${process.env.DOMAIN}${AUTH_CALLBACK_PATH}`,
   clientID: process.env.FB_APP_ID,
   clientSecret: process.env.FB_SECRET,
-  callbackURL: `${process.env.DOMAIN}${AUTH_CALLBACK_PATH}`,
   profileFields: [
     'id',
     'displayName',
@@ -70,6 +70,7 @@ const CONFIG = {
  * create a new user record before continuing.
  */
 async function onVerify(accessToken, refreshToken, profile, next) {
+  /* eslint-disable camelcase,no-underscore-dangle */
   const {
     email,
     first_name,
@@ -77,6 +78,7 @@ async function onVerify(accessToken, refreshToken, profile, next) {
     last_name,
     location,
   } = profile._json;
+  /* eslint-enable camelcase,no-underscore-dangle */
 
   try {
     // See if the user exists and create one if they don't.
@@ -88,13 +90,13 @@ async function onVerify(accessToken, refreshToken, profile, next) {
         }
       }
     `, {
-      authToken: getJWT({id}),
+      authToken: getJWT({ id }),
       variables: {
         id,
         input: {
+          email,
           firstName: first_name,
           lastName: last_name,
-          email,
           location: location && location.name,
         },
       },
@@ -125,7 +127,7 @@ async function deserializeUser(id, next) {
         }
       }
     `, {
-      authToken: getJWT({id}),
+      authToken: getJWT({ id }),
       variables: {
         id,
       },

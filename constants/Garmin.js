@@ -28,16 +28,16 @@ export const METRICS = {
 // https://connect.garmin.com/modern/proxy/download-service/export/{type}/activity/{activityId}
 
 export const PRODUCT_ID = {
-  'forerunner': {
+  forerunner: {
     '910xt': 90671,
-    '620': 122785,
-    '610': 84374,
+    620: 122785,
+    610: 84374,
     '310xt': 27335,
-    '305': null,
-    '220': 129397,
-    '210': 83280,
-    '110': 63511,
-    '10': 107143,
+    305: null,
+    220: 129397,
+    210: 83280,
+    110: 63511,
+    10: 107143,
   },
 };
 

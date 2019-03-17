@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import {range} from 'lodash';
+import { range } from 'lodash';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -18,8 +18,6 @@ const formatter = (value) => pad(value);
  * as `hh:mm:ss`.
  */
 class DurationInput extends React.Component {
-  static displayName = 'DurationInput';
-
   static propTypes = {
     /**
      * The duration of the workout, in seconds.
@@ -49,7 +47,7 @@ class DurationInput extends React.Component {
           maxLength={2}
           onChange={this._onChange}
           placeholder="hh"
-          ref="hours"
+          ref={(input) => this._hoursInput = input}
           value={this._getHoursValue(duration)}
           values={range(0, 100)}
         />
@@ -59,7 +57,7 @@ class DurationInput extends React.Component {
           maxLength={2}
           onChange={this._onChange}
           placeholder="mm"
-          ref="minutes"
+          ref={(input) => this._minutesInput = input}
           value={duration.minutes()}
           values={range(0, 60)}
         />
@@ -69,7 +67,7 @@ class DurationInput extends React.Component {
           maxLength={2}
           onChange={this._onChange}
           placeholder="ss"
-          ref="seconds"
+          ref={(input) => this._secondsInput = input}
           value={duration.seconds()}
           values={range(0, 60)}
         />
@@ -82,14 +80,14 @@ class DurationInput extends React.Component {
   }
 
   _onChange = () => {
-    var duration = moment.duration({
-      hours: this.refs.hours.getValue(),
-      minutes: this.refs.minutes.getValue(),
-      seconds: this.refs.seconds.getValue(),
+    const duration = moment.duration({
+      hours: this._hoursInput.getValue(),
+      minutes: this._minutesInput.getValue(),
+      seconds: this._secondsInput.getValue(),
     }).asSeconds();
 
     // Update state to set the hidden input.
-    this.setState({duration});
+    this.setState({ duration });
 
     // Bubble a fake event to the parent component.
     this.props.onChange({
@@ -100,7 +98,7 @@ class DurationInput extends React.Component {
     });
   };
 
-  _getHoursValue = (duration) => /*?number*/ {
+  _getHoursValue = (duration) => /* ?number */ {
     if (duration) {
       return duration.days() * 24 + duration.hours();
     }

@@ -1,10 +1,10 @@
-import {expect} from 'chai';
+import { expect } from 'chai';
 
 import userReducer from '../reducers/userReducer';
-import {getSuccessType} from '../../utils/actionTypes';
+import { getSuccessType } from '../../utils/actionTypes';
 
 import ActionTypes from '../../constants/ActionTypes';
-import {TEST_ACTION, USER} from '../../constants/TestData';
+import { TEST_ACTION, USER } from '../../constants/TestData';
 
 describe('userReducer', () => {
   it('returns a default state', () => {
@@ -13,7 +13,7 @@ describe('userReducer', () => {
 
   it('returns the user object', () => {
     const action = {
-      data: {user: USER},
+      data: { user: USER },
       type: getSuccessType(ActionTypes.USER_FETCH),
     };
 
@@ -26,7 +26,7 @@ describe('userReducer', () => {
     };
 
     const action = {
-      data: {updateUser},
+      data: { updateUser },
       type: getSuccessType(ActionTypes.USER_UPDATE),
     };
 

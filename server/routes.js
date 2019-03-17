@@ -1,9 +1,9 @@
-import {Router} from 'express';
+import { Router } from 'express';
 
-import {handleAuth, handleAuthCallback, redirectIfAuthenticated, requireAuthentication} from './middleware/auth';
+import { handleAuth, handleAuthCallback, redirectIfAuthenticated, requireAuthentication } from './middleware/auth';
 import sendPage from './middleware/sendPage';
 
-import {AUTH_PATH, AUTH_CALLBACK_PATH, INDEX_PATH, LOGOUT_PATH, PUBLIC_PATHS} from '../constants/paths';
+import { AUTH_PATH, AUTH_CALLBACK_PATH, INDEX_PATH, LOGOUT_PATH, PUBLIC_PATHS } from '../constants/paths';
 
 const router = Router();
 

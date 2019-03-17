@@ -1,4 +1,5 @@
 /* eslint-disable max-len */
+
 import moment from 'moment';
 
 import GarminActivity from './GarminActivity';
@@ -6,8 +7,8 @@ import GarminSample from './GarminSample';
 import GarminSeries from './GarminSeries';
 import XmlConverter from './XmlConverter';
 
-const ATTRIBUTE_KEYS = GarminActivity.ATTRIBUTE_KEYS;
-const MEASUREMENT_KEYS = GarminSample.MEASUREMENT_KEYS;
+const { ATTRIBUTE_KEYS } = GarminActivity;
+const { MEASUREMENT_KEYS } = GarminSample;
 const DETAIL = {
   creator: 'Garmin Communicator Plugin API - http://www.garmin.com/',
 };
@@ -18,12 +19,12 @@ const SCHEMA_TAGS = {
   activitySport: 'Sport',
   author: 'Author',
   course: 'Course',
-  courses: 'Courses',
   courseName: 'Name',
+  courses: 'Courses',
   creator: 'Creator',
   creatorName: 'Name',
-  creatorUnitID: 'UnitId',
   creatorProductID: 'ProductID',
+  creatorUnitID: 'UnitId',
   elevationGain: 'ElevationGain',
   lap: 'Lap',
   lapAverageHeartRate: 'AverageHeartRateBpm',
@@ -59,7 +60,7 @@ const SCHEMA_TAGS = {
   versionMinor: 'VersionMinor',
 };
 
-const SUMMARY_KEYS = GarminActivity.SUMMARY_KEYS;
+const { SUMMARY_KEYS } = GarminActivity;
 
 /**
  * TcxActivityFactory
@@ -68,7 +69,7 @@ const SUMMARY_KEYS = GarminActivity.SUMMARY_KEYS;
  */
 class TcxActivityFactory {
   parseString = (tcxString) => {
-    var tcxDocument = XmlConverter.toDocument(tcxString);
+    const tcxDocument = XmlConverter.toDocument(tcxString);
     return this.parseDocument(tcxDocument);
   }
 
@@ -82,26 +83,26 @@ class TcxActivityFactory {
       throw new Error('Error: Unable to parse TCX document.');
     }
 
-    var activities = tcxDocument.getElementsByTagName(SCHEMA_TAGS.activity);
-    var tracks = tcxDocument.getElementsByTagName(SCHEMA_TAGS.track);
-    var courses = tcxDocument.getElementsByTagName(SCHEMA_TAGS.course);
-    var laps = tcxDocument.getElementsByTagName(SCHEMA_TAGS.lap);
+    const activities = tcxDocument.getElementsByTagName(SCHEMA_TAGS.activity);
+    const tracks = tcxDocument.getElementsByTagName(SCHEMA_TAGS.track);
+    const courses = tcxDocument.getElementsByTagName(SCHEMA_TAGS.course);
+    const laps = tcxDocument.getElementsByTagName(SCHEMA_TAGS.lap);
 
     // Activities
     if (activities.length) {
       return tracks.length ?
-      // Complete activity
+        // Complete activity
         this._parseTcxActivities(tcxDocument) :
-      // Directory listing
+        // Directory listing
         this._parseTcxHistoryDirectory(tcxDocument);
     }
 
     // Courses
     if (courses.length) {
       return laps.length ?
-      // Complete course
+        // Complete course
         this._parseTcxCourses(tcxDocument) :
-      // Directory listing
+        // Directory listing
         this._parseTcxCourseDirectory(tcxDocument);
     }
   }
@@ -125,18 +126,18 @@ class TcxActivityFactory {
 
     if (activities != null && activities.length > 0) {
       // activity tags
-      for (var i = 0; i < activities.length; i++) {
-        tcxString += '\n    ' + this._produceActivityString(activities[i]);
+      for (let i = 0; i < activities.length; i++) {
+        tcxString += `\n    ${this._produceActivityString(activities[i])}`;
       }
       tcxString += '\n  </Activities>';
 
       // author tag
-      var activityDom = activities[0].getAttribute(ATTRIBUTE_KEYS.dom);
+      const activityDom = activities[0].getAttribute(ATTRIBUTE_KEYS.dom);
       if (activityDom) {
-        var authorDom =
+        const authorDom =
           activityDom.ownerDocument.getElementsByTagName(SCHEMA_TAGS.author);
         if (authorDom.length) {
-          tcxString += '\n  ' + XmlConverter.toString(authorDom[0]);
+          tcxString += `\n  ${XmlConverter.toString(authorDom[0])}`;
         }
       }
     }
@@ -156,14 +157,14 @@ class TcxActivityFactory {
   }
 
   _produceActivityString = (activity) => {
-    var activityString = '';
+    let activityString = '';
 
     if (activity != null) {
       // converting the dom back into string
       // this is the lazy way, this will not work if
       // converting between file types or activity data
       // has been modified.
-      var activityDom = activity.getAttribute(ATTRIBUTE_KEYS.dom);
+      const activityDom = activity.getAttribute(ATTRIBUTE_KEYS.dom);
       if (activityDom != null) {
         activityString = XmlConverter.toString(activityDom);
       }
@@ -173,28 +174,27 @@ class TcxActivityFactory {
   }
 
   _parseTcxHistoryDirectory = (tcxDocument) => {
-    var activities = [];
-    var activityNodes;
+    const activities = [];
 
     // Grab the activity/course nodes, depending on document
-    activityNodes = tcxDocument.getElementsByTagName(SCHEMA_TAGS.activity);
+    const activityNodes =
+      tcxDocument.getElementsByTagName(SCHEMA_TAGS.activity);
 
     // loop through all activities in the document
-    for (var i = 0; i < activityNodes.length; i++) {
-
+    for (let i = 0; i < activityNodes.length; i++) {
       if (activityNodes[i].parentNode.tagName !== SCHEMA_TAGS.nextSport) {
         // create new activity object
-        var activity = this._parseTcxActivity(
+        const activity = this._parseTcxActivity(
           activityNodes[i],
           SCHEMA_TAGS.activity
         );
 
         // grab all the lap nodes in the dom
-        var lapNodes = activityNodes[i].getElementsByTagName(SCHEMA_TAGS.lap);
+        const lapNodes = activityNodes[i].getElementsByTagName(SCHEMA_TAGS.lap);
 
         // grab start time from the first lap and set duration to 0
-        var activityDurationMS = 0; // in ms
-        var activityStartTimeMS;
+        let activityDurationMS = 0; // in ms
+        let activityStartTimeMS;
 
         if (lapNodes.length) {
           activityStartTimeMS =
@@ -202,13 +202,13 @@ class TcxActivityFactory {
         }
 
         // loop through all laps in this activity
-        for (var j = 0; j < lapNodes.length; j++) {
+        for (let jj = 0; jj < lapNodes.length; jj++) {
           // Update the duration of this activity
-          var lapTotalTime = this._tagValue(
-            lapNodes[j],
+          const lapTotalTime = this._tagValue(
+            lapNodes[jj],
             SCHEMA_TAGS.lapTotalTime
           );
-          activityDurationMS += parseFloat(lapTotalTime + 'e+3');
+          activityDurationMS += parseFloat(`${lapTotalTime}e+3`);
         }
 
         if (lapNodes.length > 0) {
@@ -246,17 +246,16 @@ class TcxActivityFactory {
    * WTF is a Course Directory as opposed to a normal activity?
    */
   _parseTcxCourseDirectory = (tcxDocument) => {
-    var activities = [];
-    var activityNodes;
+    const activities = [];
 
     // Grab the activity/course nodes, depending on document
-    activityNodes = tcxDocument.getElementsByTagName(SCHEMA_TAGS.course);
+    const activityNodes = tcxDocument.getElementsByTagName(SCHEMA_TAGS.course);
 
     // Loop through all activities in the document
     // Can there be more than one activity per document?
-    for (var i = 0; i < activityNodes.length; i++) {
+    for (let i = 0; i < activityNodes.length; i++) {
       // create new activity object
-      var activity = this._parseTcxActivity(
+      const activity = this._parseTcxActivity(
         activityNodes[i],
         SCHEMA_TAGS.course
       );
@@ -273,55 +272,53 @@ class TcxActivityFactory {
    *
    */
   _parseTcxActivities = (tcxDocument) => {
-    var activities = [];
-    var activityNodes;
+    const activities = [];
 
     // Grab the activity/course nodes, depending on document
-    activityNodes = tcxDocument.getElementsByTagName(SCHEMA_TAGS.activity);
+    const activityNodes =
+      tcxDocument.getElementsByTagName(SCHEMA_TAGS.activity);
 
     // Loop through all activities in the document
-    for (var i=0; i < activityNodes.length; i++) {
-
+    for (let i = 0; i < activityNodes.length; i++) {
       if (activityNodes[i].parentNode.tagName === SCHEMA_TAGS.nextSport) {
-        continue;
+        continue; /* eslint-disable-line no-continue */
       }
 
       // create new activity object
-      var activity = this._parseTcxActivity(
+      const activity = this._parseTcxActivity(
         activityNodes[i],
         SCHEMA_TAGS.activity
       );
 
       // create a history series for all the trackpoints in this activity
-      var historySeries = new GarminSeries(GarminSeries.TYPES.history);
+      const historySeries = new GarminSeries(GarminSeries.TYPES.history);
 
       // grab all the lap nodes in the dom
-      var lapNodes = activityNodes[i].getElementsByTagName(SCHEMA_TAGS.lap);
+      const lapNodes = activityNodes[i].getElementsByTagName(SCHEMA_TAGS.lap);
 
       // Get start time from the first lap and set duration to 0
-      var activityStartTimeMS =
+      const activityStartTimeMS =
         lapNodes[0] && lapNodes[0].getAttribute(SCHEMA_TAGS.lapStartTime);
-      var activityDurationMS = 0; // in ms
-      var totalDistance = 0;
-      var calories = 0;
-      var maxSpeed = 0;
-      var avgHeartRate = 0;
-      var maxHeartRate = 0;
+      let activityDurationMS = 0; // in ms
+      let totalDistance = 0;
+      let calories = 0;
+      let maxSpeed = 0;
+      let avgHeartRate = 0;
+      let maxHeartRate = 0;
       // var intensity;
-      var elevationGain = 0;
+      let elevationGain = 0;
 
       // loop through all laps in this activity
-      for (var j=0; j < lapNodes.length; j++) {
-
-        var lap = this._parseTcxLap(lapNodes[j], j);
+      for (let j = 0; j < lapNodes.length; j++) {
+        const lap = this._parseTcxLap(lapNodes[j], j);
 
         // Update the activity info
-        activityDurationMS += parseFloat(lap[SCHEMA_TAGS.lapTotalTime] + 'e+3');
+        activityDurationMS += parseFloat(`${lap[SCHEMA_TAGS.lapTotalTime]}e+3`);
         totalDistance += parseFloat(lap[SCHEMA_TAGS.lapDistance]);
-        calories += parseInt(lap[SCHEMA_TAGS.lapCalories]);
+        calories += parseInt(lap[SCHEMA_TAGS.lapCalories], 10);
         maxSpeed = lap[SCHEMA_TAGS.lapMaxSpeed] > maxSpeed ?
           lap[SCHEMA_TAGS.lapMaxSpeed] : maxSpeed;
-        avgHeartRate += parseInt(lap[SCHEMA_TAGS.lapAverageHeartRate]);
+        avgHeartRate += parseInt(lap[SCHEMA_TAGS.lapAverageHeartRate], 10);
         maxHeartRate = lap[SCHEMA_TAGS.lapMaxHeartRate] > maxHeartRate ?
           lap[SCHEMA_TAGS.lapMaxHeartRate] : maxHeartRate;
 
@@ -334,14 +331,14 @@ class TcxActivityFactory {
         // set trigger method
         */
 
-        var prevTrackPoint;
-        var lapElevationGain = 0;
-        var lapElevationLoss = 0;
+        let prevTrackPoint;
+        let lapElevationGain = 0;
+        let lapElevationLoss = 0;
 
         // Loop through all the tracks in this lap
-        var trackPointNodes = this._getTrackPointNodes(lapNodes[j]);
-        for (var ll=0; ll < trackPointNodes.length; ll++) {
-          var trackPoint = new GarminSample();
+        const trackPointNodes = this._getTrackPointNodes(lapNodes[j]);
+        for (let ll = 0; ll < trackPointNodes.length; ll++) {
+          const trackPoint = new GarminSample();
           trackPoint.setLazyLoading(
             true,
             this,
@@ -349,7 +346,7 @@ class TcxActivityFactory {
           );
 
           if (ll !== 0) {
-            var elevChange =
+            const elevChange =
               trackPoint.getElevation() - prevTrackPoint.getElevation();
             if (elevChange > 0) {
               lapElevationGain += elevChange;
@@ -378,13 +375,13 @@ class TcxActivityFactory {
         // set the start and end time summary data for the activity if possible
         const startMoment = moment(activityStartTimeMS);
 
-        var activityStartTimeObj = startMoment.toDate();
-        var activityEndTimeObj = startMoment
+        const activityStartTimeObj = startMoment.toDate();
+        const activityEndTimeObj = startMoment
           .clone()
           .add(activityDurationMS, 'ms')
           .toDate();
 
-        avgHeartRate = avgHeartRate / lapNodes.length;
+        avgHeartRate /= lapNodes.length;
 
         activity.setSummaryValue(SUMMARY_KEYS.startTime, activityStartTimeObj);
         activity.setSummaryValue(SUMMARY_KEYS.endTime, activityEndTimeObj);
@@ -410,23 +407,21 @@ class TcxActivityFactory {
   }
 
   _parseTcxCourses = (tcxDocument) => {
-    var activities = [];
-    var activityNodes;
+    const activities = [];
 
     // Grab the course nodes, depending on document
-    activityNodes = tcxDocument.getElementsByTagName(SCHEMA_TAGS.course);
+    const activityNodes = tcxDocument.getElementsByTagName(SCHEMA_TAGS.course);
 
     // loop through all activities in the document
-    for (var i = 0; i < activityNodes.length; i++) {
-
+    for (let i = 0; i < activityNodes.length; i++) {
       // create new activity object
-      var activity = this._parseTcxActivity(
+      const activity = this._parseTcxActivity(
         activityNodes[i],
         SCHEMA_TAGS.course
       );
 
       // create a history series for all the trackpoints in this activity
-      var historySeries = new GarminSeries(GarminSeries.TYPES.course);
+      const historySeries = new GarminSeries(GarminSeries.TYPES.course);
 
       // grab all the lap nodes in the dom
       // var lapNodes = activityNodes[i].getElementsByTagName(SCHEMA_TAGS.lap);
@@ -460,26 +455,25 @@ class TcxActivityFactory {
       // }
 
       // loop through all the tracks in this lap
-      var trackNodes = activityNodes[i].getElementsByTagName(SCHEMA_TAGS.track);
-      for (var k = 0; k < trackNodes.length; k++) {
-
+      const trackNodes = activityNodes[i].getElementsByTagName(SCHEMA_TAGS.track);
+      for (let k = 0; k < trackNodes.length; k++) {
         /* not implemented until sections are in place
         // create track section
         */
 
         // loop through all the trackpoints in this track
-        var trackPointNodes =
+        const trackPointNodes =
           trackNodes[k].getElementsByTagName(SCHEMA_TAGS.trackPoint);
-        for (var l = 0; l < trackPointNodes.length; l++) {
+        for (let l = 0; l < trackPointNodes.length; l++) {
           // historySeries.addSample(this._parseTcxTrackPoint(trackPointNodes[l]));
-          var trackPoint = new GarminSample();
+          const trackPoint = new GarminSample();
           trackPoint.setLazyLoading(
             true,
             this,
             trackPointNodes[l]
           );
           historySeries.addSample(trackPoint);
-          //historySeries.addSample(new GarminSample());
+          // historySeries.addSample(new GarminSample());
         }
       }
 
@@ -498,7 +492,7 @@ class TcxActivityFactory {
 
   _parseTcxActivity = (activityNode, activityType) => {
     // create new activity object
-    var activity = new GarminActivity();
+    const activity = new GarminActivity();
 
     // set lazy loaded
     activity.setAttribute(ATTRIBUTE_KEYS.isLazyLoaded, true);
@@ -510,34 +504,34 @@ class TcxActivityFactory {
     activity.setAttribute(ATTRIBUTE_KEYS.dom, activityNode);
 
     // set id
-    var tagName = activityType === SCHEMA_TAGS.activity ?
+    const tagName = activityType === SCHEMA_TAGS.activity ?
       SCHEMA_TAGS.activityId : SCHEMA_TAGS.courseName;
 
-    var id = this._tagValue(activityNode, tagName);
+    const id = this._tagValue(activityNode, tagName);
 
     activity.setAttribute(ATTRIBUTE_KEYS.activityName, id);
 
     // set sport
-    var sport = activityNode.getAttribute(SCHEMA_TAGS.activitySport);
+    const sport = activityNode.getAttribute(SCHEMA_TAGS.activitySport);
     activity.setAttribute(ATTRIBUTE_KEYS.activitySport, sport);
 
     // set creator information, optional in schema
-    var creator = activityNode.getElementsByTagName(SCHEMA_TAGS.creator);
+    const creator = activityNode.getElementsByTagName(SCHEMA_TAGS.creator);
     if (creator != null && creator.length > 0) {
       // set creator name
-      var creatorName = this._tagValue(creator[0], SCHEMA_TAGS.creatorName);
+      const creatorName = this._tagValue(creator[0], SCHEMA_TAGS.creatorName);
       activity.setAttribute(ATTRIBUTE_KEYS.creatorName, creatorName);
 
       // set creator unit id
-      var unitId = this._tagValue(creator[0], SCHEMA_TAGS.creatorUnitID);
+      const unitId = this._tagValue(creator[0], SCHEMA_TAGS.creatorUnitID);
       activity.setAttribute(ATTRIBUTE_KEYS.creatorUnitId, unitId);
 
       // set creator product id
-      var prodId = this._tagValue(creator[0], SCHEMA_TAGS.creatorProductID);
+      const prodId = this._tagValue(creator[0], SCHEMA_TAGS.creatorProductID);
       activity.setAttribute(ATTRIBUTE_KEYS.creatorProdId, prodId);
 
       // set creator version
-      var version = this._parseTcxVersion(creator[0]);
+      const version = this._parseTcxVersion(creator[0]);
       if (version != null) {
         activity.setAttribute(ATTRIBUTE_KEYS.creatorVersion, version);
       }
@@ -549,8 +543,8 @@ class TcxActivityFactory {
   /**
    * Returns an object with all the values for the lap.
    */
-  _parseTcxLap = (/*element*/ lapNode, /*number*/ index) /*object*/ => {
-    var tags = [
+  _parseTcxLap = (/* element */ lapNode, /* number */ index) /* object */ => {
+    const tags = [
       SCHEMA_TAGS.lapTotalTime,
       SCHEMA_TAGS.lapDistance,
       SCHEMA_TAGS.lapCalories,
@@ -558,7 +552,7 @@ class TcxActivityFactory {
       SCHEMA_TAGS.lapAverageHeartRate,
       SCHEMA_TAGS.lapMaxHeartRate,
     ];
-    var lapValues = {};
+    const lapValues = {};
     lapValues[SCHEMA_TAGS.lap] = index + 1;
 
     tags.forEach((tag) => {
@@ -568,9 +562,9 @@ class TcxActivityFactory {
     return lapValues;
   }
 
-  _getTrackPointNodes = (/*element*/ lapNode) /*HTMLCollection*/ => {
+  _getTrackPointNodes = (/* element */ lapNode) /* HTMLCollection */ => {
     // TODO: Confirm that there is only ever one track per lap
-    var trackNode = lapNode.getElementsByTagName(SCHEMA_TAGS.track)[0];
+    const trackNode = lapNode.getElementsByTagName(SCHEMA_TAGS.track)[0];
     return trackNode.getElementsByTagName(SCHEMA_TAGS.trackPoint);
   }
 
@@ -625,7 +619,7 @@ class TcxActivityFactory {
     */
 
     // set time
-    var time = this._tagValue(trackPointNode, SCHEMA_TAGS.trackPointTime);
+    const time = this._tagValue(trackPointNode, SCHEMA_TAGS.trackPointTime);
     trackPointSample.setMeasurement(
       MEASUREMENT_KEYS.time,
       moment(time).toDate()
@@ -633,41 +627,41 @@ class TcxActivityFactory {
 
     // Set latitude and longitude, optional in schema (signal loss, create
     // signal section);
-    var position = trackPointNode.getElementsByTagName(SCHEMA_TAGS.position);
+    const position = trackPointNode.getElementsByTagName(SCHEMA_TAGS.position);
     if (position.length > 0) {
-      var latitude = this._tagValue(position[0], SCHEMA_TAGS.positionLatitude);
-      var longitude = this._tagValue(position[0], SCHEMA_TAGS.positionLongitude);
+      const latitude = this._tagValue(position[0], SCHEMA_TAGS.positionLatitude);
+      const longitude = this._tagValue(position[0], SCHEMA_TAGS.positionLongitude);
       trackPointSample.setMeasurement(MEASUREMENT_KEYS.latitude, latitude);
       trackPointSample.setMeasurement(MEASUREMENT_KEYS.longitude, longitude);
     }
 
     // set elevation, optional in schema
-    var elevation = this._tagValue(trackPointNode, SCHEMA_TAGS.trackPointElevation);
+    const elevation = this._tagValue(trackPointNode, SCHEMA_TAGS.trackPointElevation);
     if (elevation != null) {
       trackPointSample.setMeasurement(MEASUREMENT_KEYS.elevation, elevation);
     }
 
     // set distance, optional in schema
-    var distance = this._tagValue(trackPointNode, SCHEMA_TAGS.trackPointDistance);
+    const distance = this._tagValue(trackPointNode, SCHEMA_TAGS.trackPointDistance);
     if (distance != null) {
       trackPointSample.setMeasurement(MEASUREMENT_KEYS.distance, distance);
     }
 
     // set heart rate, optional in schema
-    var heartRateNode = trackPointNode.getElementsByTagName(SCHEMA_TAGS.trackPointHeartRate);
+    const heartRateNode = trackPointNode.getElementsByTagName(SCHEMA_TAGS.trackPointHeartRate);
     if (heartRateNode.length > 0) {
-      var heartRate = this._tagValue(heartRateNode[0], SCHEMA_TAGS.trackPointHeartRateValue);
+      const heartRate = this._tagValue(heartRateNode[0], SCHEMA_TAGS.trackPointHeartRateValue);
       trackPointSample.setMeasurement(MEASUREMENT_KEYS.heartRate, heartRate);
     }
 
     // set cadence, optional in schema
-    var cadence = this._tagValue(trackPointNode, SCHEMA_TAGS.trackPointCadence);
+    const cadence = this._tagValue(trackPointNode, SCHEMA_TAGS.trackPointCadence);
     if (cadence != null) {
       trackPointSample.setMeasurement(MEASUREMENT_KEYS.cadence, cadence);
     }
 
     // set sensor state, optional in schema
-    var sensorState = this._tagValue(trackPointNode, SCHEMA_TAGS.trackPointSensorState);
+    const sensorState = this._tagValue(trackPointNode, SCHEMA_TAGS.trackPointSensorState);
     if (sensorState != null) {
       trackPointSample.setMeasurement(MEASUREMENT_KEYS.sensorState, sensorState);
     }
@@ -677,31 +671,37 @@ class TcxActivityFactory {
 
   _parseTcxVersion = (parentNode) => {
     // find the version node
-    var versionNodes = parentNode.getElementsByTagName(SCHEMA_TAGS.version);
+    const versionNodes = parentNode.getElementsByTagName(SCHEMA_TAGS.version);
 
     // if there is a version node
     if (versionNodes.length > 0) {
       // get version major and minor
-      var vMajor = this._tagValue(versionNodes[0], SCHEMA_TAGS.versionMajor);
-      var vMinor = this._tagValue(versionNodes[0], SCHEMA_TAGS.versionMinor);
+      const vMajor = this._tagValue(versionNodes[0], SCHEMA_TAGS.versionMajor);
+      const vMinor = this._tagValue(versionNodes[0], SCHEMA_TAGS.versionMinor);
 
       // get buid major and minor, optional in schema
-      var bMajor = this._tagValue(versionNodes[0], SCHEMA_TAGS.versionBuildMajor);
-      var bMinor = this._tagValue(versionNodes[0], SCHEMA_TAGS.versionBuildMinor);
+      const bMajor = this._tagValue(versionNodes[0], SCHEMA_TAGS.versionBuildMajor);
+      const bMinor = this._tagValue(versionNodes[0], SCHEMA_TAGS.versionBuildMinor);
 
       // return version
-      if ((bMajor != null) && (bMinor != null)) {
-        return {versionMajor: vMajor, versionMinor: vMinor, buildMajor: bMajor, buildMinor: bMinor};
-      } else {
-        return {versionMajor: vMajor, versionMinor: vMinor};
-      }
-    } else {
-      return null;
+      return bMajor != null && bMinor != null ?
+        {
+          buildMajor: bMajor,
+          buildMinor: bMinor,
+          versionMajor: vMajor,
+          versionMinor: vMinor,
+        } :
+        {
+          versionMajor: vMajor,
+          versionMinor: vMinor,
+        };
     }
+
+    return null;
   }
 
   _tagValue = (parentNode, tagName) => {
-    var subNode = parentNode.getElementsByTagName(tagName);
+    const subNode = parentNode.getElementsByTagName(tagName);
 
     // Max and avg heart rates have subnodes named 'Value' with the actual
     // value we want.

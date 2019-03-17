@@ -1,4 +1,4 @@
-import {expect} from 'chai';
+import { expect } from 'chai';
 
 import calendarGrid from '../calendarGrid';
 
@@ -10,7 +10,7 @@ describe('calendarGrid', () => {
     expect(calendarData.length).to.equal(5);
 
     // Sunday, January 1, 2017
-    const date = calendarData[0][0].date;
+    const { date } = calendarData[0][0];
     expect(date.getDate()).to.equal(1);
     expect(date.getDay()).to.equal(0);
     expect(date.getFullYear()).to.equal(2017);

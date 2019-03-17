@@ -1,14 +1,14 @@
 import moment from 'moment-timezone';
-import {OverlayTrigger, Tooltip} from 'react-bootstrap';
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {Link as RouterLink} from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 
 import ActivitySection from './ActivitySection.react';
 import FBImage from '../Facebook/FBImage.react';
 import FBLikeButton from '../Facebook/FBLikeButton.react';
 import ImageBlock from '../ImageBlock/ImageBlock.react';
-import Link from '../Link/Link.react';
+import LinkButton from '../LinkButton/LinkButton.react';
 
 const PHOTO_DIMENSIONS = 75; // In px
 
@@ -17,7 +17,7 @@ const PHOTO_DIMENSIONS = 75; // In px
  */
 class ActivityHeader extends React.Component {
   render() {
-    const {activity, athlete} = this.props;
+    const { activity, athlete } = this.props;
 
     return (
       <ActivitySection className="activityHeader">
@@ -50,7 +50,7 @@ class ActivityHeader extends React.Component {
     );
   }
 
-  _renderActivityDate = ({startDate, timezone}) => {
+  _renderActivityDate = ({ startDate, timezone }) => {
     const date = moment.tz(startDate, timezone);
     const tooltip =
       <Tooltip id={timezone}>
@@ -61,9 +61,9 @@ class ActivityHeader extends React.Component {
       <span>
         {date.format('dddd, MMMM Do, YYYY ')}
         <OverlayTrigger overlay={tooltip}>
-          <Link className="activityTime" href="#">
+          <LinkButton className="activityTime">
             {date.format('LT')}
-          </Link>
+          </LinkButton>
         </OverlayTrigger>
       </span>
     );

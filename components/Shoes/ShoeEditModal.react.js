@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {Button, ButtonToolbar, Modal} from 'react-bootstrap';
+import { Button, ButtonToolbar, Modal } from 'react-bootstrap';
 
 import LeftRight from '../LeftRight/LeftRight.react';
 import Loader from '../Loader/Loader.react';
@@ -17,6 +17,7 @@ const ShoeEditModal = (props) => {
     isLoading,
     onChange,
     onDelete,
+    onHide,
     onSave,
     shoe,
     user,
@@ -46,7 +47,7 @@ const ShoeEditModal = (props) => {
           <ButtonToolbar>
             <Button
               disabled={isLoading}
-              onClick={this.props.onHide}>
+              onClick={onHide}>
               Cancel
             </Button>
             <Button

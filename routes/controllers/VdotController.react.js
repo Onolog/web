@@ -1,5 +1,5 @@
 import React from 'react';
-import {FormControl, Nav, NavItem} from 'react-bootstrap';
+import { FormControl, Nav, NavItem } from 'react-bootstrap';
 
 import AppFullPage from '../../components/Page/AppFullPage.react';
 import DistanceTable from '../../components/Vdot/DistanceTable.react';
@@ -24,12 +24,11 @@ class DanielsController extends React.Component {
   };
 
   render() {
-    const {eventKey, vdot} = this.state;
+    const { eventKey, vdot } = this.state;
 
     return (
       <AppFullPage className="daniels" title={TITLE}>
-        <PageHeader full title={TITLE}>
-        </PageHeader>
+        <PageHeader full title={TITLE} />
         <PageFrame fill>
           <LeftRight className="daniels-controls">
             <Nav
@@ -63,12 +62,12 @@ class DanielsController extends React.Component {
   }
 
   _handleFilterChange = (e) => {
-    const {value} = e.target;
-    this.setState({vdot: value >= 30 && value <= 85 ? +value : 0});
+    const { value } = e.target;
+    this.setState({ vdot: value >= 30 && value <= 85 ? +value : 0 });
   }
 
   _handleSelect = (eventKey) => {
-    this.setState({eventKey});
+    this.setState({ eventKey });
   }
 }
 

@@ -1,6 +1,6 @@
 // @flow
 
-import {padStart} from 'lodash';
+import { padStart } from 'lodash';
 
 /**
  * pad.js

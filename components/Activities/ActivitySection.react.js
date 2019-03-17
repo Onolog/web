@@ -7,7 +7,7 @@ import './css/ActivitySection.css';
 /**
  * ActivitySection.react
  */
-const ActivitySection = ({border, children, className, title}) => {
+const ActivitySection = ({ border, children, className, title }) => {
   const sectionTitle = title ?
     <h4 className="activitySectionTitle">
       {title}
@@ -17,7 +17,7 @@ const ActivitySection = ({border, children, className, title}) => {
   return (
     <div
       className={cx('activitySection', {
-        'activitySectionBorder': border,
+        activitySectionBorder: border,
       }, className)}>
       {sectionTitle}
       {children}

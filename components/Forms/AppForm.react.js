@@ -1,14 +1,14 @@
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {Form} from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 
 import './css/AppForm.scss';
 
 /**
  * Wrapper around react-bootstrap Form component for app-specific styling.
  */
-const AppForm = ({bordered, className, ...props}) => (
+const AppForm = ({ bordered, className, ...props }) => (
   <Form
     {...props}
     className={cx('app-form', {

@@ -39,15 +39,15 @@ function getNavItems(user) {
   ];
 }
 
-const SideMenu = ({open, user}) => (
+const SideMenu = ({ open, user }) => (
   <SideNav>
-    {getNavItems(user).map((item, idx) => (
+    {getNavItems(user).map(({ href, icon, label }) => (
       <SideNav.Item
-        icon={<SideNav.Icon icon={item.icon} />}
-        key={idx}
+        icon={<SideNav.Icon icon={icon} />}
+        key={label}
         open={open}
-        pathname={item.href}>
-        {item.label}
+        pathname={href}>
+        {label}
       </SideNav.Item>
     ))}
   </SideNav>

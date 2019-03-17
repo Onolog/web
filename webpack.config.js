@@ -8,7 +8,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
-const {API_URL, NODE_ENV} = process.env;
+const { API_URL, NODE_ENV } = process.env;
 
 module.exports = (_, argv) => {
   const PROD = NODE_ENV === 'production';
@@ -39,8 +39,8 @@ module.exports = (_, argv) => {
     module: {
       rules: [
         {
-          test: /\.(js|jsx)$/,
           exclude: /node_modules/,
+          test: /\.(js|jsx)$/,
           use: [
             {
               loader: 'babel-loader',

@@ -1,27 +1,29 @@
+/* eslint-disable no-case-declarations */
+
 // @flow
 
-import {getSuccessType} from '../../utils/actionTypes';
+import { getSuccessType } from '../../utils/actionTypes';
 import ActionTypes from '../../constants/ActionTypes';
 
-import type {Action} from '../../types/Action';
+import type { Action } from '../../types/Action';
 
-const shoeReducer = (state: Object={}, action: Action): Object => {
+const shoeReducer = (state: Object = {}, action: Action): Object => {
   let shoe;
 
   switch (action.type) {
     case getSuccessType(ActionTypes.SHOE_FETCH):
-      const {shoes} = action.data;
+      const { shoes } = action.data;
       shoe = shoes && shoes.nodes && shoes.nodes[0];
-      return state.id === shoe.id ? {...state, ...shoe} : state;
+      return state.id === shoe.id ? { ...state, ...shoe } : state;
     case getSuccessType(ActionTypes.SHOE_UPDATE):
       shoe = action.data.updateShoe;
-      return state.id === shoe.id ? {...state, ...shoe} : state;
+      return state.id === shoe.id ? { ...state, ...shoe } : state;
     default:
       return state;
   }
 };
 
-export default (state: Object={}, action: Action): Object => {
+export default (state: Object = {}, action: Action): Object => {
   let nodes;
 
   switch (action.type) {
@@ -53,7 +55,7 @@ export default (state: Object={}, action: Action): Object => {
         nodes,
       };
     case getSuccessType(ActionTypes.USER_FETCH):
-      const {shoes} = action.data.user;
+      const { shoes } = action.data.user;
       return shoes || state;
     default:
       return state;

@@ -7,6 +7,6 @@ export const getBaseType = (type: string): string => (
 export const getErrorType = (type: string): string => `${type}_ERROR`;
 export const getSuccessType = (type: string): string => `${type}_SUCCESS`;
 
-export const isBaseType = (type: string): bool => (
+export const isBaseType = (type: string): boolean => (
   type.indexOf('ERROR') === -1 && type.indexOf('SUCCESS') === -1
 );

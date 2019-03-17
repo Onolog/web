@@ -48,10 +48,10 @@ class GarminMeasurement {
   }
 
   printMe = (tabs) => {
-    var output = '';
-    output += tabs + ' [Measurement]\n';
-    output += tabs + ' value: ' + this.value + '\n';
-    //output += tabs + "    context: " + this.context + '\n';
+    let output = '';
+    output += `${tabs} [Measurement]\n`;
+    output += `${tabs} value: ${this.value}\n`;
+    // output += tabs + "    context: " + this.context + '\n';
     return output;
   }
 

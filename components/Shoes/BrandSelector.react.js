@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 import Select from '../Select/Select.react';
 
-import {makeRequest} from '../../actions/';
+import { makeRequest } from '../../actions';
 import ActionTypes from '../../constants/ActionTypes';
 
 /**
@@ -20,7 +20,7 @@ class BrandSelector extends React.Component {
   }
 
   render() {
-    const {brands, fetchBrands, ...otherProps} = this.props;
+    const { brands, fetchBrands, ...otherProps } = this.props;
     const options = [];
 
     brands.forEach((brand) => {
@@ -48,7 +48,7 @@ BrandSelector.propTypes = {
   })).isRequired,
 };
 
-const mapStateToProps = ({brands}) => ({
+const mapStateToProps = ({ brands }) => ({
   brands,
 });
 

@@ -1,11 +1,11 @@
 import * as d3 from 'd3';
-import {range} from 'lodash';
+import { range } from 'lodash';
 import moment from 'moment-timezone';
 import PropTypes from 'prop-types';
-import {Chart} from 'r-d3';
-import {translate} from 'r-d3/lib/utils';
+import { Chart } from 'r-d3';
+import { translate } from 'r-d3/lib/utils';
 import React from 'react';
-import {OverlayTrigger, Tooltip} from 'react-bootstrap';
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 import Distance from '../Distance/Distance.react';
 
@@ -39,7 +39,7 @@ const labelStyle = {
 
 class DailyMileageChart extends React.Component {
   render() {
-    const {activities, cellSize, height, spacing, width, year} = this.props;
+    const { activities, cellSize, height, spacing, width, year } = this.props;
     const size = cellSize + spacing;
 
     const logScale = d3.scaleLog()
@@ -83,7 +83,7 @@ class DailyMileageChart extends React.Component {
         height={height}
         transform={translate(30, 35)}
         width={width}>
-        <g transform={translate(-25, cellSize * .75)}>
+        <g transform={translate(-25, cellSize * 0.75)}>
           {range(7).map((day) => this._renderDayLabel(day, size))}
         </g>
         {months.map((date) => this._renderMonthLabel(date, size))}
@@ -92,8 +92,8 @@ class DailyMileageChart extends React.Component {
     );
   }
 
-  _renderDay = ({activity, date}, size) => {
-    const {cellSize} = this.props;
+  _renderDay = ({ activity, date }, size) => {
+    const { cellSize } = this.props;
 
     const m = activity ?
       moment.tz(activity.startDate, activity.timezone) :
@@ -145,7 +145,7 @@ class DailyMileageChart extends React.Component {
     // Align the label with the first full week of the month.
     const offset = m.day() === 0 ? 1 : 0;
     const translateX = (m.week() - offset) * size;
-    const translateY = -this.props.cellSize * .5;
+    const translateY = -this.props.cellSize * 0.5;
 
     return (
       <text

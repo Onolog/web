@@ -1,10 +1,10 @@
-import {expect} from 'chai';
+import { expect } from 'chai';
 
 import sessionReducer from '../reducers/sessionReducer';
-import {getSuccessType} from '../../utils/actionTypes';
+import { getSuccessType } from '../../utils/actionTypes';
 
 import ActionTypes from '../../constants/ActionTypes';
-import {SESSION, TEST_ACTION} from '../../constants/TestData';
+import { SESSION, TEST_ACTION } from '../../constants/TestData';
 
 describe('sessionReducer', () => {
   it('returns a default state', () => {
@@ -13,7 +13,7 @@ describe('sessionReducer', () => {
 
   it('returns the state when initializing the session', () => {
     const action = {
-      data: {session: SESSION},
+      data: { session: SESSION },
       type: getSuccessType(ActionTypes.SESSION_INITIALIZE),
     };
 
@@ -22,12 +22,12 @@ describe('sessionReducer', () => {
 
   it('returns an updated session', () => {
     const updateUser = {
-      id: 0,
       firstName: 'Jimmy',
+      id: 0,
     };
 
     const action = {
-      data: {updateUser},
+      data: { updateUser },
       type: getSuccessType(ActionTypes.USER_UPDATE),
     };
 

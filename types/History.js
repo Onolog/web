@@ -1,3 +1,5 @@
-import type {createBrowserHistory, createMemoryHistory} from 'history';
+// @flow
+
+import type { createBrowserHistory, createMemoryHistory } from 'history';
 
 export type History = createBrowserHistory | createMemoryHistory;

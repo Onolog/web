@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import {bisect} from 'r-d3/lib/utils';
+import { bisect } from 'r-d3/lib/utils';
 import React from 'react';
 
 import ElevationChart from './ElevationChart.react';
@@ -16,8 +16,8 @@ class ActivityChart extends React.Component {
   };
 
   render() {
-    const {data} = this.props;
-    const {mousePos} = this.state;
+    const { data } = this.props;
+    const { mousePos } = this.state;
 
     const commonProps = {
       data,
@@ -33,7 +33,7 @@ class ActivityChart extends React.Component {
             className="activity-map"
             cursorPos={mousePos}
             onPolylineMouseMove={(index) => {
-              this.setState({mousePos: data[index]});
+              this.setState({ mousePos: data[index] });
             }}
             path={data}
           />
@@ -70,11 +70,11 @@ class ActivityChart extends React.Component {
       xScale.invert(mouse[0]),
       (d) => d.distance
     );
-    this.setState({mousePos});
+    this.setState({ mousePos });
   }
 
   _handleMouseOut = (e) => {
-    this.setState({mousePos: null});
+    this.setState({ mousePos: null });
   }
 }
 

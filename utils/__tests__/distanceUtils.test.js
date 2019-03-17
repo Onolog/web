@@ -1,7 +1,7 @@
-import {expect} from 'chai';
+import { expect } from 'chai';
 
-import {convertDistance, metersToMiles, metersToFeet, milesToKilometers} from '../distanceUtils';
-import {UNITS} from '../../constants/metrics';
+import { convertDistance, metersToMiles, metersToFeet, milesToKilometers } from '../distanceUtils';
+import { UNITS } from '../../constants/metrics';
 
 const KM_PER_MILE = 1.60935;
 

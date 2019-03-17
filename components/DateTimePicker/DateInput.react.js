@@ -6,7 +6,7 @@ import React from 'react';
 import DateInputCalendarPopover from './DateInputCalendarPopover.react';
 import MaterialIcon from '../Icons/MaterialIcon.react';
 
-import {RETURN} from '../../constants/KeyCode';
+import { RETURN } from '../../constants/KeyCode';
 
 /**
  * DateInput.react
@@ -28,8 +28,8 @@ class DateInput extends React.Component {
   };
 
   render() {
-    const {date, months, years} = this.props;
-    var m = moment({date, months, years});
+    const { date, months, years } = this.props;
+    const m = moment({ date, months, years });
 
     return (
       <div className="DateInput">
@@ -62,15 +62,17 @@ class DateInput extends React.Component {
       case RETURN:
         this._showCalendar();
         break;
+      default:
+        break;
     }
   }
 
   _hideCalendar = () => {
-    this.setState({showCalendar: false});
+    this.setState({ showCalendar: false });
   }
 
   _showCalendar = () => {
-    this.setState({showCalendar: true});
+    this.setState({ showCalendar: true });
   }
 
   /**

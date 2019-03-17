@@ -1,8 +1,8 @@
 import cx from 'classnames';
-import {sortBy} from 'lodash';
+import { sortBy } from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {Table} from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
 
 import Distance from '../Distance/Distance.react';
 import MaterialIcon from '../Icons/MaterialIcon.react';
@@ -30,7 +30,7 @@ class ShoeTable extends React.Component {
   };
 
   render() {
-    const shoes = sortBy(this.props.shoes, ({activities}) => (
+    const shoes = sortBy(this.props.shoes, ({ activities }) => (
       activities[this.state.sortBy]
     ));
 
@@ -77,7 +77,7 @@ class ShoeTable extends React.Component {
   }
 
   _renderRow = (shoe) => {
-    const {activeShoeId, onView} = this.props;
+    const { activeShoeId, onView } = this.props;
 
     return (
       <tr
@@ -110,7 +110,7 @@ class ShoeTable extends React.Component {
       order = 'desc';
     }
 
-    this.setState({order, sortBy});
+    this.setState({ order, sortBy });
   }
 }
 

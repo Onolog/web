@@ -63,11 +63,12 @@
   text-transform: uppercase;
 
   .monthArrow {
-    color: #c5c5c5;
+    background-color: transparent;
     border-radius: 3px;
-    height: 23px;
+    color: #c5c5c5;
+    flex: 0;
     line-height: 23px;
-    width: 23px;
+    padding: 0 3px;
 
     &:hover {
       background-color: #ececec;
@@ -104,7 +105,7 @@
     padding: 0;
   }
 
-  a {
+  .calendarDay {
     border-radius: 3px;
     color: $text-color-dark-gray;
     display: block;
@@ -114,13 +115,13 @@
     text-align: center;
   }
 
-  .lastMonth a,
-  .nextMonth a {
+  .lastMonth .calendarDay,
+  .nextMonth .calendarDay {
     color: #e5e5e5;
   }
 
-  a.selected,
-  a:hover {
+  .calendarDay.selected,
+  .calendarDay:hover {
     color: $text-color-blue;
     background-color: $background-color-blue-light;
     text-decoration: none;

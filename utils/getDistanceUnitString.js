@@ -1,7 +1,7 @@
 // @flow
 
 import invariant from 'invariant';
-import {UNITS} from '../constants/metrics';
+import { UNITS } from '../constants/metrics';
 
 export default function getDistanceUnitString(
   units: 0 | 1,
@@ -15,7 +15,7 @@ export default function getDistanceUnitString(
     default:
       invariant(
         false,
-        'Invalid unit of distance supplied (' + units + '). Must either be ' +
+        `Invalid unit of distance supplied (${units}). Must either be ` +
         'miles (0) or kilometers (1).'
       );
   }

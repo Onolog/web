@@ -1,11 +1,11 @@
 import jstz from 'jstz';
-import {isEmpty, isEqual, isInteger, pick} from 'lodash';
+import { isEmpty, isEqual, isInteger, pick } from 'lodash';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
-import {makeRequest, hideActivityModal} from '../actions';
+import { makeRequest, hideActivityModal } from '../actions';
 import ActionTypes from '../constants/ActionTypes';
 
 const WHITELISTED_FIELDS = [
@@ -26,12 +26,6 @@ const WHITELISTED_FIELDS = [
   'userId',
 ];
 
-const getInitialState = (props) => ({
-  activity: props.initialActivity || getNewActivity(props),
-  errors: {},
-  isLoading: false,
-});
-
 const getNewActivity = (props) => {
   const date = props.date || new Date();
   const now = new Date();
@@ -49,14 +43,20 @@ const getNewActivity = (props) => {
   };
 };
 
+const getInitialState = (props) => ({
+  activity: props.initialActivity || getNewActivity(props),
+  errors: {},
+  isLoading: false,
+});
+
 const FIELDS = {
+  avgHr: {
+    error: 'Please enter a valid heart rate.',
+    isValid: (value) => !value || isInteger(Number(value)),
+  },
   distance: {
     error: 'Please enter a valid distance greater than 0.',
     isValid: (value) => !!Number(value),
-  },
-  'avgHr': {
-    error: 'Please enter a valid heart rate.',
-    isValid: (value) => !value || isInteger(Number(value)),
   },
 };
 
@@ -73,10 +73,10 @@ const activityModalContainer = (Component) => {
     }
 
     componentWillReceiveProps(nextProps) {
-      const {garminActivity, date} = nextProps;
+      const { garminActivity, date } = nextProps;
 
       if (!isEmpty(garminActivity)) {
-        this.setState({activity: garminActivity});
+        this.setState({ activity: garminActivity });
         return;
       }
 
@@ -84,12 +84,12 @@ const activityModalContainer = (Component) => {
         this.props.date && date &&
         this.props.date.getTime() !== date.getTime()
       ) {
-        this.setState({activity: getNewActivity(nextProps)});
+        this.setState({ activity: getNewActivity(nextProps) });
       }
     }
 
     render() {
-      const {initialActivity, ...props} = this.props;
+      const { initialActivity, ...props } = this.props;
       return (
         <Component
           {...props}
@@ -105,13 +105,13 @@ const activityModalContainer = (Component) => {
     }
 
     _handleChange = (activity) => {
-      this.setState({activity});
+      this.setState({ activity });
     }
 
     _handleDelete = () => {
-      const {initialActivity, deleteActivity} = this.props;
+      const { initialActivity, deleteActivity } = this.props;
       if (confirm('Are you sure you want to delete this activity?')) {
-        this.setState({isLoading: true});
+        this.setState({ isLoading: true });
         deleteActivity(initialActivity.id);
       }
     }
@@ -119,7 +119,7 @@ const activityModalContainer = (Component) => {
     _handleHide = () => {
       // TODO: Find a better way to compare states to see whether there are
       // changes.
-      const {activity} = getInitialState(this.props);
+      const { activity } = getInitialState(this.props);
       const hasChanges = !isEqual(activity, this.state.activity);
       const confirmed = hasChanges && confirm(
         'Are you sure you want to close the dialog? Your changes will not ' +
@@ -146,7 +146,7 @@ const activityModalContainer = (Component) => {
         updateActivity,
         user,
       } = this.props;
-      const {activity} = this.state;
+      const { activity } = this.state;
 
       const errors = {};
       Object.keys(FIELDS).forEach((name) => {
@@ -157,11 +157,11 @@ const activityModalContainer = (Component) => {
       });
 
       if (!isEmpty(errors)) {
-        this.setState({errors});
+        this.setState({ errors });
         return;
       }
 
-      this.setState({isLoading: true});
+      this.setState({ isLoading: true });
 
       const activityInput = {
         ...pick(activity, WHITELISTED_FIELDS),
@@ -177,16 +177,16 @@ const activityModalContainer = (Component) => {
   }
 
   WrappedComponent.propTypes = {
-    initialActivity: PropTypes.object,
     /**
      * Date object for the given day
      */
     date: PropTypes.instanceOf(Date),
+    initialActivity: PropTypes.object,
     onHide: PropTypes.func,
     show: PropTypes.bool,
   };
 
-  const mapStateToProps = ({garminActivity, pendingRequests, session}) => ({
+  const mapStateToProps = ({ garminActivity, pendingRequests, session }) => ({
     garminActivity,
     pendingRequests,
     user: session.user,
@@ -222,12 +222,12 @@ const activityModalContainer = (Component) => {
           ${activityFields}
         }
       }
-    `, {input}, ActionTypes.ACTIVITY_CREATE)),
+    `, { input }, ActionTypes.ACTIVITY_CREATE)),
     deleteActivity: (id) => dispatch(makeRequest(`
       mutation deleteActivity($id: ID!) {
         deleteActivity(id: $id)
       }
-    `, {id}, ActionTypes.ACTIVITY_DELETE)),
+    `, { id }, ActionTypes.ACTIVITY_DELETE)),
     hideActivityModal: () => dispatch(hideActivityModal()),
     updateActivity: (id, input) => dispatch(makeRequest(`
       mutation updateActivity($id: ID!, $input: ActivityInput!) {
@@ -235,7 +235,7 @@ const activityModalContainer = (Component) => {
           ${activityFields}
         }
       }
-    `, {id, input}, ActionTypes.ACTIVITY_UPDATE)),
+    `, { id, input }, ActionTypes.ACTIVITY_UPDATE)),
   });
 
   return connect(mapStateToProps, mapDispatchToProps)(WrappedComponent);

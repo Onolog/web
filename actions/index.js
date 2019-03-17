@@ -2,7 +2,7 @@
 
 import invariant from 'invariant';
 
-import {getErrorType, getSuccessType} from '../utils/actionTypes';
+import { getErrorType, getSuccessType } from '../utils/actionTypes';
 import graphql from '../utils/graphql';
 
 import ActionTypes from '../constants/ActionTypes';
@@ -14,11 +14,11 @@ export function makeRequest(query: string, variables: Object, type: string) {
   );
 
   return (dispatch: Function, getState: Function) => {
-    dispatch({type});
+    dispatch({ type });
 
-    const {session: {authToken}} = getState();
+    const { session: { authToken } } = getState();
 
-    return graphql(query, {authToken, variables})
+    return graphql(query, { authToken, variables })
       .then((data) => dispatch({
         data,
         type: getSuccessType(type),
@@ -31,7 +31,7 @@ export function makeRequest(query: string, variables: Object, type: string) {
 }
 
 export const initializeSession = (session: Object) => ({
-  data: {session},
+  data: { session },
   type: ActionTypes.SESSION_INITIALIZE_SUCCESS,
 });
 
@@ -40,7 +40,7 @@ export function toggleSideNav(): Function {
     const sideNavOpen = !getState().ui.sideNavOpen;
     localStorage && localStorage.setItem('sideNavOpen', sideNavOpen);
     dispatch({
-      data: {sideNavOpen},
+      data: { sideNavOpen },
       type: ActionTypes.NAV_TOGGLE,
     });
   };

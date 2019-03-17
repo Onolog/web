@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {Button, Modal} from 'react-bootstrap';
+import { Button, Modal } from 'react-bootstrap';
 
 import Loader from '../Loader/Loader.react';
 import ShoeFields from './ShoeFields.react';
@@ -10,43 +10,47 @@ import ShoeFields from './ShoeFields.react';
  *
  * Modal for adding a new shoe.
  */
-class ShoeAddModal extends React.Component {
-  render() {
-    const {isLoading, onChange, onSave, shoe, user, ...modalProps} = this.props;
+const ShoeAddModal = (props) => {
+  const {
+    isLoading,
+    onChange,
+    onHide,
+    onSave,
+    shoe,
+    user,
+    ...modalProps
+  } = props;
 
-    return (
-      <Modal {...modalProps}>
-        <Modal.Header closeButton>
-          <Modal.Title>Add a New Shoe</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {isLoading && <Loader background full large />}
-          <ShoeFields
-            isNew
-            onChange={onChange}
-            shoe={shoe}
-            user={user}
-          />
-        </Modal.Body>
-        <Modal.Footer>
-          <Button
-            disabled={isLoading}
-            onClick={this.props.onHide}>
-            Cancel
-          </Button>
-          <Button
-            bsStyle="primary"
-            disabled={isLoading}
-            onClick={onSave}>
-            Add
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    );
-  }
-}
-
-ShoeAddModal.displayName = 'ShoeAddModal';
+  return (
+    <Modal {...modalProps}>
+      <Modal.Header closeButton>
+        <Modal.Title>Add a New Shoe</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        {isLoading && <Loader background full large />}
+        <ShoeFields
+          isNew
+          onChange={onChange}
+          shoe={shoe}
+          user={user}
+        />
+      </Modal.Body>
+      <Modal.Footer>
+        <Button
+          disabled={isLoading}
+          onClick={onHide}>
+          Cancel
+        </Button>
+        <Button
+          bsStyle="primary"
+          disabled={isLoading}
+          onClick={onSave}>
+          Add
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  );
+};
 
 ShoeAddModal.propTypes = {
   isLoading: PropTypes.bool,

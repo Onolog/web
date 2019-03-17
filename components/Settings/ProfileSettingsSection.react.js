@@ -1,10 +1,10 @@
 import React from 'react';
-import {ControlLabel, FormControl, FormGroup, HelpBlock} from 'react-bootstrap';
+import { ControlLabel, FormControl, FormGroup, HelpBlock } from 'react-bootstrap';
 
 import AppForm from '../Forms/AppForm.react';
 import SettingsListGroup from './SettingsListGroup.react';
 
-const ProfileSettingsSection = ({errors={}, onChange, user}) => {
+const ProfileSettingsSection = ({ errors = {}, onChange, user }) => {
   const fields = [
     {
       label: 'First Name',
@@ -28,7 +28,7 @@ const ProfileSettingsSection = ({errors={}, onChange, user}) => {
       description="Name, email, and avatar settings."
       title="Profile">
       <AppForm>
-        {fields.map(({label, name, placeholder}) => {
+        {fields.map(({ label, name, placeholder }) => {
           const error = errors[name];
           return (
             <FormGroup key={name} validationState={error ? 'error' : null}>

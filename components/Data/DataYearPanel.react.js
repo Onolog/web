@@ -1,7 +1,7 @@
 import moment from 'moment-timezone';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {Button, ButtonGroup, ListGroup, ListGroupItem, Panel} from 'react-bootstrap';
+import { Button, ButtonGroup, ListGroup, ListGroupItem, Panel } from 'react-bootstrap';
 
 import Distance from '../Distance/Distance.react';
 import LeftRight from '../LeftRight/LeftRight.react';
@@ -9,7 +9,7 @@ import MonthlyMileageChart from './MonthlyMileageChart.react';
 import Topline from '../Topline/Topline.react';
 import WeeklyMileageChart from './WeeklyMileageChart.react';
 
-import {getGroupingInfo} from '../../utils/ActivityUtils';
+import { getGroupingInfo } from '../../utils/ActivityUtils';
 
 const HEIGHT = 200;
 const DAILY = 'daily';
@@ -48,7 +48,7 @@ class ProfileYearPanel extends React.Component {
   }
 
   _renderChart = () => {
-    const {activities, year} = this.props;
+    const { activities, year } = this.props;
 
     switch (this.state.selectedGraph) {
       case MONTHLY:
@@ -68,14 +68,14 @@ class ProfileYearPanel extends React.Component {
           />
         );
       case DAILY:
-        // TODO...
-        break;
+      default:
+        return null;
     }
   };
 
   _renderToplineStats = () => {
-    const {activities} = this.props;
-    const {activityCount, distance, duration} = getGroupingInfo(activities);
+    const { activities } = this.props;
+    const { activityCount, distance, duration } = getGroupingInfo(activities);
     const m = moment.duration(duration, 's');
 
     return (
@@ -96,7 +96,7 @@ class ProfileYearPanel extends React.Component {
   };
 
   _renderActions = () => {
-    const {selectedGraph} = this.state;
+    const { selectedGraph } = this.state;
     return (
       <ButtonGroup bsSize="xsmall" className="chart-type-selector">
         <Button
@@ -114,7 +114,7 @@ class ProfileYearPanel extends React.Component {
   };
 
   _onChartTypeClick = (selectedGraph) => {
-    this.setState({selectedGraph});
+    this.setState({ selectedGraph });
   };
 }
 

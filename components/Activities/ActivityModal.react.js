@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, ButtonToolbar, Modal} from 'react-bootstrap';
+import { Button, ButtonToolbar, Modal } from 'react-bootstrap';
 
 import ActivityForm from './ActivityForm.react';
 import LeftRight from '../LeftRight/LeftRight.react';

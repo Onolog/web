@@ -1,8 +1,8 @@
-import {expect} from 'chai';
+import { expect } from 'chai';
 
 import uiReducer from '../reducers/uiReducer';
 import ActionTypes from '../../constants/ActionTypes';
-import {ACTIVITIES, TEST_ACTION} from '../../constants/TestData';
+import { ACTIVITIES, TEST_ACTION } from '../../constants/TestData';
 
 describe('uiReducer', () => {
   it('returns a default state', () => {
@@ -10,7 +10,7 @@ describe('uiReducer', () => {
   });
 
   it('returns the side nav state', () => {
-    const data = {sideNavOpen: true};
+    const data = { sideNavOpen: true };
 
     const action = {
       data,

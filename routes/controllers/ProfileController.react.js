@@ -1,11 +1,10 @@
 import cx from 'classnames';
-import {isEmpty} from 'lodash';
+import { isEmpty } from 'lodash';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {Col, Row, Tab, Tabs} from 'react-bootstrap';
-import {findDOMNode} from 'react-dom';
-import {connect} from 'react-redux';
+import { Col, Row, Tab, Tabs } from 'react-bootstrap';
+import { connect } from 'react-redux';
 
 import ActivityFeed from '../../components/Activities/ActivityFeed.react';
 import AppFullPage from '../../components/Page/AppFullPage.react';
@@ -18,7 +17,7 @@ import PageFrame from '../../components/Page/PageFrame.react';
 import PageHeader from '../../components/Page/PageHeader.react';
 import Topline from '../../components/Topline/Topline.react';
 
-import {makeRequest, toggleSideNav} from '../../actions';
+import { makeRequest, toggleSideNav } from '../../actions';
 import ActionTypes from '../../constants/ActionTypes';
 
 import './styles/Profile.scss';
@@ -28,7 +27,7 @@ const SummaryShape = PropTypes.shape({
   sumDistance: PropTypes.number,
 });
 
-const ProfileDetails = ({user}) => {
+const ProfileDetails = ({ user }) => {
   const userLocation = user.location ?
     <li>
       <MaterialIcon icon="map-marker" />
@@ -61,7 +60,7 @@ class ProfileController extends React.Component {
     window.addEventListener('scroll', this._showHeaderCheck, true);
   }
 
-  componentWillReceiveProps({match: {params}}) {
+  componentWillReceiveProps({ match: { params } }) {
     // Re-fetch data when navigating to a different profile.
     if (this.props.match.params.userId !== params.userId) {
       this.props.fetchData(params.userId);
@@ -72,18 +71,8 @@ class ProfileController extends React.Component {
     window.removeEventListener('scroll', this._showHeaderCheck, true);
   }
 
-  _showHeaderCheck = () => {
-    const node = findDOMNode(this._profileImageName);
-    const {bottom} = node.getBoundingClientRect();
-    const showHeader = bottom <= 0;
-
-    if (showHeader !== this.state.showHeader) {
-      this.setState({showHeader});
-    }
-  }
-
   render() {
-    const {user} = this.props;
+    const { user } = this.props;
 
     return (
       <AppFullPage className="profile" title={user && user.name}>
@@ -140,7 +129,7 @@ class ProfileController extends React.Component {
               </Col>
               <Col lg={4}>
                 {this._renderActivitySummary()}
-                {/*<h4>Friends</h4>*/}
+                {/* <h4>Friends</h4> */}
               </Col>
             </Row>
           </Col>
@@ -150,16 +139,16 @@ class ProfileController extends React.Component {
   };
 
   _renderActivitySummary = () => {
-    const {month, week, year} = this.props.activitySummary;
+    const { month, week, year } = this.props.activitySummary;
 
     if (!month || !week || !year) {
-      return;
+      return null;
     }
 
     const tabs = [
-      {data: week, title: 'This Week'},
-      {data: month, title: 'This Month'},
-      {data: year, title: 'This Year'},
+      { data: week, title: 'This Week' },
+      { data: month, title: 'This Month' },
+      { data: year, title: 'This Year' },
     ];
 
     return (
@@ -169,7 +158,7 @@ class ProfileController extends React.Component {
         className="activity-summary"
         id="activity-summary"
         justified>
-        {tabs.map(({data, title}, idx) => (
+        {tabs.map(({ data, title }, idx) => (
           <Tab eventKey={idx + 1} key={title} title={title}>
             <Topline>
               <Topline.Item annotation={<Distance.Label />} label="Distance">
@@ -183,6 +172,15 @@ class ProfileController extends React.Component {
         ))}
       </Tabs>
     );
+  }
+
+  _showHeaderCheck = () => {
+    const { bottom } = this._profileImageName.getBoundingClientRect();
+    const showHeader = bottom <= 0;
+
+    if (showHeader !== this.state.showHeader) {
+      this.setState({ showHeader });
+    }
   }
 }
 
@@ -200,15 +198,15 @@ ProfileController.propTypes = {
   }).isRequired,
   pendingRequests: PropTypes.object.isRequired,
   user: PropTypes.shape({
-    id: PropTypes.string,
     createdAt: PropTypes.string,
+    id: PropTypes.string,
     location: PropTypes.string,
     name: PropTypes.string,
   }),
 };
 
-const mapStateToProps = ({pendingRequests, user}) => {
-  const {activities, activitySummary} = user;
+const mapStateToProps = ({ pendingRequests, user }) => {
+  const { activities, activitySummary } = user;
 
   return {
     activities: (activities && activities.nodes) || [],
@@ -254,7 +252,7 @@ const mapDispatchToProps = (dispatch) => ({
         },
       },
     }
-  `, {userId}, ActionTypes.USER_FETCH)),
+  `, { userId }, ActionTypes.USER_FETCH)),
   toggleSideNav: () => dispatch(toggleSideNav()),
 });
 

@@ -48,7 +48,7 @@ class ToplineItem extends React.Component {
   };
 }
 
-const ToplineUnit = ({children}) => (
+const ToplineUnit = ({ children }) => (
   <span className="topline-unit">
     {children}
   </span>

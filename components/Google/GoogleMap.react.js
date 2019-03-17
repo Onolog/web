@@ -1,9 +1,10 @@
-import {head, last, values} from 'lodash';
+/* eslint-disable no-new */
+
+import { head, last, values } from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {findDOMNode} from 'react-dom';
 
-import {API_KEY} from '../../constants/Google';
+import { API_KEY } from '../../constants/Google';
 
 const IMG_PATH = '/img/';
 
@@ -31,7 +32,8 @@ class GoogleMap extends React.Component {
 
   componentDidMount() {
     // google-maps lib can only be used in the browser, so don't require until
-    // the component has mpounted.
+    // the component has mounted.
+    /* eslint-disable-next-line global-require */
     const GoogleMapsLoader = require('google-maps');
 
     GoogleMapsLoader.KEY = API_KEY;
@@ -50,7 +52,7 @@ class GoogleMap extends React.Component {
       return;
     }
 
-    this._updateCursor(nextProps);
+    this._updateCursor(nextProps.cursorPos);
   }
 
   render() {
@@ -67,12 +69,12 @@ class GoogleMap extends React.Component {
       return;
     }
 
-    const {mapTypeId, path} = this.props;
-    const {Map, Marker, Point, Polyline, Size} = this.google.maps;
+    const { mapTypeId, path } = this.props;
+    const { Map, Marker, Point, Polyline, Size } = this.google.maps;
 
-    const map = new Map(findDOMNode(this._instance), {
+    const map = new Map(this._instance, {
       zoom: DEFAULT_ZOOM,
-      center: {lat: DEFAULT_LATITUDE, lng: DEFAULT_LONGITUDE},
+      center: { lat: DEFAULT_LATITUDE, lng: DEFAULT_LONGITUDE },
       mapTypeId,
       streetViewControl: false,
     });
@@ -92,7 +94,7 @@ class GoogleMap extends React.Component {
     new Marker({
       icon: {
         ...icon,
-        url: IMG_PATH + 'markerStart.png',
+        url: `${IMG_PATH}markerStart.png`,
       },
       map,
       position: head(path),
@@ -101,7 +103,7 @@ class GoogleMap extends React.Component {
     new Marker({
       icon: {
         ...icon,
-        url: IMG_PATH + 'markerEnd.png',
+        url: `${IMG_PATH}markerEnd.png`,
       },
       map,
       position: last(path),
@@ -123,13 +125,13 @@ class GoogleMap extends React.Component {
         anchor: new Point(9, 9),
         origin: new Point(0, 0),
         scaledSize: new Size(18, 18),
-        url: IMG_PATH + 'markerPosition.png',
+        url: `${IMG_PATH}markerPosition.png`,
       },
       map,
       zIndex: 100,
     });
 
-    this._updateCursor(this.props);
+    this._updateCursor(this.props.cursorPos);
   };
 
   _handlePolylineMouseMove = (e) => {
@@ -137,7 +139,7 @@ class GoogleMap extends React.Component {
       return;
     }
 
-    const {computeDistanceBetween} = this.google.maps.geometry.spherical;
+    const { computeDistanceBetween } = this.google.maps.geometry.spherical;
     const path = this.polyline.getPath().getArray();
 
     let index = -1;
@@ -156,16 +158,16 @@ class GoogleMap extends React.Component {
     this.props.onPolylineMouseMove(index);
   }
 
-  _updateCursor = ({cursorPos}) => {
+  _updateCursor = (cursorPos) => {
     if (this.cursor) {
       this.cursor.setPosition(cursorPos);
     }
   }
 
   _getBoundsForPath = (path) => {
-    const {LatLngBounds, LatLng} = this.google.maps;
+    const { LatLngBounds, LatLng } = this.google.maps;
     const bounds = new LatLngBounds();
-    for (let ii = 0; ii < path.length-1; ii++) {
+    for (let ii = 0; ii < path.length - 1; ii++) {
       bounds.extend(new LatLng(path[ii]));
     }
     return bounds;

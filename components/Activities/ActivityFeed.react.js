@@ -12,8 +12,8 @@ import './css/ActivityFeed.scss';
 
 const DATE_FORMAT = 'dddd, MMMM Do, YYYY';
 
-const ActivityFeedItem = ({activity, className}) => {
-  const {distance, duration, startDate, timezone} = activity;
+const ActivityFeedItem = ({ activity, className }) => {
+  const { distance, duration, startDate, timezone } = activity;
 
   return (
     <div className={cx('activity-feed-item')}>
@@ -26,7 +26,7 @@ const ActivityFeedItem = ({activity, className}) => {
   );
 };
 
-const ActivityFeed = ({activities, className}) => {
+const ActivityFeed = ({ activities, className }) => {
   if (!activities.length) {
     return (
       <EmptyState>

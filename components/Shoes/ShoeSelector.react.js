@@ -1,17 +1,17 @@
-import {isEmpty} from 'lodash';
+import { isEmpty } from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {FormControl} from 'react-bootstrap';
-import {connect} from 'react-redux';
+import { FormControl } from 'react-bootstrap';
+import { connect } from 'react-redux';
 
 
-import {makeRequest} from '../../actions';
-import {convertDistance} from '../../utils/distanceUtils';
+import { makeRequest } from '../../actions';
+import { convertDistance } from '../../utils/distanceUtils';
 import formatDistance from '../../utils/formatDistance';
 import getDistanceUnitString from '../../utils/getDistanceUnitString';
 
 import ActionTypes from '../../constants/ActionTypes';
-import {UNITS} from '../../constants/metrics';
+import { UNITS } from '../../constants/metrics';
 
 /**
  * ShoeSelector.react
@@ -26,11 +26,11 @@ class ShoeSelector extends React.Component {
   }
 
   render() {
-    const {fetchData, shoes, ...props} = this.props;
+    const { fetchData, shoes, ...props } = this.props;
 
     return (
       <FormControl {...props} componentClass="select">
-        {this._getOptions(shoes || []).map(({label, value}) => (
+        {this._getOptions(shoes || []).map(({ label, value }) => (
           <option key={value} value={value}>
             {label}
           </option>
@@ -51,15 +51,15 @@ class ShoeSelector extends React.Component {
       !shoe.inactive
     ));
 
-    let options = [
-      {label: 'Select a shoe...', value: -1},
+    const options = [
+      { label: 'Select a shoe...', value: -1 },
     ];
 
     if (shoes && shoes.length) {
-      const {units} = this.props;
+      const { units } = this.props;
 
       shoes.forEach((shoe) => {
-        const {sumDistance} = shoe.activities;
+        const { sumDistance } = shoe.activities;
         const distance = formatDistance(convertDistance(sumDistance, units));
         const distanceLabel = getDistanceUnitString(units, true);
 
@@ -89,7 +89,7 @@ ShoeSelector.propTypes = {
   ]).isRequired,
 };
 
-const mapStoreToProps = ({session, shoes}) => {
+const mapStoreToProps = ({ session, shoes }) => {
   return {
     session,
     shoes: (shoes && shoes.nodes) || [],
@@ -111,7 +111,7 @@ const mapDispatchToProps = (dispatch) => ({
         }
       }
     }
-  `, {userId}, ActionTypes.SHOES_FETCH)),
+  `, { userId }, ActionTypes.SHOES_FETCH)),
 });
 
 export default connect(mapStoreToProps, mapDispatchToProps)(ShoeSelector);

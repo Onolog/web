@@ -1,27 +1,29 @@
+/* eslint-disable no-case-declarations */
+
 // @flow
 
 import ActionTypes from '../../constants/ActionTypes';
-import {getSuccessType} from '../../utils/actionTypes';
+import { getSuccessType } from '../../utils/actionTypes';
 
-import type {Action} from '../../types/Action';
+import type { Action } from '../../types/Action';
 
-const activityReducer = (state: Object={}, action: Action): Object => {
+const activityReducer = (state: Object = {}, action: Action): Object => {
   let activity;
 
   switch (action.type) {
     case getSuccessType(ActionTypes.ACTIVITY_FETCH):
-      const {activities} = action.data;
+      const { activities } = action.data;
       activity = activities && activities.nodes && activities.nodes[0];
-      return state.id === activity.id ? {...state, ...activity} : state;
+      return state.id === activity.id ? { ...state, ...activity } : state;
     case getSuccessType(ActionTypes.ACTIVITY_UPDATE):
       activity = action.data.updateActivity;
-      return state.id === activity.id ? {...state, ...activity} : state;
+      return state.id === activity.id ? { ...state, ...activity } : state;
     default:
       return state;
   }
 };
 
-export default (state: Object={}, action: Action): Object => {
+export default (state: Object = {}, action: Action): Object => {
   let nodes;
 
   switch (action.type) {
@@ -50,7 +52,7 @@ export default (state: Object={}, action: Action): Object => {
         nodes,
       };
     case getSuccessType(ActionTypes.USER_FETCH):
-      const {activities} = action.data.user;
+      const { activities } = action.data.user;
       return activities || state;
     default:
       return state;

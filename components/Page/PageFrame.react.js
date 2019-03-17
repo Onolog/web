@@ -8,12 +8,12 @@ import ScrollContainer from '../ScrollContainer/ScrollContainer.react';
 
 import './css/PageFrame.css';
 
-const PageFrame = ({children, fill, isLoading, scroll}) => {
+const PageFrame = ({ children, fill, isLoading, scroll }) => {
   const Container = scroll ? ScrollContainer : 'div';
   const loader = isLoading ? <Loader background full /> : null;
 
   return (
-    <FlexContainer className={cx('page-frame', {'fill': fill})}>
+    <FlexContainer className={cx('page-frame', { fill })}>
       {loader}
       <Container className="page-frame-content">
         {children}

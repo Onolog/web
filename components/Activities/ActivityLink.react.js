@@ -1,14 +1,14 @@
-import {isEqual} from 'lodash';
+import { isEqual } from 'lodash';
 import PropTypes from 'prop-types';
-import React, {Fragment} from 'react';
-import {connect} from 'react-redux';
+import React, { Fragment } from 'react';
+import { connect } from 'react-redux';
 
 import ActivityModal from './ActivityModal.react';
 import ActivityViewModal from './ActivityViewModal.react';
 import Distance from '../Distance/Distance.react';
-import Link from '../Link/Link.react';
+import LinkButton from '../LinkButton/LinkButton.react';
 
-import {makeRequest} from '../../actions';
+import { makeRequest } from '../../actions';
 import requestCompleted from '../../utils/requestCompleted';
 
 import ActionTypes from '../../constants/ActionTypes';
@@ -25,7 +25,7 @@ class ActivityLink extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (!isEqual(this.props.activity, nextProps.activity)) {
-      this.setState({wasFetched: true});
+      this.setState({ wasFetched: true });
     }
 
     if (requestCompleted(this.props, nextProps, ActionTypes.ACTIVITY_UPDATE)) {
@@ -34,8 +34,8 @@ class ActivityLink extends React.Component {
   }
 
   render() {
-    const {activity} = this.props;
-    const {isEditing, showModal, wasFetched} = this.state;
+    const { activity } = this.props;
+    const { isEditing, showModal, wasFetched } = this.state;
 
     const modal = isEditing ?
       <ActivityModal
@@ -54,16 +54,16 @@ class ActivityLink extends React.Component {
 
     return (
       <Fragment>
-        <Link className="workout" href="#" onClick={this._showModal}>
+        <LinkButton block className="workout" onClick={this._showModal}>
           <Distance abbreviate distance={activity.distance} />
-        </Link>
+        </LinkButton>
         {modal}
       </Fragment>
     );
   }
 
   _handleEdit = () => {
-    this.setState({isEditing: true});
+    this.setState({ isEditing: true });
   }
 
   _hideModal = (e) => {
@@ -76,9 +76,9 @@ class ActivityLink extends React.Component {
   }
 
   _showModal = () => {
-    this.setState({showModal: true});
+    this.setState({ showModal: true });
 
-    const {activity, fetchActivity} = this.props;
+    const { activity, fetchActivity } = this.props;
 
     if (!this.state.wasFetched) {
       fetchActivity(activity.id);
@@ -90,7 +90,7 @@ ActivityLink.propTypes = {
   activity: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = ({pendingRequests}) => ({
+const mapStateToProps = ({ pendingRequests }) => ({
   pendingRequests,
 });
 
@@ -123,7 +123,7 @@ const mapDispatchToProps = (dispatch) => ({
         }
       },
     }
-  `, {activityId}, ActionTypes.ACTIVITY_FETCH)),
+  `, { activityId }, ActionTypes.ACTIVITY_FETCH)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ActivityLink);

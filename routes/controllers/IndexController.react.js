@@ -27,7 +27,7 @@ class IndexController extends React.Component {
       <BaseAppPage className="index" title="Welcome">
         <div
           className="jumbotronContainer"
-          style={{height: this.state.windowHeight + 'px'}}>
+          style={{ height: `${this.state.windowHeight}px` }}>
           <div className="jumbotron">
             <h1>Onolog</h1>
             <p className="lead">
@@ -35,7 +35,7 @@ class IndexController extends React.Component {
             </p>
             <p><FBLoginButton /></p>
           </div>
-          <div className="bgImage"></div>
+          <div className="bgImage" />
         </div>
       </BaseAppPage>
     );
@@ -56,7 +56,7 @@ class IndexController extends React.Component {
       document.documentElement.clientHeight,
       window.innerHeight || 0
     );
-    this.setState({windowHeight});
+    this.setState({ windowHeight });
   }
 }
 

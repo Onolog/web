@@ -1,9 +1,9 @@
 // @flow
 
-import {flatten, forEach, head, map, max, reduce} from 'lodash';
+import { flatten, forEach, head, map, max, reduce } from 'lodash';
 
 import XMLParser from './XMLParser';
-import {TCX_SCHEMA_TAGS as TAGS} from '../../constants/Garmin';
+import { TCX_SCHEMA_TAGS as TAGS } from '../../constants/Garmin';
 
 /**
  * TCXActivityParser
@@ -22,30 +22,30 @@ class TCXActivityParser extends XMLParser {
     // Parse each track and trackpoint.
     forEach(this.getByTagName(TAGS.track), this.parseTrack);
 
-    var elevationChange = this._getElevationChange();
+    const elevationChange = this._getElevationChange();
 
     return {
       activityType: this.getAttribute(TAGS.activitySport),
-      startDate: this.getTagValue(TAGS.activityId, this.node),
-      timezone: '', // Get timezone based on lat/long?
-      distance: this._getTotal('distance'),
-      duration: +this._getTotal('duration').toFixed(),
       avgHr: this._getAvgHeartRate(),
-      maxHr: this._getMax('max_hr'),
-      elevationGain: elevationChange.gain,
-      elevationLoss: elevationChange.loss,
       calories: this._getTotal('calories'),
       device: this.parseDevice(),
+      distance: this._getTotal('distance'),
+      duration: +this._getTotal('duration').toFixed(),
+      elevationGain: elevationChange.gain,
+      elevationLoss: elevationChange.loss,
       laps: this.laps,
+      maxHr: this._getMax('max_hr'),
+      startDate: this.getTagValue(TAGS.activityId, this.node),
+      timezone: '', // Get timezone based on lat/long?
       tracks: flatten(this.tracks),
     };
   }
 
   parseLap = (lapNode: HTMLElement, idx: number) => {
-    var avgHrNode = head(lapNode.getElementsByTagName(
+    const avgHrNode = head(lapNode.getElementsByTagName(
       TAGS.lapAverageHeartRate
     ));
-    var maxHrNode = head(lapNode.getElementsByTagName(
+    const maxHrNode = head(lapNode.getElementsByTagName(
       TAGS.lapMaxHeartRate
     ));
 
@@ -64,11 +64,11 @@ class TCXActivityParser extends XMLParser {
   }
 
   parseTrack = (trackNode: HTMLElement) => {
-    var track = [];
-    var trackpointNodes = trackNode.getElementsByTagName(TAGS.trackPoint);
+    const track = [];
+    const trackpointNodes = trackNode.getElementsByTagName(TAGS.trackPoint);
 
     forEach(trackpointNodes, (trackpointNode) => {
-      let point = this.parseTrackpoint(trackpointNode);
+      const point = this.parseTrackpoint(trackpointNode);
       if (point) {
         track.push(point);
       }
@@ -100,12 +100,12 @@ class TCXActivityParser extends XMLParser {
    * Returns info for the device that created the activity, if present.
    */
   parseDevice = (): ?Object => {
-    var deviceNode = head(this.getByTagName(TAGS.creator));
+    const deviceNode = head(this.getByTagName(TAGS.creator));
     if (!deviceNode) {
       return null;
     }
 
-    var version = [
+    const version = [
       this.getTagValue(TAGS.versionMajor, deviceNode),
       this.getTagValue(TAGS.versionMinor, deviceNode),
       this.getTagValue(TAGS.versionBuildMajor, deviceNode),
@@ -116,13 +116,13 @@ class TCXActivityParser extends XMLParser {
       name: this.getTagValue(TAGS.creatorName, deviceNode),
       product_id: this.getTagValue(TAGS.creatorProductID, deviceNode),
       unit_id: this.getTagValue(TAGS.creatorUnitID, deviceNode),
-      version: version,
+      version,
     };
   }
 
   // TODO: Is this an accurate calculation?
   _getAvgHeartRate(): number {
-    var total = this._getTotal('avg_hr') || 0;
+    const total = this._getTotal('avg_hr') || 0;
 
     // Round to the nearest whole bpm.
     return +(total / this.laps.length).toFixed();
@@ -132,17 +132,17 @@ class TCXActivityParser extends XMLParser {
    * Calculates total positive and negative elevation gain for the activity.
    */
   _getElevationChange(): Object {
-    var altitudeValues = map(flatten(this.tracks), 'altitude');
-    var change;
-    var elevationGain = [];
-    var elevationLoss = [];
+    const altitudeValues = map(flatten(this.tracks), 'altitude');
+    let change;
+    const elevationGain = [];
+    const elevationLoss = [];
 
     // Loop through all the altitude values and separate the elevation changes.
     // Start with the second value, since we need the previous value to
     // calculate change.
-    for (var ii=1; ii < altitudeValues.length; ii++) {
+    for (let ii = 1; ii < altitudeValues.length; ii++) {
       // Change is the current elevation minus the previous elevation.
-      change = altitudeValues[ii] - altitudeValues[ii-1] || 0;
+      change = altitudeValues[ii] - altitudeValues[ii - 1] || 0;
 
       // Make sure the values are valid.
       if (change > 0) {
@@ -169,8 +169,8 @@ class TCXActivityParser extends XMLParser {
    * Calculates the sum total for the given field.
    */
   _getTotal(keyName: string): number {
-    return map(this.laps, keyName).reduce((total, value) => {
-      value = value || 0;
+    return map(this.laps, keyName).reduce((total, val) => {
+      const value = val || 0;
       return +value + total;
     }, 0);
   }

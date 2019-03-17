@@ -1,12 +1,13 @@
 {
   "env": {
+    "browser": true,
     "es6": true,
     "mocha": true,
     "node": true
   },
   "extends": [
     "ericgio",
-    "plugin:jsx-a11y/recommended"
+    "plugin:flowtype/recommended"
   ],
   "globals": {
     "FB": true
@@ -20,11 +21,19 @@
   },
   "plugins": [
     "flowtype",
-    "jsx-a11y"
   ],
   "settings": {
     "flowtype": {
       "onlyFilesWithFlowAnnotation": true
     }
+  },
+  "rules": {
+    "consistent-return": "off",
+    "no-alert": "off",
+    "no-param-reassign": "off",
+    "no-restricted-globals": "off",
+    "no-shadow": "off",
+    "react/forbid-prop-types": "off",
+    "sort-keys": "off",
   }
 }

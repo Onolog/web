@@ -1,15 +1,15 @@
 // @flow
 
 import moment from 'moment';
-import {metersToFeet, metersToMiles} from '../distanceUtils';
+import { metersToFeet, metersToMiles } from '../distanceUtils';
 
-import type {Activity} from '../../types/Activity';
+import type { Activity } from '../../types/Activity';
 
 /**
  * Normalizes activity data pulled from Garmin's endpoints.
  */
 function garminUrlToActivity(data: Object): Activity {
-  const {activity} = data;
+  const { activity } = data;
   const {
     averageHR,
     calories,
@@ -31,7 +31,7 @@ function garminUrlToActivity(data: Object): Activity {
     avgHr: averageHR,
     calories: calories && Math.round(calories), // TODO: Accept decimal values?
     distance: metersToMiles(distance),
-    duration: Math.round(duration),             // TODO: Accept decimal values?
+    duration: Math.round(duration), // TODO: Accept decimal values?
     elevationGain: metersToFeet(elevationGain),
     elevationLoss: metersToFeet(elevationLoss),
     garminActivityId: activity.activityId,

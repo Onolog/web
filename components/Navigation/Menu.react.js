@@ -7,7 +7,7 @@ import cx from 'classnames';
  *
  * Menu used in a dropdown.
  */
-const Menu = props => (
+const Menu = (props) => (
   <ul
     className={cx('dropdown-menu', {
       'dropdown-menu-right': props.align === 'right',

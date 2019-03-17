@@ -1,12 +1,12 @@
-import {isEqual, pick} from 'lodash';
+import { isEqual, pick } from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 import ShoeAddModal from './ShoeAddModal.react';
 import ShoeEditModal from './ShoeEditModal.react';
 
-import {makeRequest} from '../../actions';
+import { makeRequest } from '../../actions';
 import ActionTypes from '../../constants/ActionTypes';
 
 const DEFAULT_SHOE = {
@@ -18,7 +18,7 @@ const DEFAULT_SHOE = {
   sizeType: 0,
 };
 
-const getInitialState = ({initialShoe}) => ({
+const getInitialState = ({ initialShoe }) => ({
   isLoading: false,
   shoe: initialShoe || DEFAULT_SHOE,
 });
@@ -41,8 +41,8 @@ class ShoeModal extends React.Component {
   }
 
   render() {
-    const {initialShoe, show, user} = this.props;
-    const {isLoading, shoe} = this.state;
+    const { initialShoe, show, user } = this.props;
+    const { isLoading, shoe } = this.state;
 
     // Common props.
     const props = {
@@ -68,11 +68,11 @@ class ShoeModal extends React.Component {
   }
 
   _handleChange = (shoe) => {
-    this.setState({shoe});
+    this.setState({ shoe });
   };
 
   _handleClose = () => {
-    const {shoe} = getInitialState(this.props);
+    const { shoe } = getInitialState(this.props);
     const hasChanges = !isEqual(shoe, this.state.shoe);
     const confirmed = hasChanges && confirm(
       'Are you sure you want to close the dialog? Your changes will not ' +
@@ -98,8 +98,8 @@ class ShoeModal extends React.Component {
   };
 
   _handleSave = (e) => {
-    const {createShoe, initialShoe, updateShoe, user} = this.props;
-    const {shoe} = this.state;
+    const { createShoe, initialShoe, updateShoe, user } = this.props;
+    const { shoe } = this.state;
 
     if (parseInt(shoe.brandId, 10) === -1) {
       alert('Please select a brand.');
@@ -111,7 +111,7 @@ class ShoeModal extends React.Component {
       return;
     }
 
-    this.setState({isLoading: true});
+    this.setState({ isLoading: true });
 
     const shoeInput = {
       ...pick(shoe, Object.keys(DEFAULT_SHOE)),
@@ -133,7 +133,7 @@ ShoeModal.propTypes = {
   user: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = ({session}) => ({
+const mapStateToProps = ({ session }) => ({
   user: session.user,
 });
 
@@ -156,19 +156,19 @@ const mapDispatchToProps = (dispatch) => ({
         ${shoeFields}
       }
     }
-  `, {input}, ActionTypes.SHOE_CREATE)),
+  `, { input }, ActionTypes.SHOE_CREATE)),
   deleteShoe: (id) => dispatch(makeRequest(`
     mutation deleteShoe($id: ID!) {
       deleteShoe(id: $id)
     }
-  `, {id}, ActionTypes.SHOE_DELETE)),
+  `, { id }, ActionTypes.SHOE_DELETE)),
   updateShoe: (id, input) => dispatch(makeRequest(`
     mutation updateShoe($id: ID!, $input: ShoeInput!) {
       updateShoe(id: $id, input: $input) {
         ${shoeFields}
       }
     }
-  `, {id, input}, ActionTypes.SHOE_UPDATE)),
+  `, { id, input }, ActionTypes.SHOE_UPDATE)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShoeModal);

@@ -10,7 +10,7 @@ import './css/AppPage.css';
 /**
  * AppPage.react
  */
-const AppPage = ({children, narrow, ...props}) => (
+const AppPage = ({ children, narrow, ...props }) => (
   <BaseAppPage {...props}>
     <AppHeader />
     <AppContent narrow={narrow}>

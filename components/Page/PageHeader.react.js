@@ -1,11 +1,11 @@
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 import NavbarToggle from '../Navigation/NavbarToggle.react';
 
-import {toggleSideNav} from '../../actions';
+import { toggleSideNav } from '../../actions';
 
 import './css/PageHeader.css';
 
@@ -13,7 +13,7 @@ import './css/PageHeader.css';
  * PageHeader
  */
 const PageHeader = (props) => {
-  const {children, className, full, title, toggleSideNav} = props;
+  const { children, className, full, title, toggleSideNav } = props;
 
   const navbarToggle = full ?
     <div className="app-page-header-toggle">

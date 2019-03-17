@@ -19,11 +19,11 @@ export default function secondsToTime(seconds: number): string {
   const hours = parseInt(arr[0], 10) + days * HOURS_PER_DAY;
 
   if (hours) {
-    arr[0] = '' + hours;
+    arr[0] = `${hours}`;
   } else {
     // If we're only dealing with minutes and seconds, don't display hours.
     arr.shift();
-    arr[0] = '' + parseInt(arr[0], 10);
+    arr[0] = `${parseInt(arr[0], 10)}`;
   }
 
   return arr.join(':');

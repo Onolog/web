@@ -1,8 +1,8 @@
-import {isEmpty, isEqual, pick} from 'lodash';
+import { isEmpty, isEqual, pick } from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {Button} from 'react-bootstrap';
-import {connect} from 'react-redux';
+import { Button } from 'react-bootstrap';
+import { connect } from 'react-redux';
 
 import AppFullPage from '../../components/Page/AppFullPage.react';
 import LocationSettingsSection from '../../components/Settings/LocationSettingsSection.react';
@@ -12,23 +12,23 @@ import ProfileSettingsSection from '../../components/Settings/ProfileSettingsSec
 import SettingsListGroup from '../../components/Settings/SettingsListGroup.react';
 import UnitsSettingsSection from '../../components/Settings/UnitsSettingsSection.react';
 
-import {makeRequest} from '../../actions';
+import { makeRequest } from '../../actions';
 
 import ActionTypes from '../../constants/ActionTypes';
 
 const notEmpty = (value) => !!(value && value.trim());
 
 const FIELDS = {
+  email: {
+    error: 'Email cannot be empty.',
+    isValid: notEmpty,
+  },
   firstName: {
     error: 'First name cannot be empty.',
     isValid: notEmpty,
   },
   lastName: {
     error: 'Last name cannot be empty.',
-    isValid: notEmpty,
-  },
-  email: {
-    error: 'Email cannot be empty.',
     isValid: notEmpty,
   },
 };
@@ -60,7 +60,7 @@ class SettingsController extends React.Component {
     this._unblockRouter = this.props.history.block(this._handleNavigateAway);
   }
 
-  componentWillReceiveProps({user}) {
+  componentWillReceiveProps({ user }) {
     if (!isEqual(this.props.user, user)) {
       this.setState(user);
     }
@@ -71,7 +71,7 @@ class SettingsController extends React.Component {
   }
 
   render() {
-    const {pendingRequests, user} = this.props;
+    const { pendingRequests, user } = this.props;
 
     const isLoading =
       isEmpty(user) ||
@@ -87,7 +87,7 @@ class SettingsController extends React.Component {
             bsSize="small"
             bsStyle="default"
             disabled={disabled}
-            onClick={() => this.setState({...user, errors: {}})}>
+            onClick={() => this.setState({ ...user, errors: {} })}>
             Revert Changes
           </Button>
           <Button
@@ -134,7 +134,7 @@ class SettingsController extends React.Component {
 
   _handleChange = (e) => {
     const newState = {};
-    const {name, value} = e.target;
+    const { name, value } = e.target;
 
     switch (name) {
       case 'distanceUnits':
@@ -158,7 +158,7 @@ class SettingsController extends React.Component {
   }
 
   _handleSave = (e) => {
-    const {updateUser, user} = this.props;
+    const { updateUser, user } = this.props;
 
     const errors = {};
     Object.keys(FIELDS).forEach((name) => {
@@ -169,7 +169,7 @@ class SettingsController extends React.Component {
     });
 
     // Set errors either way, to clear any that remain.
-    this.setState({errors});
+    this.setState({ errors });
 
     if (!isEmpty(errors)) {
       return;
@@ -189,16 +189,16 @@ class SettingsController extends React.Component {
 SettingsController.propTypes = {
   pendingRequests: PropTypes.object.isRequired,
   user: PropTypes.shape({
-    id: PropTypes.string,
     distanceUnits: PropTypes.number,
     email: PropTypes.string,
     firstName: PropTypes.string,
+    id: PropTypes.string,
     lastName: PropTypes.string,
     timezone: PropTypes.string,
   }),
 };
 
-const mapStateToProps = ({pendingRequests, session, user}) => ({
+const mapStateToProps = ({ pendingRequests, session, user }) => ({
   pendingRequests,
   session,
   user,
@@ -221,14 +221,14 @@ const mapDispatchToProps = (dispatch) => ({
         ${userFields}
       }
     }
-  `, {userId}, ActionTypes.USER_FETCH)),
+  `, { userId }, ActionTypes.USER_FETCH)),
   updateUser: (id, input) => dispatch(makeRequest(`
     mutation updateUser($id: ID!, $input: UserInput!) {
       updateUser(id: $id, input: $input) {
         ${userFields}
       }
     }
-  `, {id, input}, ActionTypes.USER_UPDATE)),
+  `, { id, input }, ActionTypes.USER_UPDATE)),
 });
 
 export default connect(

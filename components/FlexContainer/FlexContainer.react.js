@@ -1,11 +1,11 @@
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {Col, Row} from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 
 import './FlexContainer.scss';
 
-const FlexContainer = ({children, className, column}) => {
+const FlexContainer = ({ children, className, column }) => {
   const Component = column ? Col : Row;
 
   return (

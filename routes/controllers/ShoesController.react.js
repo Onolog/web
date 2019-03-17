@@ -1,9 +1,9 @@
 import cx from 'classnames';
-import {find, isEmpty, partition} from 'lodash';
+import { find, isEmpty, partition } from 'lodash';
 import PropTypes from 'prop-types';
-import React, {Fragment} from 'react';
-import {Button} from 'react-bootstrap';
-import {connect} from 'react-redux';
+import React, { Fragment } from 'react';
+import { Button } from 'react-bootstrap';
+import { connect } from 'react-redux';
 
 import AppFullPage from '../../components/Page/AppFullPage.react';
 import EmptyState from '../../components/EmptyState.react';
@@ -16,7 +16,7 @@ import ShoeModal from '../../components/Shoes/ShoeModal.react';
 import ShoeTable from '../../components/Shoes/ShoeTable.react';
 import ShoeView from '../../components/Shoes/ShoeView.react';
 
-import {makeRequest} from '../../actions';
+import { makeRequest } from '../../actions';
 import ActionTypes from '../../constants/ActionTypes';
 import requestCompleted from '../../utils/requestCompleted';
 
@@ -57,7 +57,7 @@ class ShoesController extends React.Component {
   }
 
   render() {
-    const {pendingRequests, shoes} = this.props;
+    const { pendingRequests, shoes } = this.props;
     const isLoading =
       isEmpty(shoes) || pendingRequests[ActionTypes.SHOES_FETCH];
 
@@ -138,10 +138,12 @@ class ShoesController extends React.Component {
         </div>
       );
     }
+
+    return null;
   }
 
   _renderShoeDetails = () => {
-    const shoe = find(this.props.shoes.nodes, {id: this.state.activeShoeId});
+    const shoe = find(this.props.shoes.nodes, { id: this.state.activeShoeId });
 
     if (!shoe) {
       return (
@@ -189,11 +191,11 @@ class ShoesController extends React.Component {
 
   _handleShoeView = (shoe) => {
     this.props.fetchShoe(shoe.id);
-    this.setState({activeShoeId: shoe.id});
+    this.setState({ activeShoeId: shoe.id });
   }
 
   _handleShowModal = () => {
-    this.setState({show: true});
+    this.setState({ show: true });
   }
 }
 
@@ -207,19 +209,19 @@ ShoesController.propTypes = {
   shoes: PropTypes.shape({
     nodes: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.number,
-        inactive: PropTypes.bool,
-        name: PropTypes.string,
         activities: PropTypes.shape({
           count: PropTypes.number,
           sumDistance: PropTypes.number,
         }),
+        id: PropTypes.number,
+        inactive: PropTypes.bool,
+        name: PropTypes.string,
       })
     ),
   }).isRequired,
 };
 
-const mapStateToProps = ({pendingRequests, session, shoes}) => {
+const mapStateToProps = ({ pendingRequests, session, shoes }) => {
   return {
     pendingRequests,
     session,
@@ -228,22 +230,6 @@ const mapStateToProps = ({pendingRequests, session, shoes}) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchShoes: (userId) => dispatch(makeRequest(`
-    query shoes($userId: ID) {
-      shoes(userId: $userId) {
-        nodes {
-          id,
-          inactive,
-          name,
-          size,
-          activities {
-            count,
-            sumDistance,
-          },
-        }
-      }
-    }
-  `, {userId}, ActionTypes.SHOES_FETCH)),
   fetchShoe: (shoeId) => dispatch(makeRequest(`
     query shoes($shoeId: ID) {
       shoes(id: $shoeId) {
@@ -269,7 +255,23 @@ const mapDispatchToProps = (dispatch) => ({
         }
       }
     }
-  `, {shoeId}, ActionTypes.SHOE_FETCH)),
+  `, { shoeId }, ActionTypes.SHOE_FETCH)),
+  fetchShoes: (userId) => dispatch(makeRequest(`
+    query shoes($userId: ID) {
+      shoes(userId: $userId) {
+        nodes {
+          id,
+          inactive,
+          name,
+          size,
+          activities {
+            count,
+            sumDistance,
+          },
+        }
+      }
+    }
+  `, { userId }, ActionTypes.SHOES_FETCH)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShoesController);

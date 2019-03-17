@@ -13,11 +13,11 @@ import path from 'path';
 import favicon from 'serve-favicon';
 
 import passport from './middleware/auth';
-import {handleAppError} from './middleware/errorHandlers';
+import { handleAppError } from './middleware/errorHandlers';
 import routes from './routes';
 import getJWT from './utils/getJWT';
 
-const {API_URL, COOKIE_SECRET, DOMAIN, NODE_ENV} = process.env;
+const { API_URL, COOKIE_SECRET, DOMAIN, NODE_ENV } = process.env;
 
 const PROD = NODE_ENV === 'production';
 const PUBLIC_PATH = path.join(__dirname, '../public');
@@ -61,8 +61,8 @@ app.use((req, res, next) => {
 });
 
 app.use(cors({
-  origin: true,
   credentials: true,
+  origin: true,
 }));
 
 app.use(csrf({
@@ -79,10 +79,10 @@ if (PROD) {
 app.use(express.static(PUBLIC_PATH));
 app.use(favicon(path.join(PUBLIC_PATH, 'favicon.ico')));
 app.use(sassMiddleware({
-  src: PUBLIC_PATH,
   dest: PUBLIC_PATH,
   indentedSyntax: false, // true = .sass and false = .scss
   sourceMap: true,
+  src: PUBLIC_PATH,
 }));
 
 // Set routes.

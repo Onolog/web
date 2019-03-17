@@ -26,7 +26,7 @@ class BaseCalendar extends React.Component {
    */
   _renderHeaderRow = () => {
     // TODO: Allow for different week start days. Sunday (7) is currently first.
-    var headerCells = [7, 1, 2, 3, 4, 5, 6].map((day) => {
+    const headerCells = [7, 1, 2, 3, 4, 5, 6].map((day) => {
       return <th key={day}>{this._formatDayOfWeek(day)}</th>;
     });
 
@@ -34,8 +34,8 @@ class BaseCalendar extends React.Component {
   };
 
   _formatDayOfWeek = (day) => {
-    var format = this.props.headerFormat;
-    var substr = false;
+    let format = this.props.headerFormat;
+    let substr = false;
 
     // Moment doesn't support formatting days as a single letter,
     // so just do it manually.
@@ -44,23 +44,21 @@ class BaseCalendar extends React.Component {
       substr = true;
     }
 
-    var formatted = moment(day, ISO_DAY_OF_WEEK).format(format);
+    const formatted = moment(day, ISO_DAY_OF_WEEK).format(format);
     return substr ? formatted.substr(0, 1) : formatted;
   };
 }
 
 BaseCalendar.propTypes = {
-  borders: PropTypes.bool,
   headerFormat: PropTypes.oneOf([
-    'd',    // M, T, W...
-    'dd',   // Mo, Tu, We...
-    'ddd',  // Mon, Tue, Wed...
+    'd', // M, T, W...
+    'dd', // Mo, Tu, We...
+    'ddd', // Mon, Tue, Wed...
     'dddd', // Monday, Tuesday, Wednesday...
   ]),
 };
 
 BaseCalendar.defaultProps = {
-  borders: true,
   headerFormat: 'ddd',
 };
 

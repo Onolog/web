@@ -1,10 +1,10 @@
-import {expect} from 'chai';
+import { expect } from 'chai';
 
 import brandsReducer from '../reducers/brandsReducer';
-import {getSuccessType} from '../../utils/actionTypes';
+import { getSuccessType } from '../../utils/actionTypes';
 
 import ActionTypes from '../../constants/ActionTypes';
-import {BRANDS, TEST_ACTION} from '../../constants/TestData';
+import { BRANDS, TEST_ACTION } from '../../constants/TestData';
 
 describe('brandsReducer', () => {
   it('returns a default state', () => {
@@ -13,7 +13,7 @@ describe('brandsReducer', () => {
 
   it('returns the correct state when fetching brands', () => {
     const action = {
-      data: {brands: BRANDS},
+      data: { brands: BRANDS },
       type: getSuccessType(ActionTypes.BRANDS_FETCH),
     };
 

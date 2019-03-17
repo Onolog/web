@@ -17,11 +17,11 @@ class FriendsController extends React.Component {
 
   componentDidMount() {
     // Get all friends who are in the system
-    const {FB} = window;
+    const { FB } = window;
 
-    FB.getLoginStatus((res) => {
+    FB.getLoginStatus(() => {
       FB.api('/me/friends', (res) => {
-        this.setState({friends: res.data});
+        this.setState({ friends: res.data });
       });
     });
   }
@@ -42,18 +42,18 @@ class FriendsController extends React.Component {
   }
 
   _renderFriendList = () => {
-    return this.state.friends.map((friend, idx) => (
+    return this.state.friends.map(({ id, name }) => (
       <ImageBlock
         align="middle"
         image={
           <Link
             className="innerBorder"
-            href={`/users/${friend.id}`}>
-            <FBImage fbid={friend.id} />
+            href={`/users/${id}`}>
+            <FBImage fbid={id} />
           </Link>
         }
-        key={idx}>
-        <h4>{friend.name}</h4>
+        key={id}>
+        <h4>{name}</h4>
       </ImageBlock>
     ));
   }

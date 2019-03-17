@@ -1,7 +1,7 @@
-import {range} from 'lodash';
+import { range } from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {Checkbox, Col, FormControl, FormGroup} from 'react-bootstrap';
+import { Checkbox, Col, FormControl, FormGroup } from 'react-bootstrap';
 
 import AppForm from '../Forms/AppForm.react';
 import BrandSelector from './BrandSelector.react';
@@ -13,9 +13,9 @@ const FIELDS = {
 };
 const SIZE_TYPE = ['US', 'UK', 'Europe'];
 const SIZES = {
-  0: range(4, 16.5, 0.5).map((size) => ({label: size, value: size})),
-  1: range(2, 16, 0.5).map((size) => ({label: size, value: size})),
-  2: range(35, 50).map((size) => ({label: size, value: size})),
+  0: range(4, 16.5, 0.5).map((size) => ({ label: size, value: size })),
+  1: range(2, 16, 0.5).map((size) => ({ label: size, value: size })),
+  2: range(35, 50).map((size) => ({ label: size, value: size })),
 };
 
 /**
@@ -25,12 +25,12 @@ const SIZES = {
  */
 class ShoeFields extends React.Component {
   render() {
-    const {brandId, model, notes, sizeType} = this.props.shoe;
+    const { brandId, model, notes, sizeType } = this.props.shoe;
     const size = parseFloat(this.props.shoe.size, 10);
     const shoeSizes = SIZES[sizeType || 0].slice();
 
     if (!size) {
-      shoeSizes.unshift({label: '--', value: -1});
+      shoeSizes.unshift({ label: '--', value: -1 });
     }
 
     return (
@@ -57,7 +57,10 @@ class ShoeFields extends React.Component {
             onChange={this._handleChange}
             value={sizeType}>
             {SIZE_TYPE.map((type, idx) => (
-              <option key={idx} value={idx}>{type}</option>
+              /* eslint-disable react/no-array-index-key */
+              <option key={idx} value={idx}>
+                {type}
+              </option>
             ))}
           </FormControl>
           {' '}
@@ -66,7 +69,7 @@ class ShoeFields extends React.Component {
             name={FIELDS.SIZE}
             onChange={this._handleChange}
             value={size || ''}>
-            {shoeSizes.map(({label, value}) => (
+            {shoeSizes.map(({ label, value }) => (
               <option key={value} value={value}>{label}</option>
             ))}
           </FormControl>
@@ -91,7 +94,7 @@ class ShoeFields extends React.Component {
    * that all newly created shoes are active.
    */
   _renderInactiveCheckbox = () => {
-    const {isNew, shoe} = this.props;
+    const { isNew, shoe } = this.props;
 
     if (!isNew) {
       return (
@@ -110,8 +113,8 @@ class ShoeFields extends React.Component {
   };
 
   _handleChange = (e) => {
-    const {checked, name, value} = e.target;
-    let shoe = {...this.props.shoe};
+    const { checked, name, value } = e.target;
+    const shoe = { ...this.props.shoe };
 
     switch (name) {
       case FIELDS.INACTIVE:
@@ -139,7 +142,6 @@ ShoeFields.propTypes = {
     size: PropTypes.string,
     sizeType: PropTypes.number,
   }).isRequired,
-  user: PropTypes.object.isRequired,
 };
 
 export default ShoeFields;
