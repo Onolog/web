@@ -1,19 +1,18 @@
-import { expect } from 'chai';
 import getParam from '../getParam';
 
 describe('getParam', () => {
-  it('returns a param from props', () => {
+  test('returns a param from props', () => {
     const props = { match: { params: { foo: 'bar' } } };
 
-    expect(getParam(props, 'foo')).to.equal('bar');
+    expect(getParam(props, 'foo')).toBe('bar');
   });
 
-  it('returns null if the requested param is not present', () => {
+  test('returns null if the requested param is not present', () => {
     const props = { match: { params: {} } };
-    expect(getParam(props, 'foo')).to.equal(null);
+    expect(getParam(props, 'foo')).toBeNull();
   });
 
-  it('is null-safe', () => {
-    expect(getParam({}, 'foo')).to.equal(null);
+  test('is null-safe', () => {
+    expect(getParam({}, 'foo')).toBeNull();
   });
 });

@@ -1,5 +1,3 @@
-import { expect } from 'chai';
-
 import activitiesReducer from '../reducers/activitiesReducer';
 import { getSuccessType } from '../../utils/actionTypes';
 import ActionTypes from '../../constants/ActionTypes';
@@ -17,11 +15,11 @@ describe('activitiesReducer', () => {
     state = getActivitiesState([ACTIVITIES[0], ACTIVITIES[1]]);
   });
 
-  it('returns a default state', () => {
-    expect(activitiesReducer({}, TEST_ACTION)).to.deep.equal({});
+  test('returns a default state', () => {
+    expect(activitiesReducer({}, TEST_ACTION)).toEqual({});
   });
 
-  it('returns the state when fetching activities', () => {
+  test('returns the state when fetching activities', () => {
     const activities = getActivitiesState([
       ACTIVITIES[0],
       ACTIVITIES[1],
@@ -33,11 +31,10 @@ describe('activitiesReducer', () => {
       type: getSuccessType(ActionTypes.ACTIVITIES_FETCH),
     };
 
-    expect(activitiesReducer(getActivitiesState(), action))
-      .to.deep.equal(activities);
+    expect(activitiesReducer(getActivitiesState(), action)).toEqual(activities);
   });
 
-  it('returns the state when fetching a single activity', () => {
+  test('returns the state when fetching a single activity', () => {
     const updatedActivity = { ...ACTIVITIES[1], notes: 'test' };
     const action = {
       data: { activities: getActivitiesState([updatedActivity]) },
@@ -45,30 +42,30 @@ describe('activitiesReducer', () => {
     };
 
     expect(activitiesReducer(state, action))
-      .to.deep.equal(getActivitiesState([ACTIVITIES[0], updatedActivity]));
+      .toEqual(getActivitiesState([ACTIVITIES[0], updatedActivity]));
   });
 
-  it('returns the state when creating an activity', () => {
+  test('returns the state when creating an activity', () => {
     const action = {
       data: { createActivity: ACTIVITIES[1] },
       type: getSuccessType(ActionTypes.ACTIVITY_CREATE),
     };
 
     expect(activitiesReducer(getActivitiesState([ACTIVITIES[0]]), action))
-      .to.deep.equal(getActivitiesState([ACTIVITIES[0], ACTIVITIES[1]]));
+      .toEqual(getActivitiesState([ACTIVITIES[0], ACTIVITIES[1]]));
   });
 
-  it('returns the state when deleting an activity', () => {
+  test('returns the state when deleting an activity', () => {
     const action = {
       data: { deleteActivity: ACTIVITIES[0].id },
       type: getSuccessType(ActionTypes.ACTIVITY_DELETE),
     };
 
     expect(activitiesReducer(state, action))
-      .to.deep.equal(getActivitiesState([ACTIVITIES[1]]));
+      .toEqual(getActivitiesState([ACTIVITIES[1]]));
   });
 
-  it('returns the state when updating an activity', () => {
+  test('returns the state when updating an activity', () => {
     const updatedActivity = { ...ACTIVITIES[1], notes: 'test' };
     const action = {
       data: { updateActivity: updatedActivity },
@@ -76,6 +73,6 @@ describe('activitiesReducer', () => {
     };
 
     expect(activitiesReducer(state, action))
-      .to.deep.equal(getActivitiesState([ACTIVITIES[0], updatedActivity]));
+      .toEqual(getActivitiesState([ACTIVITIES[0], updatedActivity]));
   });
 });

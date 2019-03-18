@@ -1,5 +1,3 @@
-import { expect } from 'chai';
-
 import userReducer from '../reducers/userReducer';
 import { getSuccessType } from '../../utils/actionTypes';
 
@@ -7,20 +5,20 @@ import ActionTypes from '../../constants/ActionTypes';
 import { TEST_ACTION, USER } from '../../constants/TestData';
 
 describe('userReducer', () => {
-  it('returns a default state', () => {
-    expect(userReducer({}, TEST_ACTION)).to.deep.equal({});
+  test('returns a default state', () => {
+    expect(userReducer({}, TEST_ACTION)).toEqual({});
   });
 
-  it('returns the user object', () => {
+  test('returns the user object', () => {
     const action = {
       data: { user: USER },
       type: getSuccessType(ActionTypes.USER_FETCH),
     };
 
-    expect(userReducer({}, action)).to.deep.equal(USER);
+    expect(userReducer({}, action)).toEqual(USER);
   });
 
-  it('returns an updated user object', () => {
+  test('returns an updated user object', () => {
     const updateUser = {
       firstName: 'Jimmy',
     };
@@ -30,7 +28,7 @@ describe('userReducer', () => {
       type: getSuccessType(ActionTypes.USER_UPDATE),
     };
 
-    expect(userReducer(USER, action)).to.deep.equal({
+    expect(userReducer(USER, action)).toEqual({
       ...USER,
       ...updateUser,
     });

@@ -1,21 +1,19 @@
-import { expect } from 'chai';
-
 import getDistanceUnitString from '../getDistanceUnitString';
 import { UNITS } from '../../constants/metrics';
 
 describe('getDistanceUnitString', () => {
-  it('returns the correct distance string', () => {
-    expect(getDistanceUnitString(UNITS.MILES)).to.equal('miles');
-    expect(getDistanceUnitString(UNITS.KILOMETERS)).to.equal('kilometers');
+  test('returns the correct distance string', () => {
+    expect(getDistanceUnitString(UNITS.MILES)).toBe('miles');
+    expect(getDistanceUnitString(UNITS.KILOMETERS)).toBe('kilometers');
   });
 
-  it('returns the correct abbreviated string', () => {
-    expect(getDistanceUnitString(UNITS.MILES, true)).to.equal('mi');
-    expect(getDistanceUnitString(UNITS.KILOMETERS, true)).to.equal('km');
+  test('returns the correct abbreviated string', () => {
+    expect(getDistanceUnitString(UNITS.MILES, true)).toBe('mi');
+    expect(getDistanceUnitString(UNITS.KILOMETERS, true)).toBe('km');
   });
 
-  it('throws an error when the correct unit type is not provided', () => {
+  test('throws an error when the correct unit type is not provided', () => {
     const willThrow = () => getDistanceUnitString(2);
-    expect(willThrow).to.throw(Error);
+    expect(willThrow).toThrowError(Error);
   });
 });

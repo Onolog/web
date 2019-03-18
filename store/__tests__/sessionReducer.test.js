@@ -1,5 +1,3 @@
-import { expect } from 'chai';
-
 import sessionReducer from '../reducers/sessionReducer';
 import { getSuccessType } from '../../utils/actionTypes';
 
@@ -7,20 +5,20 @@ import ActionTypes from '../../constants/ActionTypes';
 import { SESSION, TEST_ACTION } from '../../constants/TestData';
 
 describe('sessionReducer', () => {
-  it('returns a default state', () => {
-    expect(sessionReducer({}, TEST_ACTION)).to.deep.equal({});
+  test('returns a default state', () => {
+    expect(sessionReducer({}, TEST_ACTION)).toEqual({});
   });
 
-  it('returns the state when initializing the session', () => {
+  test('returns the state when initializing the session', () => {
     const action = {
       data: { session: SESSION },
       type: getSuccessType(ActionTypes.SESSION_INITIALIZE),
     };
 
-    expect(sessionReducer({}, action)).to.deep.equal(SESSION);
+    expect(sessionReducer({}, action)).toEqual(SESSION);
   });
 
-  it('returns an updated session', () => {
+  test('returns an updated session', () => {
     const updateUser = {
       firstName: 'Jimmy',
       id: 0,
@@ -31,7 +29,7 @@ describe('sessionReducer', () => {
       type: getSuccessType(ActionTypes.USER_UPDATE),
     };
 
-    expect(sessionReducer(SESSION, action)).to.deep.equal({
+    expect(sessionReducer(SESSION, action)).toEqual({
       ...SESSION,
       user: {
         ...SESSION.user,

@@ -1,15 +1,13 @@
-import { expect } from 'chai';
-
 import uiReducer from '../reducers/uiReducer';
 import ActionTypes from '../../constants/ActionTypes';
 import { ACTIVITIES, TEST_ACTION } from '../../constants/TestData';
 
 describe('uiReducer', () => {
-  it('returns a default state', () => {
-    expect(uiReducer({}, TEST_ACTION)).to.deep.equal({});
+  test('returns a default state', () => {
+    expect(uiReducer({}, TEST_ACTION)).toEqual({});
   });
 
-  it('returns the side nav state', () => {
+  test('returns the side nav state', () => {
     const data = { sideNavOpen: true };
 
     const action = {
@@ -17,10 +15,10 @@ describe('uiReducer', () => {
       type: ActionTypes.NAV_TOGGLE,
     };
 
-    expect(uiReducer({}, action)).to.deep.equal(data);
+    expect(uiReducer({}, action)).toEqual(data);
   });
 
-  it('opens the activity modal with some data', () => {
+  test('opens the activity modal with some data', () => {
     const data = {
       initialActivity: ACTIVITIES[0],
     };
@@ -30,7 +28,7 @@ describe('uiReducer', () => {
       type: ActionTypes.ACTIVITY_MODAL_SHOW,
     };
 
-    expect(uiReducer({}, action)).to.deep.equal({
+    expect(uiReducer({}, action)).toEqual({
       activityModal: {
         ...data,
         show: true,
@@ -38,12 +36,12 @@ describe('uiReducer', () => {
     });
   });
 
-  it('hides the activity modal', () => {
+  test('hides the activity modal', () => {
     const action = {
       type: ActionTypes.ACTIVITY_MODAL_HIDE,
     };
 
-    expect(uiReducer({}, action)).to.deep.equal({
+    expect(uiReducer({}, action)).toEqual({
       activityModal: {
         show: false,
       },
