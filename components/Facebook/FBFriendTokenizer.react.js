@@ -31,6 +31,7 @@ class FBFriendTokenizer extends React.Component {
     return (
       <Typeahead
         className="fb-friend-tokenizer"
+        id="fb-friend-tokenizer"
         labelKey="name"
         multiple
         onChange={this._handleChange}

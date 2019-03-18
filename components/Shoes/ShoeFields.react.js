@@ -11,7 +11,9 @@ const FIELDS = {
   INACTIVE: 'inactive',
   SIZE: 'size',
 };
+
 const SIZE_TYPE = ['US', 'UK', 'Europe'];
+
 const SIZES = {
   0: range(4, 16.5, 0.5).map((size) => ({ label: size, value: size })),
   1: range(2, 16, 0.5).map((size) => ({ label: size, value: size })),
@@ -136,7 +138,10 @@ ShoeFields.propTypes = {
   isNew: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
   shoe: PropTypes.shape({
-    brandId: PropTypes.number,
+    brandId: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string,
+    ]),
     model: PropTypes.string,
     notes: PropTypes.string,
     size: PropTypes.string,

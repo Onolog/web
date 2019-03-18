@@ -39,7 +39,7 @@ class ActivitySearch extends React.Component {
           this.state.value
         )}
         maxResults={25}
-        menuId="activity-search"
+        id="activity-search"
         onChange={(selected) => {
           history.push(`/activities/${selected[0].id}`);
         }}

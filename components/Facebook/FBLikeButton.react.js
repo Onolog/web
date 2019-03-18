@@ -85,7 +85,6 @@ class FBLikeButton extends React.Component {
 
     return (
       <iframe
-        allowTransparency="true"
         frameBorder="0"
         scrolling="no"
         src={`${FB_URL}?${params}`}
