@@ -1,5 +1,5 @@
 module.exports = {
-  'collectCoverageFrom': [
+  collectCoverageFrom: [
     '**/*.{js,jsx}',
   ],
   coveragePathIgnorePatterns: [
