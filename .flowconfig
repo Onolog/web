@@ -1,8 +1,4 @@
 [ignore]
-# See: https://github.com/oliviertassinari/babel-plugin-transform-react-remove-prop-types/issues/107
-.*/babel-plugin-transform-react-remove-prop-types/src/
-
-<PROJECT_ROOT>/vendor/.*
 
 [include]
 
@@ -10,8 +6,5 @@
 <PROJECT_ROOT>/flow-typed/
 
 [options]
-# Tell Flow to look in both `node_modules` and the webroot dir for modules.
-module.system.node.resolve_dirname=node_modules
-module.system.node.resolve_dirname=webroot/js
 
 [lints]
