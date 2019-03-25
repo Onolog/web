@@ -16,7 +16,7 @@ module.exports = (_, argv) => {
   return {
     context: path.join(__dirname),
     entry: {
-      app: './client.js',
+      app: './src/client.js',
       vendor: [
         'classnames',
         'history',

@@ -8,4 +8,4 @@ require('@babel/register');
 // Ignore imported styles.
 require('ignore-styles').default(['.css', '.sass', '.scss']);
 
-require('./server');
+require('./src/server');

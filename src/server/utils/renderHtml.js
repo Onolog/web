@@ -1,5 +1,5 @@
 // import chunkManifest from '../../public/build/chunk-manifest.json';
-import webpackManifest from '../../public/build/webpack-manifest.json';
+import webpackManifest from '../../../public/build/webpack-manifest.json';
 
 const chunkManifest = {};
 

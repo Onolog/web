@@ -20,7 +20,7 @@ import getJWT from './utils/getJWT';
 const { API_URL, COOKIE_SECRET, DOMAIN, NODE_ENV } = process.env;
 
 const PROD = NODE_ENV === 'production';
-const PUBLIC_PATH = path.join(__dirname, '../public');
+const PUBLIC_PATH = path.join(__dirname, '../../public');
 
 // The site domain and API url should be explicitly set. This check can be
 // commented out for local testing.

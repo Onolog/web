@@ -1,7 +1,7 @@
 import debug from 'debug';
 import http from 'http';
 
-import { name } from './package.json';
+import { name } from '../package.json';
 import app from './server/app';
 import { handleServerError } from './server/middleware/errorHandlers';
 
