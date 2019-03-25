@@ -14,7 +14,6 @@ const ShoeAddModal = (props) => {
   const {
     isLoading,
     onChange,
-    onHide,
     onSave,
     shoe,
     user,
@@ -38,7 +37,7 @@ const ShoeAddModal = (props) => {
       <Modal.Footer>
         <Button
           disabled={isLoading}
-          onClick={onHide}>
+          onClick={modalProps.onHide}>
           Cancel
         </Button>
         <Button

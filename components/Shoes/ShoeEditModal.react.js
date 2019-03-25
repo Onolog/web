@@ -17,7 +17,6 @@ const ShoeEditModal = (props) => {
     isLoading,
     onChange,
     onDelete,
-    onHide,
     onSave,
     shoe,
     user,
@@ -47,7 +46,7 @@ const ShoeEditModal = (props) => {
           <ButtonToolbar>
             <Button
               disabled={isLoading}
-              onClick={onHide}>
+              onClick={modalProps.onHide}>
               Cancel
             </Button>
             <Button
