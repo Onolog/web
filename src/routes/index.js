@@ -1,7 +1,10 @@
+// @flow
+
 import Activity from './controllers/ActivityController.react';
 import Calendar from './controllers/CalendarController.react';
 import Chart from './controllers/ChartController.react';
 import Data from './controllers/DataController.react';
+import ErrorRoute from './controllers/ErrorController.react';
 import Friends from './controllers/FriendsController.react';
 import Garmin from './controllers/GarminController.react';
 import Index from './controllers/IndexController.react';
@@ -14,6 +17,12 @@ import Terms from './controllers/TermsController.react';
 import Vdot from './controllers/VdotController.react';
 
 import { INDEX_PATH } from '../constants/paths';
+
+export type RouteType = {
+  component: Object,
+  path: string,
+  exact?: boolean,
+};
 
 export default [
   {
@@ -38,6 +47,10 @@ export default [
     path: '/data',
     component: Data,
     exact: true,
+  },
+  {
+    path: '/error',
+    component: ErrorRoute,
   },
   {
     path: '/friends',

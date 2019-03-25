@@ -1,12 +1,18 @@
+// @flow
+
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import routes from '../routes';
+import ErrorBoundary from './ErrorBoundary.react';
 
-const App = (props) => (
-  <Switch>
-    {routes.map((route) => <Route key={route.path} {...route} />)}
-  </Switch>
+import routes, { type RouteType } from '../routes';
+
+const App = () => (
+  <ErrorBoundary>
+    <Switch>
+      {routes.map((route: RouteType) => <Route key={route.path} {...route} />)}
+    </Switch>
+  </ErrorBoundary>
 );
 
 export default App;
