@@ -1,6 +1,5 @@
 import { createMemoryHistory } from 'history';
 import React from 'react';
-import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
 import { StaticRouter } from 'react-router-dom';
 
@@ -22,15 +21,14 @@ export default (req, res, next) => {
       user: req.session.user || {},
     }));
 
-    const dom = renderToString(
+    const jsx =
       <Provider store={store}>
         <StaticRouter context={context} location={req.url}>
           <App />
         </StaticRouter>
-      </Provider>
-    );
+      </Provider>;
 
-    res.send(renderHtml(dom, store.getState()));
+    res.send(renderHtml(jsx, store.getState()));
   } catch (err) {
     next(err);
   }

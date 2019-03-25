@@ -13,6 +13,7 @@
     "lodash",
     "@babel/plugin-proposal-class-properties",
     "@babel/plugin-proposal-export-default-from",
+    "@loadable/babel-plugin",
     ["transform-imports", {
       "lodash": {
         "transform": "lodash/${member}",

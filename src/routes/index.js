@@ -1,20 +1,6 @@
 // @flow
 
-import Activity from './controllers/ActivityController.react';
-import Calendar from './controllers/CalendarController.react';
-import Chart from './controllers/ChartController.react';
-import Data from './controllers/DataController.react';
-import ErrorRoute from './controllers/ErrorController.react';
-import Friends from './controllers/FriendsController.react';
-import Garmin from './controllers/GarminController.react';
-import Index from './controllers/IndexController.react';
-import NotFound from './controllers/NotFoundController.react';
-import Privacy from './controllers/PrivacyController.react';
-import Profile from './controllers/ProfileController.react';
-import Settings from './controllers/SettingsController.react';
-import Shoes from './controllers/ShoesController.react';
-import Terms from './controllers/TermsController.react';
-import Vdot from './controllers/VdotController.react';
+import loadable from '@loadable/component';
 
 import { INDEX_PATH } from '../constants/paths';
 
@@ -23,6 +9,24 @@ export type RouteType = {
   path: string,
   exact?: boolean,
 };
+
+/* eslint-disable max-len */
+const Activity = loadable(() => import('./controllers/ActivityController.react'));
+const Calendar = loadable(() => import('./controllers/CalendarController.react'));
+const Chart = loadable(() => import('./controllers/ChartController.react'));
+const Data = loadable(() => import('./controllers/DataController.react'));
+const ErrorRoute = loadable(() => import('./controllers/ErrorController.react'));
+const Friends = loadable(() => import('./controllers/FriendsController.react'));
+const Garmin = loadable(() => import('./controllers/GarminController.react'));
+const Index = loadable(() => import('./controllers/IndexController.react'));
+const NotFound = loadable(() => import('./controllers/NotFoundController.react'));
+const Privacy = loadable(() => import('./controllers/PrivacyController.react'));
+const Profile = loadable(() => import('./controllers/ProfileController.react'));
+const Settings = loadable(() => import('./controllers/SettingsController.react'));
+const Shoes = loadable(() => import('./controllers/ShoesController.react'));
+const Terms = loadable(() => import('./controllers/TermsController.react'));
+const Vdot = loadable(() => import('./controllers/VdotController.react'));
+/* eslint-enable max-len */
 
 export default [
   {
