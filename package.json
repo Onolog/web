@@ -10,7 +10,8 @@
     "lint": "eslint . --report-unused-disable-directives",
     "server": "DEBUG=@onolog/web:* nodemon index.js",
     "start": "npm run build && node index.js",
-    "test": "jest --silent"
+    "test": "jest --silent",
+    "test:coverage": "jest --coverage"
   },
   "dependencies": {
     "@babel/core": "^7.1.2",
