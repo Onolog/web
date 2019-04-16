@@ -6,7 +6,9 @@ import React from 'react';
 
 import { API_KEY } from '../../constants/Google';
 
-const IMG_PATH = '/img/';
+function getMarkerImgUrl(type) {
+  return `/img/map/marker-${type}.png`;
+}
 
 const dataShape = {
   lat: PropTypes.number.isRequired,
@@ -39,20 +41,19 @@ class GoogleMap extends React.Component {
     GoogleMapsLoader.KEY = API_KEY;
     GoogleMapsLoader.LIBRARIES = ['geometry'];
     GoogleMapsLoader.load((google) => {
-      // Make Google Maps API globally available.
       this.google = google;
       this._drawMap();
     });
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentDidUpdate(prevProps, prevState) {
     // Only re-draw the map if the path changes.
-    if (this.google && nextProps.path.length !== this.props.path.length) {
+    if (this.google && prevProps.path.length !== this.props.path.length) {
       this._drawMap();
       return;
     }
 
-    this._updateCursor(nextProps.cursorPos);
+    this._updateCursor(this.props.cursorPos);
   }
 
   render() {
@@ -94,7 +95,7 @@ class GoogleMap extends React.Component {
     new Marker({
       icon: {
         ...icon,
-        url: `${IMG_PATH}markerStart.png`,
+        url: getMarkerImgUrl('start'),
       },
       map,
       position: head(path),
@@ -103,7 +104,7 @@ class GoogleMap extends React.Component {
     new Marker({
       icon: {
         ...icon,
-        url: `${IMG_PATH}markerEnd.png`,
+        url: getMarkerImgUrl('end'),
       },
       map,
       position: last(path),
@@ -125,7 +126,7 @@ class GoogleMap extends React.Component {
         anchor: new Point(9, 9),
         origin: new Point(0, 0),
         scaledSize: new Size(18, 18),
-        url: `${IMG_PATH}markerPosition.png`,
+        url: getMarkerImgUrl('position'),
       },
       map,
       zIndex: 100,
