@@ -22,14 +22,6 @@
       "r-d3": {
         "transform": "r-d3/lib/${member}.react",
         "preventFullImport": true
-      },
-      "react-bootstrap": {
-        "transform": "react-bootstrap/lib/${member}",
-        "preventFullImport": true
-      },
-      "react-router-dom": {
-        "transform": "react-router-dom/${member}",
-        "preventFullImport": true
       }
     }]
   ],
