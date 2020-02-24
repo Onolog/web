@@ -45,7 +45,7 @@ class TimeInput extends React.Component {
             value={m.format('hh')}
             values={range(1, 13)}
           />
-          {':'}
+          :
           <ConstrainedTextInput
             format={formatter}
             maxLength={2}
