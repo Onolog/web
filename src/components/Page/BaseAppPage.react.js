@@ -19,7 +19,8 @@ class BaseAppPage extends React.Component {
     setTitle(this.props.title);
   }
 
-  componentWillReceiveProps(nextProps) {
+  /* eslint-disable-next-line camelcase */
+  UNSAFE_componentWillReceiveProps(nextProps) {
     // Update the browser page title on transitions.
     if (this.props.title !== nextProps.title) {
       setTitle(nextProps.title);

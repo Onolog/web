@@ -67,12 +67,10 @@ const FIELDS = {
  */
 const activityModalContainer = (Component) => {
   class WrappedComponent extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = getInitialState(props);
-    }
+    state = getInitialState(this.props);
 
-    componentWillReceiveProps(nextProps) {
+    /* eslint-disable-next-line camelcase */
+    UNSAFE_componentWillReceiveProps(nextProps) {
       const { garminActivity, date } = nextProps;
 
       if (!isEmpty(garminActivity)) {

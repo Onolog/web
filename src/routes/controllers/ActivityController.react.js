@@ -72,7 +72,8 @@ class ActivityController extends React.Component {
     this.props.fetchData(getParam(this.props, 'activityId'));
   }
 
-  componentWillReceiveProps(nextProps) {
+  /* eslint-disable-next-line camelcase */
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { pendingRequests } = this.props;
 
     if (

@@ -60,7 +60,8 @@ class SettingsController extends React.Component {
     this._unblockRouter = this.props.history.block(this._handleNavigateAway);
   }
 
-  componentWillReceiveProps({ user }) {
+  /* eslint-disable-next-line camelcase */
+  UNSAFE_componentWillReceiveProps({ user }) {
     if (!isEqual(this.props.user, user)) {
       this.setState(user);
     }

@@ -10,6 +10,42 @@ const TYPES = {
   number: 'number',
 };
 
+function getIndex({ type, values, ...props }) {
+  let value = props.defaultValue || props.value;
+
+  // Explicitly check for empty string in case the user cleared the input.
+  if (value !== '' && type === TYPES.number) {
+    // If the values are numbers, cast the value to a number to check it.
+    value = +value;
+  }
+  return values.indexOf(value);
+}
+
+function initState(props) {
+  const { defaultValue, value, values } = props;
+  const index = getIndex(props);
+
+  invariant(
+    index !== -1,
+    `ConstrainedInput: \`${defaultValue || value}\` must be in \`${
+      values}\``
+  );
+
+  return {
+    index,
+    /**
+     * Keep track of the last valid index that was registered, as a
+     * fallback in case the user enters an invalid value.
+     */
+    lastValidIndex: index,
+    /**
+     * Temporarily store a value when the user is manually entering it and
+     * validate on blur.
+     */
+    tempValue: null,
+  };
+}
+
 /**
  * ConstrainedTextInput.react
  *
@@ -46,32 +82,7 @@ class ConstrainedTextInput extends React.Component {
     type: TYPES.number,
   };
 
-  constructor(props) {
-    super(props);
-
-    const { defaultValue, value, values } = props;
-    const index = this._getIndex(defaultValue || value);
-
-    invariant(
-      index !== -1,
-      `ConstrainedInput: \`${defaultValue || value}\` must be in \`${
-        values}\``
-    );
-
-    this.state = {
-      index,
-      /**
-       * Keep track of the last valid index that was registered, as a
-       * fallback in case the user enters an invalid value.
-       */
-      lastValidIndex: index,
-      /**
-       * Temporarily store a value when the user is manually entering it and
-       * validate on blur.
-       */
-      tempValue: null,
-    };
-  }
+  state = initState(this.props);
 
   render() {
     const { format, maxLength, type, values, ...props } = this.props;
@@ -102,15 +113,6 @@ class ConstrainedTextInput extends React.Component {
 
   getValue = () => {
     return this._input.value;
-  };
-
-  _getIndex = (value) => {
-    // Explicitly check for empty string in case the user cleared the input.
-    if (value !== '' && this.props.type === TYPES.number) {
-      // If the values are numbers, cast the value to a number to check it.
-      value = +value;
-    }
-    return this.props.values.indexOf(value);
   };
 
   _onKeydown = (e) => {

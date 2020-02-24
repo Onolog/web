@@ -49,19 +49,12 @@ class DateTimePicker extends React.Component {
     timezone: CURRENT_TIMEZONE,
   };
 
-  constructor(props) {
-    super(props);
-    const { date, timezone } = props;
-
+  state = {
     // Convert the date to individual values to keep them separate from the
     // timezone/offset.
-    const dateObject = moment.tz(date, timezone).toObject();
-
-    this.state = {
-      dateObject,
-      timezone,
-    };
-  }
+    dateObject: moment.tz(this.props.date, this.props.timezone).toObject(),
+    timezone: this.props.timezone,
+  };
 
   render() {
     const { dateObject, timezone } = this.state;

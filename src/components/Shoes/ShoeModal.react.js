@@ -29,12 +29,10 @@ const getInitialState = ({ initialShoe }) => ({
  * Modal for adding or editing the properties of a single shoe.
  */
 class ShoeModal extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = getInitialState(props);
-  }
+  state = getInitialState(this.props);
 
-  componentWillReceiveProps(nextProps) {
+  /* eslint-disable-next-line camelcase */
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (!isEqual(this.props.initialShoe, nextProps.initialShoe)) {
       this.setState(getInitialState(nextProps));
     }

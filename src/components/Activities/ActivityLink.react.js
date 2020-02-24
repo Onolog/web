@@ -23,7 +23,8 @@ class ActivityLink extends React.Component {
     wasFetched: false,
   };
 
-  componentWillReceiveProps(nextProps) {
+  /* eslint-disable-next-line camelcase */
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (!isEqual(this.props.activity, nextProps.activity)) {
       this.setState({ wasFetched: true });
     }

@@ -40,7 +40,8 @@ class DateInputCalendarPopover extends React.Component {
     window.addEventListener('keydown', this._onKeydown);
   }
 
-  componentWillReceiveProps(nextProps) {
+  /* eslint-disable-next-line camelcase */
+  UNSAFE_componentWillReceiveProps(nextProps) {
     // When hiding or showing the popover, the date shown by the calendar
     // should be the same as the selected date.
     if (this.props.show !== nextProps.show) {

@@ -60,7 +60,8 @@ class ProfileController extends React.Component {
     window.addEventListener('scroll', this._showHeaderCheck, true);
   }
 
-  componentWillReceiveProps({ match: { params } }) {
+  /* eslint-disable-next-line camelcase */
+  UNSAFE_componentWillReceiveProps({ match: { params } }) {
     // Re-fetch data when navigating to a different profile.
     if (this.props.match.params.userId !== params.userId) {
       this.props.fetchData(params.userId);

@@ -66,7 +66,8 @@ class CalendarController extends React.Component {
     window.addEventListener('keydown', this._onKeyDown);
   }
 
-  componentWillReceiveProps(nextProps) {
+  /* eslint-disable-next-line camelcase */
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (requestCompleted(this.props, nextProps, ActionTypes.ACTIVITY_CREATE)) {
       this.setState({ showImportModal: false });
       this.props.hideActivityModal();

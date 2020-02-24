@@ -44,7 +44,8 @@ class ShoesController extends React.Component {
     this.props.fetchShoes(this.props.session.user.id);
   }
 
-  componentWillReceiveProps(nextProps) {
+  /* eslint-disable-next-line camelcase */
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const types = [
       ActionTypes.SHOE_CREATE,
       ActionTypes.SHOE_DELETE,
